@@ -1,0 +1,7 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+.Random.seed|object|1e7484301fc443b9|||||||||||||||
+scrape_outbreak_report_list|function|dbf9f00ea3c29eb2|||||||||||||||
+scrape_report_list|function|c5169c5144bd313b|||||||||||||||
+scrape_six_month_report_list|function|07bf9458085e5c61|||||||||||||||
+wahis|object|3bfbccbb50475637|||||||||||||||
+wahis_outbreak_reports_list|stem|8125d93447c1dd50|26e05a9738c0df8e|9f5d400b375ad225|1464949454||t19345.7981874988s|28d42a387f9e851d|564247|rds|local|vector|||9.971||

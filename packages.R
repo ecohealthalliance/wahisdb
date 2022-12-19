@@ -1,0 +1,8 @@
+library(targets)
+library(tarchetypes)
+library(tidyverse)
+library(doltr)
+library(fnmate)
+library(janitor)
+library(httr)
+library(assertthat)
