@@ -1,16 +1,14 @@
 #' Determine which outbreak reports need to be pulled from WAHIS
 #' report_info_id can be appended to "https://wahis.oie.int/pi/getReport/" to access the report API,
 #' and to "https://wahis.oie.int/#/report-info?reportId=" to see the formatted outbreak report.
-#' @title wahis_get_outbreak_reports_new
+#' @title get_outbreak_reports_new
 #' @param wahis_outbreak_reports_list
 #' @param db_branch
 #' @return
 #' @export
 
-wahis_get_outbreak_reports_new <- function(wahis_outbreak_reports_list, db_branch){
+id_wahis_outbreak_reports_new <- function(wahis_outbreak_reports_list, db_branch){
 
-  # not sure what this will look like exactly, but establish db connection referencing branch/commit
-  # conn <- dolt(db_branch)
   conn <- dbConnect(dolt_local())
   dolt_checkout(db_branch)
 

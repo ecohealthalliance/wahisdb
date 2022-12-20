@@ -179,7 +179,7 @@ transform_outbreak_reports <- function(outbreak_reports, report_list) {
   #   mutate_all(~tolower(trimws(.)))
   # write_csv(disease_export, here::here("inst/diseases/outbreak_report_diseases.csv"))
 
-  ando_disease_lookup <- readxl::read_xlsx(system.file("diseases", "disease_lookup.xlsx", package = "wahis")) %>%
+  ando_disease_lookup <- readxl::read_xlsx(here::here("inst", "ando_disease_lookup.xlsx")) %>% # this can be manually edited
     mutate(disease = textclean::replace_non_ascii(disease)) %>%
     rename(disease_class = class_desc) %>%
     filter(report == "animal") %>%

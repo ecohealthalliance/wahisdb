@@ -1,7 +1,7 @@
 #' Get master list of outbreak reports
 #' @return A tibble of reports
 #' @export
-scrape_outbreak_report_list <- function() {
+scrape_wahis_outbreak_report_list <- function() {
   post_url <- "https://wahis.woah.org/pi/getReportList"
   page_size <- 1000000L
   body_data <- list(pageNumber = 1L, pageSize = page_size,

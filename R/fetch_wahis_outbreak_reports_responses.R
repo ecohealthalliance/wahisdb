@@ -4,7 +4,7 @@
 #' @param test_max_reports
 #' @return
 #' @export
-wahis_get_outbreak_reports_responses <- function(wahis_outbreak_reports_new, test_max_reports = NULL){
+fetch_wahis_outbreak_reports_responses <- function(wahis_outbreak_reports_new, test_max_reports = NULL){
   if(is.number(test_max_reports)){
     set.seed(0)
     n_reports <- ifelse(test_max_reports > nrow(wahis_outbreak_reports_new), nrow(wahis_outbreak_reports_new), test_max_reports)

@@ -4,7 +4,7 @@
 #' @param wahis_outbreak_reports_new
 #' @return
 #' @export
-wahis_update_outbreak_reports_list <- function(wahis_outbreak_reports_responses,
+update_wahis_outbreak_reports_list <- function(wahis_outbreak_reports_responses,
                                                wahis_outbreak_reports_new) {
 
   wahis_outbreak_reports_list_updated <- imap_dfr(wahis_outbreak_reports_responses, function(x, y){
