@@ -3,8 +3,8 @@ suppressPackageStartupMessages(
   targets::tar_source(c("packages.R", "R"))
 )
 
-#TODO Document
 #TODO run automation
+#TODO Document - db tables and automation
 #TODO synchronize disease lookup - currently some is done in transform reports, rest is done in downstream dtra-ml function. let's keep it all downstream.
 
 db_branch = "main"
