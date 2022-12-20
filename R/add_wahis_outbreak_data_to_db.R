@@ -18,34 +18,34 @@ add_wahis_outbreak_data_to_db <- function(wahis_outbreak_data, db_branch) {
             value = wahis_outbreak_data$outbreak_reports_ingest_status_log,
             primary_key = "report_info_id")
 
-  # outbreak_reports_events
+  # outbreak_reports_events_raw
   dbAddData(conn,
-            name = "outbreak_reports_events",
-            value = wahis_outbreak_data$outbreak_reports_events,
+            name = "outbreak_reports_events_raw",
+            value = wahis_outbreak_data$outbreak_reports_events_raw,
             primary_key = "report_id")
 
-  # outbreak_reports_outbreaks
-  outbreak_reports_outbreaks <- wahis_outbreak_data[["outbreak_reports_outbreaks"]]
+  # outbreak_reports_details_raw
+  outbreak_reports_details_raw <- wahis_outbreak_data[["outbreak_reports_details_raw"]]
 
-  if(is.null(outbreak_reports_outbreaks)) {
-    warning("outbreak_reports_outbreaks was NULL.")
+  if(is.null(outbreak_reports_details_raw)) {
+    warning("outbreak_reports_details_raw was NULL.")
     return(NULL)
   }
 
-  outbreak_reports_outbreaks <- outbreak_reports_outbreaks %>%
+  outbreak_reports_details_raw <- outbreak_reports_details_raw %>%
     mutate(id = paste0(report_id, outbreak_location_id, species_name)) %>%
     select(id, everything()) %>%
     distinct()
-  outbreak_reports_outbreaks_dup_ids <- outbreak_reports_outbreaks %>%
+  outbreak_reports_details_raw_dup_ids <- outbreak_reports_details_raw %>%
     janitor::get_dupes(id) %>%
     pull(id) %>%
     unique()
-  outbreak_reports_outbreaks <- outbreak_reports_outbreaks %>% filter(!id %in% outbreak_reports_outbreaks_dup_ids)
+  outbreak_reports_details_raw <- outbreak_reports_details_raw %>% filter(!id %in% outbreak_reports_details_raw_dup_ids)
 
-  tname <- "outbreak_reports_outbreaks"
+  tname <- "outbreak_reports_details_raw"
   dbAddData(conn,
             name = tname,
-            value = outbreak_reports_outbreaks,
+            value = outbreak_reports_details_raw,
             primary_key = "id")
 
   # outbreak_reports_diseases_unmatched

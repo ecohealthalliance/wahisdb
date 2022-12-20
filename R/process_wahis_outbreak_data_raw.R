@@ -6,10 +6,10 @@
 #' @param nproc
 #' @return
 #' @export
-process_wahis_outbreak_data <- function(wahis_outbreak_reports_responses,
-                                        wahis_outbreak_reports_list,
-                                        wahis_outbreak_reports_list_updated,
-                                        nproc = nproc) {
+process_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
+                                            wahis_outbreak_reports_list,
+                                            wahis_outbreak_reports_list_updated,
+                                            nproc = nproc) {
 
   if (nproc > 1) {
     oplan <- plan(callr, workers = nproc)
@@ -298,9 +298,9 @@ transform_outbreak_reports <- function(outbreak_reports, report_list) {
   }
 
   # Export -----------------------------------------------
-  wahis_joined <- list("outbreak_reports_events" = outbreak_reports_events,
-                       "outbreak_reports_outbreaks" = outbreak_reports_detail,
-                       #"outbreak_reports_outbreaks_summary" = outbreak_reports_summary,
+  wahis_joined <- list("outbreak_reports_events_raw" = outbreak_reports_events,
+                       "outbreak_reports_details_raw" = outbreak_reports_detail,
+                       #"outbreak_reports_details_summary" = outbreak_reports_summary,
                        #"outbreak_reports_laboratories" = outbreak_reports_laboratories,
                        "outbreak_reports_diseases_unmatched" = diseases_unmatched)
 
