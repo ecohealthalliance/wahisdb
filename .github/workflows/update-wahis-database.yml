@@ -1,0 +1,105 @@
+name: update-wahis-database
+
+on:
+  # push:
+  #   branches:
+  #      - dev-actions
+  #     - main
+  #     - master
+  #     - fix/*
+  #     - feature/*
+  #     - enhancement/*
+  # pull_request:
+  #   branches:
+  #     - main
+  #     - master
+  workflow_dispatch:
+    branches:
+      - '*'
+  schedule:
+   - cron: "0 4 * * 2" # 4am tuesday
+
+jobs:
+  update-wahis-database:
+    runs-on: ubuntu-latest                                # Run on GitHub Actions runner
+    #runs-on: [self-hosted, linux, x64, onprem-aegypti]   # Run the workflow on EHA aegypti runner
+    #runs-on: [self-hosted, linux, x64, onprem-prospero]  # Run the workflow on EHA prospero runner
+    container:
+      image: rocker/tidyverse:4.2.0
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install system dependencies
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends \
+          libcurl4-openssl-dev \
+          libssl-dev
+        shell: bash
+
+      - name: Unlock secrets
+        if: ${{ !env.ACT }}
+        uses: sliteteam/github-action-git-crypt-unlock@1.2.0
+        env:
+          GIT_CRYPT_KEY: ${{ inputs.GIT_CRYPT_KEY }}
+
+      - name: Install packages from renv.lock (with cache)
+        if: ${{ !env.ACT }}  ## Doesn't work locally with ACT
+        uses: r-lib/actions/setup-renv@v2
+        with:
+          cache-version: 2
+
+      - name: Install packages from renv.lock (local, no cache)
+        if: ${{ env.ACT }}  ## Only locally with ACT, use `act -r` to reuse containers, effectively caching locally
+        run: |
+          renv::restore()
+        shell: Rscript {0}
+
+      - name: Install Dolt
+        run: |
+          sudo bash -c 'curl -L https://github.com/dolthub/dolt/releases/latest/download/install.sh | bash'
+        shell: bash
+
+      - name: Provide Dolt credentials
+        run: |
+          dolt config --global --add user.email automation@ecohealthalliance.org
+          dolt config --global --add user.name "eha_automation"
+          dolt creds import .dolt/creds/0t6n0t2qh64v2q325cgvo8f5gk2r01fgm0kvr3h83igd6.jwk
+          dolt config --list
+        shell: bash
+
+      - name: Clone Dolt database
+        run: |
+          echo "Cloning database"
+          dolt clone ecohealthalliance/wahisdb
+        shell: bash
+
+      - name: Run targets
+        if: always()
+        run: |
+          targets::tar_make()
+        shell: Rscript {0}
+
+      - name: Dolt commit
+        if: always()
+        run: |
+          # https://askubuntu.com/questions/535984/git-push-script-only-if-difference
+          cd dtra_ml_db
+          rm ./.dolt/*.lock
+          dolt add .
+          set +e  # Grep succeeds with nonzero exit codes to show results.
+          if dolt status | grep -q modified
+          then
+              set -e
+              dolt commit -m "Automated weekly database update"
+              dolt push
+          else
+              set -e
+              echo "No changes since last run"
+          fi
+        shell: bash
+
+      - name: On failure, launch a temporary interactive debugging session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() }}
+        timeout-minutes: 30
