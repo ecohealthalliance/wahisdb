@@ -41,7 +41,7 @@ jobs:
         if: ${{ !env.ACT }}
         uses: sliteteam/github-action-git-crypt-unlock@1.2.0
         env:
-          GIT_CRYPT_KEY: ${{ inputs.GIT_CRYPT_KEY }}
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
 
       - name: Install packages from renv.lock (with cache)
         if: ${{ !env.ACT }}  ## Doesn't work locally with ACT
