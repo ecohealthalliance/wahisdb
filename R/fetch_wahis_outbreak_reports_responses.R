@@ -30,6 +30,15 @@ fetch_wahis_outbreak_reports_responses <- function(wahis_outbreak_reports_new, t
   return(wahis_outbreak_reports_responses)
 }
 
+ingest_report <- function (resp) {
+  out <- fromJSON(rawToChar(resp$content))
+  report_info_id <- suppressWarnings(as.integer(basename(resp$url)))
+  if (!is.na(report_info_id)) {
+    out$report_info_id <- report_info_id
+  }
+  return(out)
+}
+
 
 safe_ingest <- function (resp){
   out <- safely(ingest_report)(resp)

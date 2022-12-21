@@ -18,6 +18,9 @@ on:
   schedule:
    - cron: "0 4 * * 2" # 4am tuesday
 
+env:
+  TARGETS_DATA_CUE: "always"
+
 jobs:
   update-wahis-database:
     runs-on: ubuntu-latest                                # Run on GitHub Actions runner
@@ -33,17 +36,13 @@ jobs:
         run: |
           apt-get update && apt-get install -y --no-install-recommends \
           libcurl4-openssl-dev \
-          libssl-dev
-        shell: bash
-
-      - name: Install curl
-        run: |
-          sudo apt install curl
+          libssl-dev \
+          curl
         shell: bash
 
       - name: Install Dolt
         run: |
-          sudo bash -c 'curl -L https://github.com/dolthub/dolt/releases/latest/download/install.sh | bash'
+          curl -L https://github.com/dolthub/dolt/releases/latest/download/install.sh | bash
         shell: bash
 
       - name: Unlock secrets

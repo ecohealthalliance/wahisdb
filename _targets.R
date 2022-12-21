@@ -9,7 +9,7 @@ suppressPackageStartupMessages(
 
 db_branch = "main"
 nproc = 1
-run_cue <- "always"
+run_cue <- "always"#Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
 wahis <- tar_plan(
 
