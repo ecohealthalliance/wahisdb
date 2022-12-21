@@ -16,7 +16,7 @@ fetch_wahis_outbreak_reports_responses <- function(wahis_outbreak_reports_new, t
     map(function(reports_to_get_split){
       map_curl(
         urls = reports_to_get_split$url,
-        .f = function(x) wahis::safe_ingest(x),
+        .f = function(x) safe_ingest(x),
         .host_con = 16L,
         .delay = 0.25,
         .handle_opts = list(low_speed_limit = 100, low_speed_time = 300), # bytes/sec
@@ -29,3 +29,16 @@ fetch_wahis_outbreak_reports_responses <- function(wahis_outbreak_reports_new, t
   assertthat::are_equal(length(wahis_outbreak_reports_responses), nrow(wahis_outbreak_reports_new))
   return(wahis_outbreak_reports_responses)
 }
+
+
+safe_ingest <- function (resp){
+  out <- safely(ingest_report)(resp)
+  if (!is.null(out$result)) {
+    return(out$result)
+  }
+  else {
+    return(list(ingest_status = paste("ingestion error: ",
+                                      out$error)))
+  }
+}
+
