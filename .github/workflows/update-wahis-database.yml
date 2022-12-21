@@ -27,7 +27,7 @@ jobs:
     #runs-on: [self-hosted, linux, x64, onprem-aegypti]   # Run the workflow on EHA aegypti runner
     #runs-on: [self-hosted, linux, x64, onprem-prospero]  # Run the workflow on EHA prospero runner
     container:
-      image: rocker/tidyverse:4.2.0
+      image: rocker/geospatial:4.2.0
 
     steps:
       - uses: actions/checkout@v2
