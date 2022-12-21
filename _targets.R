@@ -9,7 +9,7 @@ suppressPackageStartupMessages(
 
 db_branch = "main"
 nproc = 1
-run_cue <- "always"#Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
+run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
 wahis <- tar_plan(
 
@@ -26,7 +26,7 @@ wahis <- tar_plan(
 
   # Fetch these new reports (or a subsample for testing)
   tar_target(wahis_outbreak_reports_responses, fetch_wahis_outbreak_reports_responses(wahis_outbreak_reports_new, # input list of reports to fetch
-                                                                                      test_max_reports = 10), cue = tar_cue(run_cue)), # set to NULL if not in testing mode
+                                                                                      test_max_reports = 100), cue = tar_cue(run_cue)), # set to NULL if not in testing mode
   # Update the reports list with the fetched reports
   tar_target(wahis_outbreak_reports_list_updated, update_wahis_outbreak_reports_list(wahis_outbreak_reports_responses, # API responses for fetched reports
                                                                                      wahis_outbreak_reports_new), cue = tar_cue(run_cue)), # list of fetched reports
