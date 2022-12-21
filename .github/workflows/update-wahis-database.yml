@@ -1,10 +1,9 @@
 name: update-wahis-database
 
 on:
-  # push:
-  #   branches:
-  #      - dev-actions
-  #     - main
+  push:
+     branches:
+       - main
   #     - master
   #     - fix/*
   #     - feature/*
@@ -39,7 +38,7 @@ jobs:
 
       - name: Install curl
         run: |
-          sudo apt install curl'
+          sudo apt install curl
         shell: bash
 
       - name: Install Dolt
