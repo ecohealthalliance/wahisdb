@@ -3,10 +3,6 @@ suppressPackageStartupMessages(
   targets::tar_source(c("packages.R", "R"))
 )
 
-#TODO setproject creds
-#TODO Document - db tables and automation
-#TODO synchronize disease lookup - currently some is done in transform reports, rest is done in downstream dtra-ml function. let's keep it all downstream.
-
 db_branch = "main"
 nproc = 1
 run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.

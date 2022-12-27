@@ -67,7 +67,7 @@ jobs:
         run: |
           dolt config --global --add user.email automation@ecohealthalliance.org
           dolt config --global --add user.name "eha_automation"
-          dolt creds import .dolt/creds/0t6n0t2qh64v2q325cgvo8f5gk2r01fgm0kvr3h83igd6.jwk
+          dolt creds import .dolt/creds/ecutppr1ugomfe4i76o0mo24ueg3h3edd54pblcr5ivg6.jwk
           dolt config --list
         shell: bash
 
