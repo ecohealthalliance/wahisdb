@@ -23,7 +23,7 @@ wahis <- tar_plan(
 
   # Fetch these new reports (or a subsample for testing)
   tar_target(wahis_outbreak_reports_responses, fetch_wahis_outbreak_reports_responses(wahis_outbreak_reports_new, # input list of reports to fetch
-                                                                                      test_max_reports = 10), # set to NULL if not in testing mode
+                                                                                      test_max_reports = NULL), # set to NULL if not in testing mode
              cue = tar_cue(run_cue)),
 
   # Update the reports list with the fetched reports
