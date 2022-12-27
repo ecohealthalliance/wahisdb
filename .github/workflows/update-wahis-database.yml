@@ -88,6 +88,7 @@ jobs:
         run: |
           # https://askubuntu.com/questions/535984/git-push-script-only-if-difference
           cd wahisdb
+          rm ./.dolt/*.lock
           dolt add .
           set +e  # Grep succeeds with nonzero exit codes to show results.
           if dolt status | grep -q modified
