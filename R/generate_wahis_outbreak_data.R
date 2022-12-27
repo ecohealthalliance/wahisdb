@@ -7,14 +7,14 @@ generate_wahis_outbreak_data <- function(db_branch, wahis_outbreak_data_in_db) {
 
   wahis_raw <- get_wahis_raw(db_branch)
 
-  wahis_data <- list(
+  wahis_outbreak_data <- list(
     outbreak_summary = get_wahis_outbreak_summary(wahis_raw),
     outbreak_time_series = get_wahis_time_series(wahis_raw)
   )
 
   dbDisconnect(conn)
 
-  wahis_data
+  wahis_outbreak_data
 }
 
 get_wahis_raw <- function(db_branch) {

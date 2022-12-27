@@ -3,7 +3,6 @@ suppressPackageStartupMessages(
   targets::tar_source(c("packages.R", "R"))
 )
 
-#TODO renaming
 #TODO setproject creds
 #TODO Document - db tables and automation
 #TODO synchronize disease lookup - currently some is done in transform reports, rest is done in downstream dtra-ml function. let's keep it all downstream.
@@ -23,21 +22,29 @@ wahis <- tar_plan(
   tar_target(wahis_outbreak_reports_list, scrape_wahis_outbreak_report_list(), cue = tar_cue(run_cue)),
 
   # Determine which of these reports have not been previously processed (check outbreak_reports_ingest_status_log)
-  tar_target(wahis_outbreak_reports_new, id_wahis_outbreak_reports_new(wahis_outbreak_reports_list, db_branch), cue = tar_cue(run_cue)),
+  tar_target(wahis_outbreak_reports_new, id_wahis_outbreak_reports_new(wahis_outbreak_reports_list, db_branch),
+             cue = tar_cue(run_cue)),
 
   # Fetch these new reports (or a subsample for testing)
   tar_target(wahis_outbreak_reports_responses, fetch_wahis_outbreak_reports_responses(wahis_outbreak_reports_new, # input list of reports to fetch
-                                                                                      test_max_reports = 10), cue = tar_cue(run_cue)), # set to NULL if not in testing mode
+                                                                                      test_max_reports = 10), # set to NULL if not in testing mode
+             cue = tar_cue(run_cue)),
+
   # Update the reports list with the fetched reports
   tar_target(wahis_outbreak_reports_list_updated, update_wahis_outbreak_reports_list(wahis_outbreak_reports_responses, # API responses for fetched reports
-                                                                                     wahis_outbreak_reports_new), cue = tar_cue(run_cue)), # list of fetched reports
+                                                                                     wahis_outbreak_reports_new), # list of fetched reports
+             cue = tar_cue(run_cue)),
+
   # Process API responses into outbreak data - returns list of tables
   tar_target(wahis_outbreak_data_raw, process_wahis_outbreak_data_raw(wahis_outbreak_reports_responses,  # API responses for fetched reports
                                                                       wahis_outbreak_reports_list,   # full outbreak report list for lookup in transform function
                                                                       wahis_outbreak_reports_list_updated,
-                                                                      nproc = nproc), cue = tar_cue(run_cue)), # This lets us use parallel processing
+                                                                      nproc = nproc),
+             cue = tar_cue(run_cue)),
+
   # Add to database
-  tar_target(wahis_outbreak_data_raw_in_db, add_wahis_outbreak_data_raw_to_db(wahis_outbreak_data_raw, db_branch), cue = tar_cue(run_cue)),
+  tar_target(wahis_outbreak_data_raw_in_db, add_wahis_outbreak_data_raw_to_db(wahis_outbreak_data_raw, db_branch),
+             cue = tar_cue(run_cue)),
 
   # Now do some cleaning to get outbreak tables (summary and time series)
   tar_target(wahis_outbreak_data, generate_wahis_outbreak_data(db_branch,
