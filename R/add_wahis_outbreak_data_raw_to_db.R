@@ -20,7 +20,8 @@ add_wahis_outbreak_data_raw_to_db <- function(wahis_outbreak_data_raw, db_branch
 
   # outbreak_reports_events_raw - first filter out some administrative, unwieldy columns
   wahis_outbreak_data_raw$outbreak_reports_events_raw <- wahis_outbreak_data_raw$outbreak_reports_events_raw |>
-    dplyr::select(-starts_with("sender_"), -send_path)
+    dplyr::select(-all_of(starts_with("sender_"))) |>
+    dplyr::select(-one_of("send_path"))
   dbAddData(conn,
             name = "outbreak_reports_events_raw",
             value = wahis_outbreak_data_raw$outbreak_reports_events_raw,
@@ -37,7 +38,7 @@ add_wahis_outbreak_data_raw_to_db <- function(wahis_outbreak_data_raw, db_branch
   outbreak_reports_details_raw <- outbreak_reports_details_raw |>
     mutate(id = paste0(report_id, outbreak_location_id, species_name)) |>
     dplyr::select(id, everything()) |>
-    dplyr::select(-affected_desc) |>
+    dplyr::select(-one_of("affected_desc")) |>
     distinct()
   outbreak_reports_details_raw_dup_ids <- outbreak_reports_details_raw |>
     janitor::get_dupes(id) |>
@@ -62,9 +63,9 @@ add_wahis_outbreak_data_raw_to_db <- function(wahis_outbreak_data_raw, db_branch
   outbreak_reports_diseases_unmatched <- outbreak_reports_diseases_unmatched |> distinct(disease)
 
   wahis_outbreak_data_raw_in_db <- dbAddData(conn,
-                                         name = "outbreak_reports_diseases_unmatched",
-                                         value = outbreak_reports_diseases_unmatched,
-                                         primary_key = "disease")
+                                             name = "outbreak_reports_diseases_unmatched",
+                                             value = outbreak_reports_diseases_unmatched,
+                                             primary_key = "disease")
 
   wahis_outbreak_data_raw_in_db <- dolt_state(conn = conn)
   dbDisconnect(conn)
