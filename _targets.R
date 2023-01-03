@@ -38,8 +38,12 @@ wahis <- tar_plan(
                                                                       nproc = nproc),
              cue = tar_cue(run_cue)),
 
+  # Minor cleaning and checks before adding to db
+  tar_target(wahis_outbreak_data_raw_prepped, prep_wahis_outbreak_data_raw(wahis_outbreak_data_raw),
+             cue = tar_cue(run_cue)),
+
   # Add to database
-  tar_target(wahis_outbreak_data_raw_in_db, add_wahis_outbreak_data_raw_to_db(wahis_outbreak_data_raw, db_branch),
+  tar_target(wahis_outbreak_data_raw_in_db, add_data_to_db(wahis_outbreak_data_raw_prepped, db_branch),
              cue = tar_cue(run_cue)),
 
   # Now do some cleaning to get outbreak tables (summary and time series)
