@@ -98,7 +98,7 @@ jobs:
           fi
         shell: bash
 
-      # - name: On failure, launch a temporary interactive debugging session
-      #   uses: mxschmitt/action-tmate@v3
-      #   if: ${{ failure() }}
-      #   timeout-minutes: 30
+      - name: On failure, launch a temporary interactive debugging session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() }}
+        timeout-minutes: 30
