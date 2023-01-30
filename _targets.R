@@ -23,7 +23,7 @@ wahis <- tar_plan(
 
   # Fetch these new reports (or a subsample for testing)
   tar_target(wahis_outbreak_reports_responses, fetch_wahis_outbreak_reports_responses(wahis_outbreak_reports_new, # input list of reports to fetch
-                                                                                      test_max_reports = NULL), # set to NULL if not in testing mode
+                                                                                      test_max_reports = 100), # set to NULL if not in testing mode
              cue = tar_cue(run_cue)),
 
   # Update the reports list with the fetched reports
@@ -31,8 +31,8 @@ wahis <- tar_plan(
                                                                                      wahis_outbreak_reports_new), # list of fetched reports
              cue = tar_cue(run_cue)),
 
-  # Process API responses into outbreak data - returns list of tables
-  tar_target(wahis_outbreak_data_raw, process_wahis_outbreak_data_raw(wahis_outbreak_reports_responses,  # API responses for fetched reports
+  # Process API responses into outbreak data - returns list of tables - limited transformation of raw data
+  tar_target(wahis_outbreak_data_raw, flatten_wahis_outbreak_data_raw(wahis_outbreak_reports_responses,  # API responses for fetched reports
                                                                       wahis_outbreak_reports_list,   # full outbreak report list for lookup in transform function
                                                                       wahis_outbreak_reports_list_updated,
                                                                       nproc = nproc),

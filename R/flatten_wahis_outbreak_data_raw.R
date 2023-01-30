@@ -6,7 +6,7 @@
 #' @param nproc
 #' @return
 #' @export
-process_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
+flatten_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
                                             wahis_outbreak_reports_list,
                                             wahis_outbreak_reports_list_updated,
                                             nproc = nproc) {
@@ -23,12 +23,12 @@ process_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
   if(all(wahis_outbreak_reports_list_updated$ingest_error)) return(NULL)
 
   wahis_outbreak_data <- split(wahis_outbreak_reports_responses, (1:length(wahis_outbreak_reports_responses)-1) %/% 1000) %>% # batching by 1000s (probably only necessary for initial run)
-    future_map(., transform_outbreak_reports, wahis_outbreak_reports_list)
+    future_map(., flatten_outbreak_reports, wahis_outbreak_reports_list)
 
   wahis_outbreak_data <- transpose(wahis_outbreak_data) %>%
     map(function(x) reduce(x, bind_rows))
 
-  wahis_outbreak_data$outbreak_reports_diseases_unmatched <- wahis_outbreak_data$outbreak_reports_diseases_unmatched %>% unique()
+  # wahis_outbreak_data$outbreak_reports_diseases_unmatched <- wahis_outbreak_data$outbreak_reports_diseases_unmatched %>% unique()
 
   wahis_outbreak_data$outbreak_reports_ingest_status_log <- wahis_outbreak_reports_list_updated
 
@@ -50,7 +50,7 @@ process_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
 #' @importFrom assertthat %has_name%
 #' @export
 
-transform_outbreak_reports <- function(outbreak_reports, report_list) {
+flatten_outbreak_reports <- function(outbreak_reports, report_list) {
 
   message("Transforming outbreak reports")
 
@@ -65,6 +65,7 @@ transform_outbreak_reports <- function(outbreak_reports, report_list) {
 
   # Events table ------------------------------------------------------------
 
+  # Initial flattening
   outbreak_reports_events <- map_dfr(outbreak_reports2, function(x){
     map_dfc(c("senderDto", "generalInfoDto", "reportDto", "report_info_id"), function(tbl){
       out <- x[[tbl]] %>%
@@ -78,20 +79,19 @@ transform_outbreak_reports <- function(outbreak_reports, report_list) {
   }) %>%
     janitor::clean_names()
 
-  reports <- report_list %>%
-    select(report_info_id, # url
-           outbreak_thread_id = event_id_oie_reference) # thread number
+  # reports <- report_list %>%
+  #   select(report_info_id, # url
+  #          event_id_oie_reference) # thread number - previously outbreak_thread_id
   # n_distinct(reports$report_info_id)
-  # n_distinct(reports$outbreak_thread_id)
+  # n_distinct(reports$event_id_oie_reference)
 
-  lookup_outbreak_thread_url <-  report_list %>%
-    filter(report_type == "IN") %>%
-    select(outbreak_thread_id = event_id_oie_reference, url_outbreak_thread_id = report_info_id)
-
-  reports <- left_join(reports, lookup_outbreak_thread_url, by = "outbreak_thread_id")
+  # lookup_outbreak_thread_url <-  report_list %>%
+  #   filter(report_type == "IN")
+  #
+  # reports <- left_join(reports, lookup_outbreak_thread_url, by = "event_id_oie_reference")
 
   outbreak_reports_events <- outbreak_reports_events %>%
-    left_join(reports,  by = "report_info_id") %>%
+    # left_join(report_list,  by = "report_info_id") %>% # pull in all the information from the report scraper
     mutate(country_or_territory = case_when(
       country_or_territory == "Central African (Rep.)" ~ "Central African Republic",
       country_or_territory == "Dominican (Rep.)" ~ "Dominican Republic",
@@ -101,76 +101,75 @@ transform_outbreak_reports <- function(outbreak_reports, report_list) {
     )) %>%
     mutate_if(is.character, tolower) %>%
     mutate(country_iso3c = countrycode::countrycode(country_or_territory, origin = "country.name", destination = "iso3c")) %>%
-    rename_all(recode,
-               report_info_id =  "url_report_id",
-               country_or_territory = "country",
-               disease_name = "disease",
-               report_title = "report_type",
-               translated_reason = "reason_for_notification",
-               confirmed_on = "date_of_confirmation_of_the_event",
-               start_date = "date_of_start_of_the_event",
-               end_date = "date_event_resolved",
-               last_occurance_date = "date_of_previous_occurrence",
-               disease_type = "serotype",
-               event_description_status = "future_reporting") %>%
-    select(suppressWarnings(one_of("report_id",
-                                   "url_report_id",
-                                   "outbreak_thread_id",
-                                   "url_outbreak_thread_id",
-                                   "country",
-                                   "country_iso3c",
-                                   "disease_category",
-                                   "disease",
-                                   "is_aquatic",
-                                   "report_date",
-                                   "report_type",
-                                   "reason_for_notification",
-                                   "date_of_confirmation_of_the_event",
-                                   "date_of_start_of_the_event",
-                                   "date_event_resolved",
-                                   "date_of_previous_occurrence",
-                                   "casual_agent",
-                                   "serotype",
-                                   "future_reporting")),
-           everything()
-    )
+    # rename_all(recode,
+    #            report_info_id =  "url_report_id",
+    #            country_or_territory = "country",
+    #            disease_name = "disease",
+    #            report_title = "report_type",
+    #            translated_reason = "reason_for_notification",
+    #            confirmed_on = "date_of_confirmation_of_the_event",
+    #            start_date = "date_of_start_of_the_event",
+    #            end_date = "date_event_resolved",
+    #            last_occurance_date = "date_of_previous_occurrence",
+    #            disease_type = "serotype",
+  #            event_description_status = "future_reporting") %>%
+  select(suppressWarnings(one_of("report_id",
+                                 # "event_id_oie_reference",
+                                 "report_info_id",
+                                 "country_or_territory",
+                                 "country_iso3c",
+                                 "disease_category",
+                                 "disease_name",
+                                 "is_aquatic",
+                                 "report_date",
+                                 "report_title",
+                                 "translated_reason",
+                                 "confirmed_on",
+                                 "start_date",
+                                 "end_date",
+                                 "last_occurance_date",
+                                 "casual_agent",
+                                 "disease_type",
+                                 "event_description_status")),
+         everything()
+  )
 
-  # Cleaning
-  outbreak_reports_events <- outbreak_reports_events %>%
-    mutate(follow_up_count = ifelse(str_detect(report_type, "immediate notification"), 0, str_extract(report_type, "[[:digit:]]+"))) %>%
-    mutate(is_final_report = str_detect(report_type, "final report")) %>%
-    mutate(is_endemic = str_detect(future_reporting, "the event cannot be considered resolved"))
+  # Cleaning # FIELDS ADDED
+  # outbreak_reports_events <- outbreak_reports_events %>%
+  #   mutate(follow_up_number = ifelse(str_detect(report_title, "immediate notification"), 0, str_extract(report_title, "[[:digit:]]+"))) %>%
+  #   mutate(is_final_report = str_detect(report_title, "final report")) %>%
+  #   mutate(is_endemic = str_detect(event_description_status, "the event cannot be considered resolved"))
 
   # Dates handling - convert to  ISO-8601
   outbreak_reports_events <- outbreak_reports_events %>%
     mutate_at(vars(contains("date")), ~lubridate::as_datetime(.))
 
-  # Check for missing date_event_resolved
-  if(suppressWarnings(is.null(outbreak_reports_events$date_event_resolved))) outbreak_reports_events$date_event_resolved <- lubridate::as_datetime(NA)
-  missing_resolved <- outbreak_reports_events %>%
-    filter(is.na(date_event_resolved)) %>%
-    filter(is_final_report)
-
-  if(nrow(missing_resolved)){
-    # Check threads to confirm these are final. If they are, then assume last report is the end date.
-    check_final <- outbreak_reports_events %>%
-      select(report_id, outbreak_thread_id, report_date) %>%
-      filter(outbreak_thread_id %in% missing_resolved$outbreak_thread_id) %>%
-      left_join(missing_resolved %>% select(report_id, is_final_report),  by = "report_id") %>%
-      mutate(is_final_report = coalesce(is_final_report, FALSE)) %>%
-      group_by(outbreak_thread_id) %>%
-      mutate(check = report_date == max(report_date)) %>%
-      ungroup() %>%
-      mutate(confirm_final = is_final_report == check)
-
-    check_final_resolved <- check_final %>%
-      filter(is_final_report, check)
-    check_final_unresolved <- check_final %>%
-      filter(is_final_report, !check)
-
-    outbreak_reports_events <- outbreak_reports_events %>%
-      mutate(date_event_resolved = if_else(report_id %in% check_final_resolved$report_id, report_date, date_event_resolved))
-  }
+  # Check for missing end_date
+  # if(suppressWarnings(is.null(outbreak_reports_events$end_date))) outbreak_reports_events$end_date <- lubridate::as_datetime(NA)
+  # missing_resolved <- outbreak_reports_events %>%
+  #   filter(is.na(end_date)) %>%
+  #   filter(is_final_report)
+  #
+  # if(nrow(missing_resolved)){
+  #   # Check threads to confirm these are final. If they are, then assume last report is the end date.
+  #   check_final <- outbreak_reports_events %>%
+  #     select(report_id, event_id_oie_reference, report_date) %>%
+  #     filter(event_id_oie_reference %in% missing_resolved$event_id_oie_reference) %>%
+  #     left_join(missing_resolved %>% select(report_id, is_final_report),  by = "report_id") %>%
+  #     mutate(is_final_report = coalesce(is_final_report, FALSE)) %>%
+  #     group_by(event_id_oie_reference) %>%
+  #     mutate(check = report_date == max(report_date)) %>%
+  #     ungroup() %>%
+  #     mutate(confirm_final = is_final_report == check)
+  #
+  #   check_final_resolved <- check_final %>%
+  #     filter(is_final_report, check)
+  #   check_final_unresolved <- check_final %>%
+  #     filter(is_final_report, !check)
+  #
+  #   outbreak_reports_events <- outbreak_reports_events %>%
+  #     mutate(date_event_resolved = if_else(report_id %in% check_final_resolved$report_id, report_date, date_event_resolved))
+  # }
 
   # Disease standardization
 
@@ -179,35 +178,35 @@ transform_outbreak_reports <- function(outbreak_reports, report_list) {
   #   mutate_all(~tolower(trimws(.)))
   # write_csv(disease_export, here::here("inst/diseases/outbreak_report_diseases.csv"))
 
-  ando_disease_lookup <- readxl::read_xlsx(here::here("inst", "ando_disease_lookup.xlsx")) %>% # this can be manually edited
-    mutate(disease = textclean::replace_non_ascii(disease)) %>%
-    rename(disease_class = class_desc) %>%
-    filter(report == "animal") %>%
-    select(-report, -no_match_found) %>%
-    mutate_at(.vars = c("ando_id", "preferred_label", "disease_class"), ~na_if(., "NA"))
+  # ando_disease_lookup <- readxl::read_xlsx(here::here("inst", "ando_disease_lookup.xlsx")) %>% # this can be manually edited
+  #   mutate(disease = textclean::replace_non_ascii(disease)) %>%
+  #   rename(disease_class = class_desc) %>%
+  #   filter(report == "animal") %>%
+  #   select(-report, -no_match_found) %>%
+  #   mutate_at(.vars = c("ando_id", "preferred_label", "disease_class"), ~na_if(., "NA"))
 
-  outbreak_reports_events <- outbreak_reports_events %>%
-    mutate(disease = trimws(disease)) %>%
-    mutate(disease = textclean::replace_non_ascii(disease)) %>%
-    mutate(disease = ifelse(disease == "", causal_agent, disease)) %>%
-    mutate(disease = str_remove_all(disease, "\\s*\\([^\\)]+\\)")) %>%
-    mutate(disease = str_remove(disease, "virus")) %>%
-    mutate(disease = trimws(disease)) %>%
-    left_join(ando_disease_lookup, by = "disease") %>%
-    mutate(disease = coalesce(preferred_label, disease)) %>%
-    select(-preferred_label) %>%
-    distinct()
+  # outbreak_reports_events <- outbreak_reports_events %>%
+  #   mutate(disease = trimws(disease)) %>%
+  #   mutate(disease = textclean::replace_non_ascii(disease)) %>%
+  #   mutate(disease = ifelse(disease == "", causal_agent, disease)) %>%
+  #   mutate(disease = str_remove_all(disease, "\\s*\\([^\\)]+\\)")) %>%
+  #   mutate(disease = str_remove(disease, "virus")) %>%
+  #   mutate(disease = trimws(disease)) %>%
+  #   left_join(ando_disease_lookup, by = "disease") %>%
+  #   mutate(disease = coalesce(preferred_label, disease)) %>%
+  #   select(-preferred_label) %>%
+  #   distinct()
 
-  diseases_unmatched <- outbreak_reports_events %>%
-    filter(is.na(ando_id)) %>%
-    distinct(disease) %>%
-    mutate(table = "outbreak_animal")
+  # diseases_unmatched <- outbreak_reports_events %>%
+  #   filter(is.na(ando_id)) %>%
+  #   distinct(disease) %>%
+  #   mutate(table = "outbreak_animal")
 
   # write_csv(diseases_unmatched, here::here("inst/diseases/outbreak_report_diseases_unmatched_20210507.csv"))
 
   # Check threads to make sure disease is consistent across thread
   # outbreak_reports_events %>%
-  #   group_by(outbreak_thread_id) %>%
+  #   group_by(event_id_oie_reference) %>%
   #   mutate(disease_count = n_distinct(disease)) %>%
   #   ungroup() %>%
   #   filter(disease_count > 1) %>%
@@ -216,7 +215,7 @@ transform_outbreak_reports <- function(outbreak_reports, report_list) {
   ### Understanding  IDs
   # outbreak_reports_events$report_id # unique individual report id (in = initial, fur = follow up report)
   # outbreak_reports_events$url_report_id # unique individual report url value
-  # outbreak_reports_events$outbreak_thread_id # outbreak thread identifier - does not correspond to report_id or url_report_id
+  # outbreak_reports_events$event_id_oie_reference # outbreak thread identifier - does not correspond to report_id or url_report_id
 
   # Outbreak tables ---------------------------------------------------
 
@@ -272,37 +271,38 @@ transform_outbreak_reports <- function(outbreak_reports, report_list) {
     outbreak_reports_detail <- outbreak_reports_detail %>%
       mutate_if(is.character, tolower) %>%
       janitor::clean_names()  %>%
-      select(-starts_with("total_")) %>% # these are rolling and values and may cause confusion
+      #select(-starts_with("total_")) %>% # these are rolling and values and may cause confusion
       select(-suppressWarnings(one_of("prod_type"))) %>%
       select(-suppressWarnings(one_of("specie_id")), -suppressWarnings(one_of("morbidity")), -suppressWarnings(one_of("mortality")), -suppressWarnings(one_of("outbreak_info_id")), -suppressWarnings(one_of("outbreak_id"))) %>%
       rename_with(~str_replace(., "^spicie_name$", "species_name"), suppressWarnings(one_of("spicie_name"))) %>%
       rename_with( ~str_replace(., "^killed$", "killed_and_disposed"), suppressWarnings(one_of("killed"))) %>%
       rename_with( ~str_replace(., "^slaughtered$", "slaughtered_for_commercial_use"), suppressWarnings(one_of("slaughtered"))) %>%
-      rename_with( ~str_replace(., "^oie_reference$", "outbreak_location_id"), suppressWarnings(one_of("oie_reference"))) %>%
+      #rename_with( ~str_replace(., "^oie_reference$", "outbreak_location_id"), suppressWarnings(one_of("oie_reference"))) %>%
       mutate_all(~na_if(., "" )) %>%
-      mutate_at(vars(contains("date")), ~lubridate::as_datetime(.)) %>%
-      mutate_at(vars(suppressWarnings(one_of("susceptible", "cases", "deaths", "killed_and_disposed", "slaughtered_for_commercial_use"))), ~replace_na(., 0))
+      mutate_at(vars(contains("date")), ~lubridate::as_datetime(.)) #%>%
+     # mutate_at(vars(suppressWarnings(one_of("susceptible", "cases", "deaths", "killed_and_disposed", "slaughtered_for_commercial_use"))), ~replace_na(., 0))
 
     cnames <- colnames(outbreak_reports_detail)
 
-    if("wildlife_type" %in% cnames & "type_of_wildlife" %in% cnames){
-      outbreak_reports_detail <- outbreak_reports_detail %>%
-        mutate(wildlife_type = coalesce(wildlife_type, type_of_wildlife)) %>%
-        select(-type_of_wildlife)
-    }
-    if(!"wildlife_type" %in% cnames & "type_of_wildlife" %in% cnames){
-      outbreak_reports_detail <- outbreak_reports_detail %>%
-        rename(wildlife_type = type_of_wildlife)
-    }
+    # if("wildlife_type" %in% cnames & "type_of_wildlife" %in% cnames){
+    #   outbreak_reports_detail <- outbreak_reports_detail %>%
+    #     mutate(wildlife_type = coalesce(wildlife_type, type_of_wildlife)) %>%
+    #     select(-type_of_wildlife)
+    # }
+    # if(!"wildlife_type" %in% cnames & "type_of_wildlife" %in% cnames){
+    #   outbreak_reports_detail <- outbreak_reports_detail %>%
+    #     rename(wildlife_type = type_of_wildlife)
+    # }
 
   }
 
   # Export -----------------------------------------------
   wahis_joined <- list("outbreak_reports_events_raw" = outbreak_reports_events,
-                       "outbreak_reports_details_raw" = outbreak_reports_detail,
+                       "outbreak_reports_details_raw" = outbreak_reports_detail#,
                        #"outbreak_reports_details_summary" = outbreak_reports_summary,
                        #"outbreak_reports_laboratories" = outbreak_reports_laboratories,
-                       "outbreak_reports_diseases_unmatched" = diseases_unmatched)
+                       #"outbreak_reports_diseases_unmatched" = diseases_unmatched
+                       )
 
   # remove empty tables
   wahis_joined <- keep(wahis_joined, ~nrow(.)>0)

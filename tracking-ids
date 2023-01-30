@@ -1,0 +1,23 @@
+ # Tracking IDs
+
+  # Dashboard:
+  # EVENT ID is a unique outbreak thread ID. THIS IS NOT AVAILABLE THROUGH API.
+  # REPORT ID matches report_id in our records
+  # https://wahis.woah.org/#/in-event/EVENTID/dashboard shows all the reports for outbreak thread EVENTID
+  # https://wahis.woah.org/#/in-review/EVENTID?reportId=REPORTID&fromPage=event-dashboard-url shows report for REPORTID in EVENTID thread
+
+  # wahis_outbreak_reports_list/outbreak_reports_ingest_status_log
+  # this is a master list of all the reports
+  # report_id matches REPORT ID on the dashboard (NOW CHANGED TO dashboard_report_id)
+  # report_info_id is the report api https://wahis.woah.org/pi/getReport/report_info_id
+  # event_id_oie_reference is a unique ID for the outbreak thread. It does not match EVENT ID on the dashboard.
+
+  # outbreak_reports_events_raw
+  # This is high level overview of outbreak events
+  # report_info_id is the report api https://wahis.woah.org/pi/getReport/report_info_id
+  # report_id is a unique report ID that does NOT match report_id on wahis_outbreak_reports_list
+
+  # outbreak_reports_details_raw
+  # contains subevent info
+  # report_id is a unique report ID that does NOT match report_id on wahis_outbreak_reports_list
+  # oie_reference is location specific ID

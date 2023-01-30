@@ -21,8 +21,8 @@ prep_wahis_outbreak_data_raw <- function(wahis_outbreak_data_raw) {
     message("outbreak_reports_details_raw was NULL")
   }else{
     wahis_outbreak_data_raw$outbreak_reports_details_raw <- wahis_outbreak_data_raw$outbreak_reports_details_raw |>
-      mutate(id = paste0(report_id, outbreak_location_id, species_name)) |>
-      dplyr::select(id, everything()) |>
+      mutate(id = paste0(report_id, oie_reference, species_name)) |>
+      dplyr::select(id, report_id, oie_reference, species_name, everything()) |>
       dplyr::select(-one_of("affected_desc")) |>
       distinct()
 
@@ -36,11 +36,11 @@ prep_wahis_outbreak_data_raw <- function(wahis_outbreak_data_raw) {
   }
 
   # outbreak_reports_diseases_unmatched
-  if(is.null( wahis_outbreak_data_raw[["outbreak_reports_diseases_unmatched"]])) {
-    message("outbreak_reports_diseases_unmatched was NULL.")
-  }else{
-    wahis_outbreak_data_raw$outbreak_reports_diseases_unmatched <- wahis_outbreak_data_raw$outbreak_reports_diseases_unmatched |> distinct(disease)
-  }
+  # if(is.null( wahis_outbreak_data_raw[["outbreak_reports_diseases_unmatched"]])) {
+  #   message("outbreak_reports_diseases_unmatched was NULL.")
+  # }else{
+  #   wahis_outbreak_data_raw$outbreak_reports_diseases_unmatched <- wahis_outbreak_data_raw$outbreak_reports_diseases_unmatched |> distinct(disease)
+  # }
 
   wahis_outbreak_data_raw
 }
