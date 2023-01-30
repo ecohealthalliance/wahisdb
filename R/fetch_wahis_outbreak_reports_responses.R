@@ -14,7 +14,7 @@ fetch_wahis_outbreak_reports_responses <- function(wahis_outbreak_reports_new, t
   message("Pulling ", nrow(wahis_outbreak_reports_new), " WAHIS outbreak reports")
   wahis_outbreak_reports_responses <- split(wahis_outbreak_reports_new, (1:nrow(wahis_outbreak_reports_new)-1) %/% 100) %>% # batching by 100s
     map(function(reports_to_get_split){
-      map_curl(
+    map_curl(
         urls = reports_to_get_split$url,
         .f = function(x) safe_ingest(x),
         .host_con = 16L,

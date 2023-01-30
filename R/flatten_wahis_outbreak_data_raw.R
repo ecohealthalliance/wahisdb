@@ -18,12 +18,11 @@ flatten_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
   }
   on.exit(plan(oplan), add = TRUE)
 
-
   if(nrow(wahis_outbreak_reports_list_updated) == 0) return(NULL)
   if(all(wahis_outbreak_reports_list_updated$ingest_error)) return(NULL)
 
   wahis_outbreak_data <- split(wahis_outbreak_reports_responses, (1:length(wahis_outbreak_reports_responses)-1) %/% 1000) %>% # batching by 1000s (probably only necessary for initial run)
-    future_map(., flatten_outbreak_reports, wahis_outbreak_reports_list)
+    future_map(., flatten_outbreak_reports)
 
   wahis_outbreak_data <- transpose(wahis_outbreak_data) %>%
     map(function(x) reduce(x, bind_rows))
@@ -50,7 +49,8 @@ flatten_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
 #' @importFrom assertthat %has_name%
 #' @export
 
-flatten_outbreak_reports <- function(outbreak_reports, report_list) {
+flatten_outbreak_reports <- function(outbreak_reports#, report_list
+                                     ) {
 
   message("Transforming outbreak reports")
 
@@ -86,8 +86,8 @@ flatten_outbreak_reports <- function(outbreak_reports, report_list) {
   # n_distinct(reports$event_id_oie_reference)
 
   # lookup_outbreak_thread_url <-  report_list %>%
-  #   filter(report_type == "IN")
-  #
+  #   filter(report_type == "IN") %>%
+  #   select(outbreak_thread_id = event_id_oie_reference, url_outbreak_thread_id = report_info_id)
   # reports <- left_join(reports, lookup_outbreak_thread_url, by = "event_id_oie_reference")
 
   outbreak_reports_events <- outbreak_reports_events %>%
@@ -117,7 +117,7 @@ flatten_outbreak_reports <- function(outbreak_reports, report_list) {
                                  # "event_id_oie_reference",
                                  "report_info_id",
                                  "country_or_territory",
-                                 "country_iso3c",
+                                 #"country_iso3c",
                                  "disease_category",
                                  "disease_name",
                                  "is_aquatic",
