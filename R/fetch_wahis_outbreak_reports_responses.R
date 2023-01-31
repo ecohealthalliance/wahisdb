@@ -4,13 +4,8 @@
 #' @param test_max_reports
 #' @return
 #' @export
-fetch_wahis_outbreak_reports_responses <- function(wahis_outbreak_reports_new, test_max_reports = NULL){
-  if(is.number(test_max_reports)){
-    set.seed(0)
-    n_reports <- ifelse(test_max_reports > nrow(wahis_outbreak_reports_new), nrow(wahis_outbreak_reports_new), test_max_reports)
-    wahis_outbreak_reports_new <- wahis_outbreak_reports_new %>%
-      slice(sample(nrow(.), n_reports, replace = FALSE))
-  }
+fetch_wahis_outbreak_reports_responses <- function(wahis_outbreak_reports_new){
+
   message("Pulling ", nrow(wahis_outbreak_reports_new), " WAHIS outbreak reports")
   wahis_outbreak_reports_responses <- split(wahis_outbreak_reports_new, (1:nrow(wahis_outbreak_reports_new)-1) %/% 100) %>% # batching by 100s
     map(function(reports_to_get_split){

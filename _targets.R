@@ -18,12 +18,14 @@ wahis <- tar_plan(
   tar_target(wahis_outbreak_reports_list, scrape_wahis_outbreak_report_list(), cue = tar_cue(run_cue)),
 
   # Determine which of these reports have not been previously processed (check outbreak_reports_ingest_status_log)
-  tar_target(wahis_outbreak_reports_new, id_wahis_outbreak_reports_new(wahis_outbreak_reports_list, db_branch),
+  tar_target(wahis_outbreak_reports_new, id_wahis_outbreak_reports_new(wahis_outbreak_reports_list,
+                                                                       db_branch,
+                                                                       test_max_reports = 50), # set to NULL if not in testing mode
              cue = tar_cue(run_cue)),
 
   # Fetch these new reports (or a subsample for testing)
-  tar_target(wahis_outbreak_reports_responses, fetch_wahis_outbreak_reports_responses(wahis_outbreak_reports_new, # input list of reports to fetch
-                                                                                      test_max_reports = 100), # set to NULL if not in testing mode
+  tar_target(wahis_outbreak_reports_responses, fetch_wahis_outbreak_reports_responses(wahis_outbreak_reports_new), # input list of reports to fetch
+
              cue = tar_cue(run_cue)),
 
   # Update the reports list with the fetched reports

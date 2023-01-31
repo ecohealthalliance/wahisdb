@@ -15,9 +15,8 @@ add_data_to_db <- function(data, db_branch, ...) {
   dolt_checkout(db_branch, conn = conn)
 
   purrr::iwalk(data, function(table, tname) {
-    # # Drop table if exists before adding to make it easier if schema is modified
     print(glue::glue("Adding {tname} to db"))
-    if(doltr::dbExistsTable(conn, tname)) RMariaDB::dbRemoveTable(conn, tname)
+    # if(doltr::dbExistsTable(conn, tname)) RMariaDB::dbRemoveTable(conn, tname) # Drop table if exists before adding to make it easier if schema is modified
     pk = colnames(table)[1]
     dbAddData(conn,
               name = tname,

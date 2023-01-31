@@ -17,7 +17,7 @@
   # report_info_id is the report api https://wahis.woah.org/pi/getReport/report_info_id
   # report_id is a unique report ID that does NOT match report_id on wahis_outbreak_reports_list
 
-  outbreak_reports_events
+  # outbreak_summary
   # outbreak_thread_id = event_id_oie_reference; unique ID for the thread
 
   # outbreak_reports_details_raw
@@ -25,6 +25,7 @@
   # report_id is a unique report ID that does NOT match report_id on wahis_outbreak_reports_list
   # oie_reference is location specific ID
 
-  # outbreak_reports_details
-  # rename oie_reference to outbreak_location_id
+  # outbreak_time_series
+  # outbreak_thread_id = event_id_oie_reference; unique ID for the thread
+  # renamed oie_reference to outbreak_location_id
 

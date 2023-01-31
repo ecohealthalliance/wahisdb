@@ -7,7 +7,7 @@
 #' @return
 #' @export
 
-id_wahis_outbreak_reports_new <- function(wahis_outbreak_reports_list, db_branch){
+id_wahis_outbreak_reports_new <- function(wahis_outbreak_reports_list, db_branch, test_max_reports = NULL){
 
   conn <- dbConnect(dolt_local())
   dolt_checkout(db_branch)
@@ -31,6 +31,13 @@ id_wahis_outbreak_reports_new <- function(wahis_outbreak_reports_list, db_branch
     mutate(url =  paste0("https://wahis.woah.org/pi/getReport/", report_info_id))
 
   dbDisconnect(conn)
+
+  if(is.number(test_max_reports)){
+     set.seed(0)
+    n_reports <- ifelse(test_max_reports > nrow(wahis_outbreak_reports_new), nrow(wahis_outbreak_reports_new), test_max_reports)
+    wahis_outbreak_reports_new <- wahis_outbreak_reports_new %>%
+      slice(sample(nrow(.), n_reports, replace = FALSE))
+  }
 
   return(wahis_outbreak_reports_new)
 
