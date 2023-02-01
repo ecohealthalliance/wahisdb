@@ -3,7 +3,7 @@ suppressPackageStartupMessages(
   targets::tar_source(c("packages.R", "R"))
 )
 
-db_branch = "keys"
+db_branch = "main"
 nproc = 10
 run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
@@ -26,7 +26,7 @@ wahisdb <- tar_plan(
   # Determine which of these reports have not been previously processed (check outbreak_reports_ingest_status_log)
   tar_target(wahis_outbreak_reports_new, id_wahis_outbreak_reports_new(wahis_outbreak_reports_list,
                                                                        db_branch,
-                                                                       test_max_reports = 25), # set to NULL if not in testing mode
+                                                                       test_max_reports = NULL), # set to NULL if not in testing mode
              cue = tar_cue(run_cue)),
 
   # Fetch these new reports (or a subsample for testing)
