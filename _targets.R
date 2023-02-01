@@ -74,11 +74,7 @@ wahisdb <- tar_plan(
                                                        primary_key_lookup = wahis_outbreak_data_primary_keys,
                                                        db_branch = db_branch), cue = tar_cue(run_cue)),
 
-  # Is this the first time adding to db?
-  tar_target(wahis_db_check, {dolt_checkout(db_branch); length(dbListTables(dolt())) <= 1},
-             cue = tar_cue("always")),
   # Set all keys
-  #TODO figure how to skip this target based on wahis_outbreak_data_in_db
   tar_target(wahis_data_in_db_with_foreign_keys, set_foreign_keys_wahis_outbreak_data(wahis_db_check, wahis_outbreak_data_in_db, disease_key_in_db))
 
 )
