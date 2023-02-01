@@ -99,8 +99,8 @@ flatten_outbreak_reports <- function(outbreak_reports#, report_list
       country_or_territory == "Melilla"~ "Morocco",
       TRUE ~ country_or_territory
     )) %>%
-    mutate_if(is.character, tolower) %>%
-    mutate(country_iso3c = countrycode::countrycode(country_or_territory, origin = "country.name", destination = "iso3c")) %>%
+    mutate_if(is.character, tolower)  %>%
+    # mutate(country_iso3c = countrycode::countrycode(country_or_territory, origin = "country.name", destination = "iso3c")) %>%
     # rename_all(recode,
     #            report_info_id =  "url_report_id",
     #            country_or_territory = "country",
