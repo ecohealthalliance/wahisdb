@@ -13,10 +13,6 @@ add_data_to_db <- function(data, primary_key_lookup = NULL, db_branch, ...) {
   dolt_checkout(db_branch)
   conn <- dolt()
 
-  # old <- dbReadTable(conn, "outbreak_reports_events_raw")
-  # new <- data[[ "outbreak_reports_events_raw"]]
-
-
   purrr::iwalk(data, function(table, tname) {
     print(glue::glue("Adding {tname} to db"))
     pk <- primary_key_lookup[tname]

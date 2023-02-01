@@ -14,7 +14,7 @@ wahisdb <- tar_plan(
   tar_target(disease_key, suppressMessages(read_csv(disease_key_file) |> filter(source == "oie") |> mutate(source = "wahis")), cue = tar_cue("thorough")),
   tar_target(disease_key_in_db, add_data_to_db(data = list("disease_key" = disease_key),
                                                primary_key_lookup = c("disease_key" = "disease"),
-                                               db_branch), cue = tar_cue('thorough')),
+                                               db_branch), cue = tar_cue('always')),
 
   # Is this the first time adding to db?
   tar_target(wahis_db_check, {dolt_checkout(db_branch); length(dbListTables(dolt())) <= 1},
@@ -53,7 +53,7 @@ wahisdb <- tar_plan(
   # Set primary keys
   tar_target(wahis_outbreak_data_raw_primary_keys, c("outbreak_reports_ingest_status_log" = "report_info_id",
                                                      "outbreak_reports_events_raw" = "report_id",
-                                                     "outbreak_reports_details_raw" = "id"),
+                                                     "outbreak_reports_details_raw" = "unique_id"),
              cue = tar_cue(run_cue)),
 
   # Add to database
@@ -66,7 +66,7 @@ wahisdb <- tar_plan(
 
   # Set primary keys
   tar_target(wahis_outbreak_data_primary_keys, c("outbreak_summary" = "outbreak_thread_id",
-                                                 "outbreak_time_series" = "id"),
+                                                 "outbreak_time_series" = "unique_id"),
              cue = tar_cue(run_cue)),
 
   # Add to database
@@ -76,7 +76,7 @@ wahisdb <- tar_plan(
 
   # Set all keys
   #TODO figure how to skip this target based on wahis_outbreak_data_in_db
-  tar_target(wahis_data_in_db_with_foreign_keys, set_foreign_keys_wahis_outbreak_data(wahis_db_check, wahis_outbreak_data_in_db))
+  tar_target(wahis_data_in_db_with_foreign_keys, set_foreign_keys_wahis_outbreak_data(wahis_db_check, wahis_outbreak_data_in_db, disease_key_in_db))
 
 )
 

@@ -7,7 +7,7 @@
 #' @return
 #' @author Emma Mendelsohn
 #' @export
-set_foreign_keys_wahis_outbreak_data <- function(wahis_db_check, wahis_outbreak_data_in_db) {
+set_foreign_keys_wahis_outbreak_data <- function(wahis_db_check, wahis_outbreak_data_in_db, disease_key_in_db) {
 
   if(!wahis_db_check) return(message("skipping set_foreign_keys_wahis_outbreak_data"))
 
@@ -22,13 +22,21 @@ set_foreign_keys_wahis_outbreak_data <- function(wahis_db_check, wahis_outbreak_
   assign_fk(conn, "outbreak_reports_details_raw",  "report_id",
             "outbreak_reports_events_raw", "report_id")
 
+  assign_fk(conn, "outbreak_summary",  "disease",
+            "disease_key", "disease")
+
   assign_fk(conn, "outbreak_time_series",  "outbreak_thread_id",
             "outbreak_summary", "outbreak_thread_id")
 
-  # assign multiple outbreak thread IDs (event_id_oie_reference) from ingest log to the outbreak_summary table
-  # This doesn't work because some of event_id_oie_reference is not in outbreak_summary$outbreak_thread_id
-  # assign_fk(conn, "outbreak_reports_ingest_status_log",  "event_id_oie_reference",
-  #           "outbreak_summary", "outbreak_thread_id")
+  assign_fk(conn, "outbreak_time_series",  "unique_id",
+            "outbreak_reports_details_raw", "unique_id")
+
+  #TODO connect event_id_oie_reference from outbreak_reports_ingest_status_log with outbreak_thread_id from outbreak_summary
+  # in current form this cannot be done because
+  # a) outbreak_reports_ingest_status_log has event_id_oie_reference values that are not in outbreak_summary (therefore outbreak_summary cannot be the reference)
+  # b) there are dublicate values of event_id_oie_reference in outbreak_reports_ingest_status_log because the log tracks reports which can cover a single outbreak there (therefore outbreak_reports_ingest_status_log cannot be the ref)
+  # solution would be a lookup table for the threads
+
 
 }
 

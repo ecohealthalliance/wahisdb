@@ -116,20 +116,20 @@ get_wahis_raw <- function(db_branch) {
 
   # outbreak_reports_details_raw -------------------------------------------------------------------------
   # First implement renaming and other edits that had previously been done prior to saving raw data
-  outbreak_reports_detail <- outbreak_reports_details_raw %>%
-    select(-starts_with("total_")) %>% # these are rolling and values and may cause confusion
+  outbreak_reports_detail <- outbreak_reports_details_raw |>
+    select(-starts_with("total_")) |> # these are rolling and values and may cause confusion
     rename(outbreak_location_id = oie_reference) |>
     mutate_at(vars(suppressWarnings(one_of("susceptible", "cases", "deaths", "killed_and_disposed", "slaughtered_for_commercial_use"))), ~replace_na(., 0))
 
   cnames <- colnames(outbreak_reports_detail)
 
   if("wildlife_type" %in% cnames & "type_of_wildlife" %in% cnames){
-    outbreak_reports_detail <- outbreak_reports_detail %>%
-      mutate(wildlife_type = coalesce(wildlife_type, type_of_wildlife)) %>%
+    outbreak_reports_detail <- outbreak_reports_detail |>
+      mutate(wildlife_type = coalesce(wildlife_type, type_of_wildlife)) |>
       select(-type_of_wildlife)
   }
   if(!"wildlife_type" %in% cnames & "type_of_wildlife" %in% cnames){
-    outbreak_reports_detail <- outbreak_reports_detail %>%
+    outbreak_reports_detail <- outbreak_reports_detail |>
       rename(wildlife_type = type_of_wildlife)
   }
 
@@ -228,6 +228,7 @@ get_wahis_time_series <- function(wahis_raw) {
            end_date = outbreak_end_date,
            taxon = species_name)|>
     select(
+      unique_id,
       source,
       outbreak_thread_id,
       outbreak_location_id,
@@ -242,9 +243,7 @@ get_wahis_time_series <- function(wahis_raw) {
     group_by(across(-cases_per_interval)) |>
     mutate(cases_per_interval = sum(cases_per_interval)) |> # Aggregate across reports (sum). This might not be correct
     distinct() |>
-    ungroup() |>
-    mutate(id = 1:n()) |>
-    select(id, everything())
+    ungroup()
 
   wahis_time_series
 }
