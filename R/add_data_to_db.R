@@ -13,14 +13,13 @@ add_data_to_db <- function(data, db_branch, ...) {
   dolt_checkout(db_branch)
   conn <- dolt()
 
-  purrr::iwalk(data, function(tinf, tname) {
+  purrr::iwalk(data, function(table, tname) {
     print(glue::glue("Adding {tname} to db"))
+    #pk = colnames(table)[1]
     dbAddData(conn,
               name = tname,
-              value = tinf$table,
-              update_types = FALSE,
-              primary_key = tinf$primary_key,
-              foreign_key = tinf$foreign_key)
+              value = table,
+              update_types = FALSE)
   })
 
   data_in_db <- dolt_state(conn = conn)

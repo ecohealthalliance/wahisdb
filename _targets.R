@@ -7,12 +7,16 @@ db_branch = "keys"
 nproc = 10
 run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
-wahis <- tar_plan(
+wahisdb <- tar_plan(
 
   # Disease Key (leave cue as thorough because it will only be updated manually)
   tar_target(disease_key_file, "inst/disease_key.csv", format = "file", repository = "local", cue = tar_cue("thorough")),
   tar_target(disease_key, suppressMessages(read_csv(disease_key_file) |> filter(source == "oie") |> mutate(source = "wahis")), cue = tar_cue("thorough")),
   tar_target(disease_key_in_db, add_data_to_db(data = list("disease_key" = disease_key), db_branch), cue = tar_cue('thorough')),
+
+  # Is this the first time adding to db?
+  tar_target(wahis_db_check, {dolt_checkout(db_branch); length(dbListTables(dolt())) <= 1},
+             cue = tar_cue("always")),
 
   # Get full list of available outbreak reports from wahis API
   tar_target(wahis_outbreak_reports_list, scrape_wahis_outbreak_report_list(), cue = tar_cue(run_cue)),
@@ -40,26 +44,23 @@ wahis <- tar_plan(
                                                                       nproc = nproc),
              cue = tar_cue(run_cue)),
 
-  # Minor cleaning and checks before adding to db
+  # Minor cleaning and checks
   tar_target(wahis_outbreak_data_raw_prepped, prep_wahis_outbreak_data_raw(wahis_outbreak_data_raw),
              cue = tar_cue(run_cue)),
 
-  # Assign keys
-  tar_target(wahis_outbreak_data_raw_prepped_with_keys, set_keys_wahis_outbreak_data_raw(wahis_outbreak_data_raw_prepped),
-             cue = tar_cue(run_cue)),
+  # Add to database
+  tar_target(wahis_outbreak_data_raw_prepped_in_db, add_data_to_db(wahis_outbreak_data_raw_prepped, db_branch), cue = tar_cue(run_cue)),
+
+  # Process get outbreak tables (summary and time series)
+  tar_target(wahis_outbreak_data, generate_wahis_outbreak_data(db_branch, wahis_outbreak_data_raw_prepped_in_db), cue = tar_cue(run_cue)), # enforce dependency on raw data being in db
 
   # Add to database
-  tar_target(wahis_outbreak_data_raw_in_db, add_data_to_db(wahis_outbreak_data_raw_prepped_with_keys, db_branch),
-             cue = tar_cue(run_cue)),
+  tar_target(wahis_outbreak_data_in_db, add_data_to_db(wahis_outbreak_data, db_branch), cue = tar_cue(run_cue)),
 
-  # Now do some cleaning to get outbreak tables (summary and time series)
-  #TODO set keys
-  tar_target(wahis_outbreak_data, generate_wahis_outbreak_data(db_branch,
-                                                               wahis_outbreak_data_raw_in_db), cue = tar_cue(run_cue)), # enforce dependency on raw data being in db
-
-  # Add to database
-  tar_target(wahis_outbreak_data_in_db, add_data_to_db(wahis_outbreak_data, db_branch), cue = tar_cue(run_cue))
+  # Set all keys
+  #TODO figure how to skip this target based on wahis_outbreak_data_in_db
+  tar_target(wahis_data_in_db_with_keys, set_keys_wahis_outbreak_data(wahis_db_check, wahis_outbreak_data_in_db))
 
 )
 
-list(wahis)
+list(wahisdb)

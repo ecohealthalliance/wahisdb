@@ -1,9 +1,7 @@
 # wahis_outbreak_data_in_db is required to let targets know that
-# this function needs to be downstream of the wahis_outbreak_data_in_db target.
-generate_wahis_outbreak_data <- function(db_branch, wahis_outbreak_data_in_db) {
+# this function needs to be downstream of the wahis_outbreak_data_raw_prepped_in_db target.
+generate_wahis_outbreak_data <- function(db_branch, wahis_outbreak_data_raw_prepped_in_db) {
 
-  conn <- dbConnect(dolt_local())
-  dolt_checkout(db_branch, conn = conn)
 
   wahis_raw <- get_wahis_raw(db_branch)  # this gets and cleans raw, including handling and renaming fields
 
@@ -12,16 +10,16 @@ generate_wahis_outbreak_data <- function(db_branch, wahis_outbreak_data_in_db) {
     outbreak_time_series = get_wahis_time_series(wahis_raw)
   )
 
-  dbDisconnect(conn)
 
   wahis_outbreak_data
 }
 
 get_wahis_raw <- function(db_branch) {
 
+
   # Pull data from database -------------------------------------------------------------------------
   conn <- dbConnect(dolt_local())
-  doltr::dolt_checkout(db_branch)
+  dolt_checkout(db_branch, conn = conn)
   outbreak_reports_details_raw <- doltr::dbReadTable(conn, "outbreak_reports_details_raw") |> as_tibble()
   outbreak_reports_events_raw <- doltr::dbReadTable(conn, "outbreak_reports_events_raw")|> as_tibble()
   outbreak_reports_ingest_status_log <- doltr::dbReadTable(conn, "outbreak_reports_ingest_status_log")|> as_tibble()
