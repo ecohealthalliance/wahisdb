@@ -42,13 +42,6 @@ prep_wahis_outbreak_data_raw <- function(wahis_outbreak_data_raw) {
       filter(!unique_id %in% outbreak_reports_details_raw_dup_ids) # handful of dupes, removed
   }
 
-  # outbreak_reports_diseases_unmatched
-  # if(is.null( wahis_outbreak_data_raw[["outbreak_reports_diseases_unmatched"]])) {
-  #   message("outbreak_reports_diseases_unmatched was NULL.")
-  # }else{
-  #   wahis_outbreak_data_raw$outbreak_reports_diseases_unmatched <- wahis_outbreak_data_raw$outbreak_reports_diseases_unmatched |> distinct(disease)
-  # }
-
   # order matters
   list(
     outbreak_reports_ingest_status_log = wahis_outbreak_data_raw$outbreak_reports_ingest_status_log,
