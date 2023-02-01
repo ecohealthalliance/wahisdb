@@ -10,19 +10,17 @@
 #' @export
 add_data_to_db <- function(data, db_branch, ...) {
 
-  conn <- dbConnect(dolt_local(), server_args = list(log_out = "proc.log"))
+  dolt_checkout(db_branch)
+  conn <- dolt()
 
-  dolt_checkout(db_branch, conn = conn)
-
-  purrr::iwalk(data, function(table, tname) {
+  purrr::iwalk(data, function(tinf, tname) {
     print(glue::glue("Adding {tname} to db"))
-    # if(doltr::dbExistsTable(conn, tname)) RMariaDB::dbRemoveTable(conn, tname) # Drop table if exists before adding to make it easier if schema is modified
-    pk = colnames(table)[1]
     dbAddData(conn,
               name = tname,
-              value = table,
+              value = tinf$table,
               update_types = FALSE,
-              primary_key = pk)
+              primary_key = tinf$primary_key,
+              foreign_key = tinf$foreign_key)
   })
 
   data_in_db <- dolt_state(conn = conn)

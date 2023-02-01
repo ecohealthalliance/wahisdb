@@ -1,11 +1,11 @@
 #' Adds a table to a database, updating records with matching primary keys and
 #' appending additional ones. Changes data types if required for expanding
 #' limited-size (text and blob) fields
-#' TODO: allow changing of primary key?
 dbAddData <- function(conn,
                       name,
                       value,
                       primary_key,
+                      foreign_key = NULL,
                       add_new_cols = TRUE,
                       update_types = TRUE,
                       batch_size = 10000){
@@ -17,10 +17,29 @@ dbAddData <- function(conn,
   if(!dbExistsTable(conn, name)) {
     data_types <- dbDataType(conn, value)
     dbCreateTable(conn, name, data_types)
+
+    # PRIMARY KEY
     for(idf in primary_key) {
+      # make sure primary key field is not NULL
       dbExecute(conn, glue::glue("alter table {name} modify {idf} {data_types[idf]} NOT NULL"))
+      # set primary key
+      dbExecute(conn, glue::glue("alter table {name} add constraint pk_{idf}_{name} primary key ({idf})"))
+      }
+
+    # FOREIGN KEY
+    if(!is.null(foreign_key)){
+      for(i in 1:nrow(foreign_key)) {
+
+        fk_field <- foreign_key$field[i]
+        fk_table_name <- foreign_key$table[i]
+
+      # make sure primary key field is not NULL
+      dbExecute(conn, glue::glue("alter table {name} modify {fk_field} {data_types[fk_field]} NOT NULL"))
+      # set foreign key
+      dbExecute(conn, glue::glue("alter table {name} add constraint fk_{fk_field}_{name} foreign key ({fk_field}) references {fk_table_name} ({fk_field})"))
+      }
     }
-    dbExecute(conn, glue::glue("alter table {name} add constraint pk_{name} primary key ({glue::glue_collapse(primary_key, ',')})"))
+
     dbxInsert(conn, name, value, batch_size)
     # Otherwise check if we need new columns in the table and add them
   } else {
