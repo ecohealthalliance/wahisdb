@@ -9,8 +9,8 @@
 
 id_wahis_outbreak_reports_new <- function(wahis_outbreak_reports_list, db_branch, test_max_reports = NULL){
 
-  conn <- dbConnect(dolt_local())
   dolt_checkout(db_branch)
+  conn <- dolt()
 
   # if ingest status log already exists, pull report_info_id of all reports that have already been processed
   if(dbExistsTable(conn, "outbreak_reports_ingest_status_log")){

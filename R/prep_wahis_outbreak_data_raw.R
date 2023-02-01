@@ -42,5 +42,11 @@ prep_wahis_outbreak_data_raw <- function(wahis_outbreak_data_raw) {
   #   wahis_outbreak_data_raw$outbreak_reports_diseases_unmatched <- wahis_outbreak_data_raw$outbreak_reports_diseases_unmatched |> distinct(disease)
   # }
 
-  wahis_outbreak_data_raw
+  # order matters
+  list(
+    outbreak_reports_ingest_status_log = wahis_outbreak_data_raw$outbreak_reports_ingest_status_log,
+    outbreak_reports_events_raw = wahis_outbreak_data_raw$outbreak_reports_events_raw,
+    outbreak_reports_details_raw = wahis_outbreak_data_raw$outbreak_reports_details_raw
+  )
+
 }

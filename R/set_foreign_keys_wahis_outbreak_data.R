@@ -7,19 +7,13 @@
 #' @return
 #' @author Emma Mendelsohn
 #' @export
-set_keys_wahis_outbreak_data <- function(wahis_db_check, wahis_outbreak_data_in_db) {
+set_foreign_keys_wahis_outbreak_data <- function(wahis_db_check, wahis_outbreak_data_in_db) {
 
-  if(!wahis_db_check) return()
+  if(!wahis_db_check) return(message("skipping set_foreign_keys_wahis_outbreak_data"))
 
+  message("setting foreign keys")
   dolt_checkout(db_branch)
   conn <- dolt()
-
-  # primary keys
-  assign_pk(conn, "outbreak_reports_ingest_status_log", "report_info_id")
-  assign_pk(conn, "outbreak_reports_events_raw", "report_id")
-  assign_pk(conn, "outbreak_reports_details_raw", "id")
-  assign_pk(conn, "outbreak_summary", "outbreak_thread_id")
-  assign_pk(conn, "outbreak_time_series", "id")
 
   # foreign keys
   assign_fk(conn, "outbreak_reports_events_raw",  "report_info_id",
@@ -38,11 +32,11 @@ set_keys_wahis_outbreak_data <- function(wahis_db_check, wahis_outbreak_data_in_
 
 }
 
-assign_pk <- function(conn, table, table_field){
-  data_types <- dbDataType(conn, dbReadTable(conn, table))[table_field]
-  dbExecute(conn, glue::glue("alter table {table} modify {table_field} {data_types} NOT NULL"))
-  dbExecute(conn, glue::glue("alter table {table} add constraint pk_{table} primary key ({table_field})"))
-}
+# assign_pk <- function(conn, table, table_field){
+#   data_types <- dbDataType(conn, dbReadTable(conn, table))[table_field]
+#   dbExecute(conn, glue::glue("alter table {table} modify {table_field} {data_types} NOT NULL"))
+#   dbExecute(conn, glue::glue("alter table {table} add constraint pk_{table} primary key ({table_field})"))
+# }
 
 assign_fk <- function(conn, table, table_field, foreign, foreign_field){
   dbExecute(conn, glue::glue("alter table {table} add constraint fk_{table}_{table_field} foreign key ({table_field}) references {foreign} ({foreign_field})"))
