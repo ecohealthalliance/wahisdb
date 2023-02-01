@@ -5,7 +5,7 @@ suppressPackageStartupMessages(
 
 db_branch = "keys"
 nproc = 10
-run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "always") # "thorough" when developing. "always" in CI.
+run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
 wahisdb <- tar_plan(
 
@@ -14,7 +14,7 @@ wahisdb <- tar_plan(
   tar_target(disease_key, suppressMessages(read_csv(disease_key_file) |> filter(source == "oie") |> mutate(source = "wahis")), cue = tar_cue("thorough")),
   tar_target(disease_key_in_db, add_data_to_db(data = list("disease_key" = disease_key),
                                                primary_key_lookup = c("disease_key" = "disease"),
-                                               db_branch), cue = tar_cue('always')),
+                                               db_branch), cue = tar_cue('thorough')),
 
   # Is this the first time adding to db?
   tar_target(wahis_db_check, {dolt_checkout(db_branch); length(dbListTables(dolt())) <= 1},
@@ -40,10 +40,10 @@ wahisdb <- tar_plan(
              cue = tar_cue(run_cue)),
 
   # Process API responses into outbreak data - returns list of tables - limited transformation of raw data
-  tar_target(wahis_outbreak_data_raw, flatten_wahis_outbreak_data_raw(wahis_outbreak_reports_responses,  # API responses for fetched reports
-                                                                      wahis_outbreak_reports_list,   # full outbreak report list for lookup in transform function
-                                                                      wahis_outbreak_reports_list_updated,
-                                                                      nproc = nproc),
+  tar_target(wahis_outbreak_data_raw, transform_wahis_outbreak_data_raw(wahis_outbreak_reports_responses,  # API responses for fetched reports
+                                                                        wahis_outbreak_reports_list,   # full outbreak report list for lookup in transform function
+                                                                        wahis_outbreak_reports_list_updated,
+                                                                        nproc = nproc),
              cue = tar_cue(run_cue)),
 
   # Minor cleaning and checks
@@ -74,6 +74,9 @@ wahisdb <- tar_plan(
                                                        primary_key_lookup = wahis_outbreak_data_primary_keys,
                                                        db_branch = db_branch), cue = tar_cue(run_cue)),
 
+  # Is this the first time adding to db?
+  tar_target(wahis_db_check, {dolt_checkout(db_branch); length(dbListTables(dolt())) <= 1},
+             cue = tar_cue("always")),
   # Set all keys
   #TODO figure how to skip this target based on wahis_outbreak_data_in_db
   tar_target(wahis_data_in_db_with_foreign_keys, set_foreign_keys_wahis_outbreak_data(wahis_db_check, wahis_outbreak_data_in_db, disease_key_in_db))

@@ -18,8 +18,8 @@ get_wahis_raw <- function(db_branch) {
 
 
   # Pull data from database -------------------------------------------------------------------------
-  conn <- dbConnect(dolt_local())
-  dolt_checkout(db_branch, conn = conn)
+  dolt_checkout(db_branch)
+  conn <- dolt()
   outbreak_reports_details_raw <- doltr::dbReadTable(conn, "outbreak_reports_details_raw") |> as_tibble()
   outbreak_reports_events_raw <- doltr::dbReadTable(conn, "outbreak_reports_events_raw")|> as_tibble()
   outbreak_reports_ingest_status_log <- doltr::dbReadTable(conn, "outbreak_reports_ingest_status_log")|> as_tibble()
@@ -58,31 +58,31 @@ get_wahis_raw <- function(db_branch) {
     mutate(is_endemic = str_detect(future_reporting, "the event cannot be considered resolved"))
 
   # Check for missing end_date
-  # if(suppressWarnings(is.null(outbreak_reports_events$end_date))) outbreak_reports_events$end_date <- lubridate::as_datetime(NA)
-  # missing_resolved <- outbreak_reports_events |>
-  #   filter(is.na(end_date)) |>
-  #   filter(is_final_report)
-  #
-  # if(nrow(missing_resolved)){
-  #   # Check threads to confirm these are final. If they are, then assume last report is the end date.
-  #   check_final <- outbreak_reports_events |>
-  #     select(report_id, event_id_oie_reference, report_date) |>
-  #     filter(event_id_oie_reference %in% missing_resolved$event_id_oie_reference) |>
-  #     left_join(missing_resolved |> select(report_id, is_final_report),  by = "report_id") |>
-  #     mutate(is_final_report = coalesce(is_final_report, FALSE)) |>
-  #     group_by(event_id_oie_reference) |>
-  #     mutate(check = report_date == max(report_date)) |>
-  #     ungroup() |>
-  #     mutate(confirm_final = is_final_report == check)
-  #
-  #   check_final_resolved <- check_final |>
-  #     filter(is_final_report, check)
-  #   check_final_unresolved <- check_final |>
-  #     filter(is_final_report, !check)
-  #
-  #   outbreak_reports_events <- outbreak_reports_events |>
-  #     mutate(date_event_resolved = if_else(report_id %in% check_final_resolved$report_id, report_date, date_event_resolved))
-  # }
+  if(suppressWarnings(is.null(outbreak_reports_events$date_event_resolved))) outbreak_reports_events$date_event_resolved <- lubridate::as_datetime(NA)
+  missing_resolved <- outbreak_reports_events |>
+    filter(is.na(date_event_resolved)) |>
+    filter(is_final_report)
+
+  if(nrow(missing_resolved)){
+    # Check threads to confirm these are final. If they are, then assume last report is the end date.
+    check_final <- outbreak_reports_events |>
+      select(report_id, outbreak_thread_id, report_date) |>
+      filter(outbreak_thread_id %in% missing_resolved$outbreak_thread_id) |>
+      left_join(missing_resolved |> select(report_id, is_final_report),  by = "report_id") |>
+      mutate(is_final_report = coalesce(is_final_report, FALSE)) |>
+      group_by(outbreak_thread_id) |>
+      mutate(check = report_date == max(report_date)) |>
+      ungroup() |>
+      mutate(confirm_final = is_final_report == check)
+
+    check_final_resolved <- check_final |>
+      filter(is_final_report, check)
+    check_final_unresolved <- check_final |>
+      filter(is_final_report, !check)
+
+    outbreak_reports_events <- outbreak_reports_events |>
+      mutate(date_event_resolved = if_else(report_id %in% check_final_resolved$report_id, report_date, date_event_resolved))
+  }
 
   # Disease standardization
   # disease_export <- outbreak_reports_events |>

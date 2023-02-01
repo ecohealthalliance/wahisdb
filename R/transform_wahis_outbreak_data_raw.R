@@ -6,7 +6,7 @@
 #' @param nproc
 #' @return
 #' @export
-flatten_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
+transform_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
                                             wahis_outbreak_reports_list,
                                             wahis_outbreak_reports_list_updated,
                                             nproc = nproc) {
