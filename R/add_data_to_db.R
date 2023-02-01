@@ -8,44 +8,23 @@
 #' @return
 #' @author Emma Mendelsohn
 #' @export
-add_data_to_db <- function(data, db_branch, ...) {
+add_data_to_db <- function(data, primary_key_lookup = NULL, db_branch, ...) {
 
-  conn <- dbConnect(dolt_local(), server_args = list(log_out = "proc.log"))
-
-  dolt_checkout(db_branch, conn = conn)
+  dolt_checkout(db_branch)
+  conn <- dolt()
 
   purrr::iwalk(data, function(table, tname) {
-    # # Drop table if exists before adding to make it easier if schema is modified
     print(glue::glue("Adding {tname} to db"))
-    if(doltr::dbExistsTable(conn, tname)) RMariaDB::dbRemoveTable(conn, tname)
-    pk = colnames(table)[1]
+    pk <- primary_key_lookup[tname]
     dbAddData(conn,
               name = tname,
               value = table,
-              update_types = FALSE,
-              primary_key = pk)
+              primary_key = pk,
+              update_types = FALSE)
   })
 
   data_in_db <- dolt_state(conn = conn)
   dbDisconnect(conn)
   data_in_db
-}
-
-update_dolt_field_types <- function(conn, name, value) {
-  df_field_types <- dbDataType(conn, value)
-  df_field_maxsizes <- attr(df_field_types, "max_size")
-  db_field_types <- dbGetQuery(conn,
-                               glue::glue_sql("select column_name,data_type from information_schema.columns where table_name = {name}", .con = conn)) %>%
-    rename_with(tolower) |>
-    mutate(data_type = stringi::stri_trans_tolower(data_type)) %>%
-    pull(data_type, name = column_name)
-  stopifnot(length(df_field_types) == length(db_field_types))
-  db_field_maxsizes <- dolt_type_sizes(db_field_types)
-  for(i in seq_along(db_field_types)) {
-    if (isTRUE(df_field_maxsizes[i] > db_field_maxsizes[i])) {
-      dbExecute(conn,  glue::glue("alter table {name} modify {names(db_field_types)[i]} {df_field_types[i]}"))
-    }
-  }
-
 }
 

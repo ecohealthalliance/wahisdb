@@ -1,36 +1,143 @@
 # wahis_outbreak_data_in_db is required to let targets know that
-# this function needs to be downstream of the wahis_outbreak_data_in_db target.
-generate_wahis_outbreak_data <- function(db_branch, wahis_outbreak_data_in_db) {
+# this function needs to be downstream of the wahis_outbreak_data_raw_prepped_in_db target.
+generate_wahis_outbreak_data <- function(db_branch, wahis_outbreak_data_raw_prepped_in_db) {
 
-  conn <- dbConnect(dolt_local())
-  dolt_checkout(db_branch, conn = conn)
 
-  wahis_raw <- get_wahis_raw(db_branch)
+  wahis_raw <- get_wahis_raw(db_branch)  # this gets and cleans raw, including handling and renaming fields
 
   wahis_outbreak_data <- list(
     outbreak_summary = get_wahis_outbreak_summary(wahis_raw),
     outbreak_time_series = get_wahis_time_series(wahis_raw)
   )
 
-  dbDisconnect(conn)
 
   wahis_outbreak_data
 }
 
 get_wahis_raw <- function(db_branch) {
 
-  conn = dbConnect(dolt_local())
-  doltr::dolt_checkout(db_branch)
 
-  outbreak_reports_details_raw <- doltr::dbReadTable(conn, "outbreak_reports_details_raw")
-  outbreak_reports_events_raw <- doltr::dbReadTable(conn, "outbreak_reports_events_raw")
-
+  # Pull data from database -------------------------------------------------------------------------
+  dolt_checkout(db_branch)
+  conn <- dolt()
+  outbreak_reports_details_raw <- doltr::dbReadTable(conn, "outbreak_reports_details_raw") |> as_tibble()
+  outbreak_reports_events_raw <- doltr::dbReadTable(conn, "outbreak_reports_events_raw")|> as_tibble()
+  outbreak_reports_ingest_status_log <- doltr::dbReadTable(conn, "outbreak_reports_ingest_status_log")|> as_tibble()
   dbDisconnect(conn)
 
-  # Similar logic to previous SQL query
+  # outbreak_reports_events_raw -------------------------------------------------------------------------
+  # First implement renaming and other edits that had previously been done prior to saving raw data
+
+  # Pull in outbreak thread ID
+  lookup_outbreak_thread_id <-  outbreak_reports_ingest_status_log |>
+    select(outbreak_thread_id = event_id_oie_reference, report_info_id)
+
+  outbreak_reports_events <- outbreak_reports_events_raw |>
+    left_join(lookup_outbreak_thread_id,  by = "report_info_id") |>
+    select(outbreak_thread_id, report_id, report_info_id, everything())
+
+  # Iso3c lookup and column renaming
+  outbreak_reports_events <- outbreak_reports_events |>
+    mutate(country_iso3c = countrycode::countrycode(country_or_territory, origin = "country.name", destination = "iso3c")) |>
+    rename_all(recode,
+               country_or_territory = "country",
+               disease_name = "disease",
+               report_title = "report_type",
+               translated_reason = "reason_for_notification",
+               confirmed_on = "date_of_confirmation_of_the_event",
+               start_date = "date_of_start_of_the_event",
+               end_date = "date_event_resolved",
+               last_occurance_date = "date_of_previous_occurrence",
+               disease_type = "serotype",
+               event_description_status = "future_reporting")
+
+  # Adding some fields
+  outbreak_reports_events <- outbreak_reports_events |>
+    mutate(follow_up_number = ifelse(str_detect(report_type, "immediate notification"), 0, str_extract(report_type, "[[:digit:]]+"))) |>
+    mutate(is_final_report = str_detect(report_type, "final report")) |>
+    mutate(is_endemic = str_detect(future_reporting, "the event cannot be considered resolved"))
+
+  # Check for missing end_date
+  if(suppressWarnings(is.null(outbreak_reports_events$date_event_resolved))) outbreak_reports_events$date_event_resolved <- lubridate::as_datetime(NA)
+  missing_resolved <- outbreak_reports_events |>
+    filter(is.na(date_event_resolved)) |>
+    filter(is_final_report)
+
+  if(nrow(missing_resolved)){
+    # Check threads to confirm these are final. If they are, then assume last report is the end date.
+    check_final <- outbreak_reports_events |>
+      select(report_id, outbreak_thread_id, report_date) |>
+      filter(outbreak_thread_id %in% missing_resolved$outbreak_thread_id) |>
+      left_join(missing_resolved |> select(report_id, is_final_report),  by = "report_id") |>
+      mutate(is_final_report = coalesce(is_final_report, FALSE)) |>
+      group_by(outbreak_thread_id) |>
+      mutate(check = report_date == max(report_date)) |>
+      ungroup() |>
+      mutate(confirm_final = is_final_report == check)
+
+    check_final_resolved <- check_final |>
+      filter(is_final_report, check)
+    check_final_unresolved <- check_final |>
+      filter(is_final_report, !check)
+
+    outbreak_reports_events <- outbreak_reports_events |>
+      mutate(date_event_resolved = if_else(report_id %in% check_final_resolved$report_id, report_date, date_event_resolved))
+  }
+
+  # Disease standardization
+  # disease_export <- outbreak_reports_events |>
+  #   distinct(disease, causal_agent) |>
+  #   mutate_all(~tolower(trimws(.)))
+  # write_csv(disease_export, here::here("inst/diseases/outbreak_report_diseases.csv"))
+
+  ando_disease_lookup <- readxl::read_xlsx(here::here("inst", "ando_disease_lookup.xlsx")) |> # this can be manually edited
+    mutate(disease = textclean::replace_non_ascii(disease)) |>
+    rename(disease_class = class_desc) |>
+    filter(report == "animal") |>
+    select(-report, -no_match_found) |>
+    mutate_at(.vars = c("ando_id", "preferred_label", "disease_class"), ~na_if(., "NA"))
+
+  outbreak_reports_events <- outbreak_reports_events |>
+    mutate(disease = trimws(disease)) |>
+    mutate(disease = textclean::replace_non_ascii(disease)) |>
+    mutate(disease = ifelse(disease == "", causal_agent, disease)) |>
+    mutate(disease = str_remove_all(disease, "\\s*\\([^\\)]+\\)")) |>
+    mutate(disease = str_remove(disease, "virus")) |>
+    mutate(disease = trimws(disease)) |>
+    left_join(ando_disease_lookup, by = "disease") |>
+    mutate(disease = coalesce(preferred_label, disease)) |>
+    select(-preferred_label) |>
+    distinct()
+
+  diseases_unmatched <- outbreak_reports_events |>
+    filter(is.na(ando_id)) |>
+    distinct(disease) |>
+    mutate(table = "outbreak_animal")
+
+  # outbreak_reports_details_raw -------------------------------------------------------------------------
+  # First implement renaming and other edits that had previously been done prior to saving raw data
+  outbreak_reports_detail <- outbreak_reports_details_raw |>
+    select(-starts_with("total_")) |> # these are rolling and values and may cause confusion
+    rename(outbreak_location_id = oie_reference) |>
+    mutate_at(vars(suppressWarnings(one_of("susceptible", "cases", "deaths", "killed_and_disposed", "slaughtered_for_commercial_use"))), ~replace_na(., 0))
+
+  cnames <- colnames(outbreak_reports_detail)
+
+  if("wildlife_type" %in% cnames & "type_of_wildlife" %in% cnames){
+    outbreak_reports_detail <- outbreak_reports_detail |>
+      mutate(wildlife_type = coalesce(wildlife_type, type_of_wildlife)) |>
+      select(-type_of_wildlife)
+  }
+  if(!"wildlife_type" %in% cnames & "type_of_wildlife" %in% cnames){
+    outbreak_reports_detail <- outbreak_reports_detail |>
+      rename(wildlife_type = type_of_wildlife)
+  }
+
+  # combine details and events -------------------------------------------------------------------------
+
   # Note both duration_in_days and interval can't be zero.
-  wahis_raw <- outbreak_reports_details_raw |>
-    left_join(outbreak_reports_events_raw, by = "report_id") |>
+  wahis_raw <- outbreak_reports_detail |>
+    left_join(outbreak_reports_events, by = "report_id") |>
     mutate(source = "wahis",
            location = country,
            location_adm_level = "Country")
@@ -121,6 +228,7 @@ get_wahis_time_series <- function(wahis_raw) {
            end_date = outbreak_end_date,
            taxon = species_name)|>
     select(
+      unique_id,
       source,
       outbreak_thread_id,
       outbreak_location_id,
@@ -135,9 +243,7 @@ get_wahis_time_series <- function(wahis_raw) {
     group_by(across(-cases_per_interval)) |>
     mutate(cases_per_interval = sum(cases_per_interval)) |> # Aggregate across reports (sum). This might not be correct
     distinct() |>
-    ungroup() |>
-    mutate(id = 1:n()) |>
-    select(id, everything())
+    ungroup()
 
   wahis_time_series
 }

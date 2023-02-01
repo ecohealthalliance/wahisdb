@@ -11,6 +11,8 @@ scrape_wahis_outbreak_report_list <- function() {
                                encode = "json")
   report_list <- content(report_list_response)[[2]]
   assertthat::assert_that(length(report_list) < page_size)
-  reports <- map_dfr(report_list, as_tibble) |>  janitor::clean_names()
+  reports <- map_dfr(report_list, as_tibble) |>
+    janitor::clean_names() |>
+    rename(dashboard_report_id = report_id) # this needs to be changed, otherwise we end up with two separate and unrelated report_id fields in our db
   return(reports)
   }
