@@ -22,8 +22,9 @@ set_foreign_keys_wahis_outbreak_data <- function(wahis_db_check, wahis_outbreak_
   assign_fk(conn, "outbreak_reports_details_raw",  "report_id",
             "outbreak_reports_events_raw", "report_id")
 
-  assign_fk(conn, "outbreak_summary",  "disease",
-            "disease_key", "disease")
+  # had to comment this out - foreign key will be violated for new diseases not included in disease_key
+  # assign_fk(conn, "outbreak_summary",  "disease",
+  #           "disease_key", "disease")
 
   assign_fk(conn, "outbreak_time_series",  "outbreak_thread_id",
             "outbreak_summary", "outbreak_thread_id")

@@ -11,20 +11,20 @@ transform_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
                                               wahis_outbreak_reports_list_updated,
                                               nproc = nproc) {
 
-  if (nproc > 1) {
-    oplan <- plan(callr, workers = nproc)
-  } else {
-    oplan <- plan(sequential)
-  }
-  on.exit(plan(oplan), add = TRUE)
-
   if(nrow(wahis_outbreak_reports_list_updated) == 0) return(NULL)
   if(all(wahis_outbreak_reports_list_updated$ingest_error)) return(NULL)
 
-  wahis_outbreak_data <- split(wahis_outbreak_reports_responses, (1:length(wahis_outbreak_reports_responses)-1) %/% 1000) %>% # batching by 1000s (probably only necessary for initial run)
-    future_map(., flatten_outbreak_reports)
+    message("Transforming outbreak reports")
 
-  wahis_outbreak_data <- transpose(wahis_outbreak_data) %>%
+  wahis_outbreak_data <- split(wahis_outbreak_reports_responses, (1:length(wahis_outbreak_reports_responses)-1) %/% 100) |> # batching by 10s0s (probably only necessary for initial run)
+    bettermc::mclapply(mc.silent = F,
+                       mc.progress = T,
+                       mc.allow.fatal = T,
+                       mc.preschedule = F, # mc.preschedule = F is dynamic scheduling
+                       mc.cores = getOption("mc.cores", nproc),
+                       flatten_outbreak_reports)
+
+  wahis_outbreak_data <- transpose(wahis_outbreak_data) |>
     map(function(x) reduce(x, bind_rows))
 
   wahis_outbreak_data$outbreak_reports_ingest_status_log <- wahis_outbreak_reports_list_updated
@@ -50,8 +50,6 @@ transform_wahis_outbreak_data_raw <- function(wahis_outbreak_reports_responses,
 flatten_outbreak_reports <- function(outbreak_reports#, report_list
 ) {
 
-  message("Transforming outbreak reports")
-
   # Preprocessing ---------------------------------------------------
   # outbreak_reports[which(map_int(outbreak_reports, length)==2)]
 
@@ -66,26 +64,26 @@ flatten_outbreak_reports <- function(outbreak_reports#, report_list
   # Initial flattening
   outbreak_reports_events <- map_dfr(outbreak_reports2, function(x){
     map_dfc(c("senderDto", "generalInfoDto", "reportDto", "report_info_id"), function(tbl){
-      out <- x[[tbl]] %>%
-        compact() %>%
+      out <- x[[tbl]] |>
+        compact() |>
         as_tibble()
-      if(tbl=="generalInfoDto") out <- out %>% select(-one_of("reportDate"))
-      if(tbl=="totalCases" & nrow(out)) out <- out %>% rename(total_cases = value)
-      if(tbl=="report_info_id" & nrow(out)) out <- out %>% rename(report_info_id = value)
+      if(tbl=="generalInfoDto") out <- out |> select(-one_of("reportDate"))
+      if(tbl=="totalCases" & nrow(out)) out <- out |> rename(total_cases = value)
+      if(tbl=="report_info_id" & nrow(out)) out <- out |> rename(report_info_id = value)
       return(out)
     })
-  }) %>%
+  }) |>
     janitor::clean_names()
 
-  outbreak_reports_events <- outbreak_reports_events %>%
+  outbreak_reports_events <- outbreak_reports_events |>
     mutate(country_or_territory = case_when(
       country_or_territory == "Central African (Rep.)" ~ "Central African Republic",
       country_or_territory == "Dominican (Rep.)" ~ "Dominican Republic",
       country_or_territory == "Ceuta" ~ "Morocco",
       country_or_territory == "Melilla"~ "Morocco",
       TRUE ~ country_or_territory
-    )) %>%
-    mutate_if(is.character, tolower)  %>%
+    )) |>
+    mutate_if(is.character, tolower)  |>
     select(suppressWarnings(one_of("report_id",
                                    "report_info_id",
                                    "country_or_territory",
@@ -106,7 +104,7 @@ flatten_outbreak_reports <- function(outbreak_reports#, report_list
     )
 
   # Dates handling - convert to  ISO-8601
-  outbreak_reports_events <- outbreak_reports_events %>%
+  outbreak_reports_events <- outbreak_reports_events |>
     mutate_at(vars(contains("date")), ~lubridate::as_datetime(.))
 
 
@@ -161,15 +159,15 @@ flatten_outbreak_reports <- function(outbreak_reports#, report_list
 
     outbreak_reports_detail <- reduce(outbreak_reports_detail, bind_rows)
 
-    outbreak_reports_detail <- outbreak_reports_detail %>%
-      mutate_if(is.character, tolower) %>%
-      janitor::clean_names()  %>%
-      select(-suppressWarnings(one_of("prod_type"))) %>%
-      select(-suppressWarnings(one_of("specie_id")), -suppressWarnings(one_of("morbidity")), -suppressWarnings(one_of("mortality")), -suppressWarnings(one_of("outbreak_info_id")), -suppressWarnings(one_of("outbreak_id"))) %>%
-      rename_with(~str_replace(., "^spicie_name$", "species_name"), suppressWarnings(one_of("spicie_name"))) %>%
-      rename_with( ~str_replace(., "^killed$", "killed_and_disposed"), suppressWarnings(one_of("killed"))) %>%
-      rename_with( ~str_replace(., "^slaughtered$", "slaughtered_for_commercial_use"), suppressWarnings(one_of("slaughtered"))) %>%
-      mutate_all(~na_if(., "" )) %>%
+    outbreak_reports_detail <- outbreak_reports_detail |>
+      mutate_if(is.character, tolower) |>
+      janitor::clean_names()  |>
+      select(-suppressWarnings(one_of("prod_type"))) |>
+      select(-suppressWarnings(one_of("specie_id")), -suppressWarnings(one_of("morbidity")), -suppressWarnings(one_of("mortality")), -suppressWarnings(one_of("outbreak_info_id")), -suppressWarnings(one_of("outbreak_id"))) |>
+      rename_with(~str_replace(., "^spicie_name$", "species_name"), suppressWarnings(one_of("spicie_name"))) |>
+      rename_with( ~str_replace(., "^killed$", "killed_and_disposed"), suppressWarnings(one_of("killed"))) |>
+      rename_with( ~str_replace(., "^slaughtered$", "slaughtered_for_commercial_use"), suppressWarnings(one_of("slaughtered"))) |>
+      mutate_all(~na_if(., "" )) |>
       mutate_at(vars(contains("date")), ~lubridate::as_datetime(.))
 
     cnames <- colnames(outbreak_reports_detail)

@@ -14,7 +14,8 @@ prep_wahis_outbreak_data_raw <- function(wahis_outbreak_data_raw) {
   wahis_outbreak_data_raw$outbreak_reports_events_raw <- wahis_outbreak_data_raw$outbreak_reports_events_raw |>
     dplyr::select(-all_of(starts_with("sender_"))) |>
     dplyr::select(-one_of("send_path")) |>
-    dplyr::select(-one_of("description"))  # too long, this info should be avail elsewhere
+    dplyr::select(-one_of("description")) |> # too long, this info should be avail elsewhere
+    dplyr::select(-one_of("report_desc"))   # too long, this info should be avail elsewhere
 
   # outbreak_reports_details_raw
   if(is.null( wahis_outbreak_data_raw[["outbreak_reports_details_raw"]])) {
