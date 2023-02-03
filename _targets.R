@@ -75,7 +75,21 @@ wahisdb <- tar_plan(
                                                        db_branch = db_branch), cue = tar_cue(run_cue)),
 
   # Set all keys
-  tar_target(wahis_data_in_db_with_foreign_keys, set_foreign_keys_wahis_outbreak_data(wahis_db_check, wahis_outbreak_data_in_db, disease_key_in_db))
+  tar_target(wahis_data_in_db_with_foreign_keys, set_foreign_keys_wahis_outbreak_data(wahis_db_check, wahis_outbreak_data_in_db, disease_key_in_db)),
+
+  # Add schema
+  tar_target(schema_field_info_file, "inst/schema_field_info.xlsx", format = "file", repository = "local", cue = tar_cue("thorough")),
+  tar_target(schema_table_info_file, "inst/schema_table_info.xlsx", format = "file", repository = "local", cue = tar_cue("thorough")),
+
+  tar_target(schema_field_info, readxl::read_excel(schema_field_info_file), cue = tar_cue("thorough")),
+  tar_target(schema_table_info, readxl::read_excel(schema_table_info_file), cue = tar_cue("thorough")),
+
+  tar_target(schema_in_db, add_data_to_db(data = list("schema_table_info" = schema_table_info,
+                                                      "schema_field_info" = schema_field_info),
+                                          primary_key_lookup = c("schema_table_info" = "table_name",
+                                                                 "schema_field_info" = "id"),
+                                          db_branch), cue = tar_cue('always'))
+
 
 )
 
