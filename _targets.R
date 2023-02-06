@@ -61,7 +61,7 @@ wahisdb <- tar_plan(
                                                            primary_key_lookup = wahis_outbreak_data_raw_primary_keys,
                                                            db_branch = db_branch), cue = tar_cue(run_cue)),
 
-  # Process get outbreak tables (summary and time series)
+  # Process outbreak tables (summary and time series)
   tar_target(wahis_outbreak_data, generate_wahis_outbreak_data(db_branch, wahis_outbreak_data_raw_in_db), cue = tar_cue(run_cue)), # enforce dependency on raw data being in db
 
   # Set primary keys
@@ -70,6 +70,9 @@ wahisdb <- tar_plan(
              cue = tar_cue(run_cue)),
 
   # Add to database
+  # first delete tables otherwise inserting new data takes too long (this will only be triggered if there are changes to wahis_outbreak_data)
+  tar_target(wahis_outbreak_data_in_db_rm, remove_db_tables(db_branch, wahis_outbreak_data), cue = tar_cue(run_cue)), # enforce dependency on raw data being in db
+
   tar_target(wahis_outbreak_data_in_db, add_data_to_db(data = wahis_outbreak_data,
                                                        primary_key_lookup = wahis_outbreak_data_primary_keys,
                                                        db_branch = db_branch), cue = tar_cue(run_cue)),
@@ -88,7 +91,7 @@ wahisdb <- tar_plan(
                                                       "schema_field_info" = schema_field_info),
                                           primary_key_lookup = c("schema_table_info" = "table_name",
                                                                  "schema_field_info" = "id"),
-                                          db_branch), cue = tar_cue('always'))
+                                          db_branch), cue = tar_cue(run_cue))
 
 
 )
