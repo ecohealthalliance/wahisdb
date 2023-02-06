@@ -7,7 +7,7 @@ dbAddData <- function(conn,
                       primary_key,
                       add_new_cols = TRUE,
                       update_types = TRUE,
-                      batch_size = 10000){
+                      batch_size = 1000){
 
   if(is.null(value)) return(message(paste(name, "is NULL, no updates to database")))
   if(nrow(value)==0) return(message(paste(name, "has 0 rows, no updates database")))
