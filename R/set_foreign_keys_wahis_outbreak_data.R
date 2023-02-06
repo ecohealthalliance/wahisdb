@@ -7,30 +7,30 @@
 #' @return
 #' @author Emma Mendelsohn
 #' @export
-set_foreign_keys_wahis_outbreak_data <- function(wahis_db_check, wahis_outbreak_data_in_db, disease_key_in_db) {
+set_foreign_keys_wahis_outbreak_data <- function(wahis_outbreak_data_in_db, wahis_outbreak_data_raw_in_db, disease_key_in_db) {
 
-  if(!wahis_db_check) return(message("skipping set_foreign_keys_wahis_outbreak_data"))
+  #if(!wahis_db_check) return(message("skipping set_foreign_keys_wahis_outbreak_data"))
 
   message("setting foreign keys")
   dolt_checkout(db_branch)
   conn <- dolt()
 
   # foreign keys
-  assign_fk(conn, "outbreak_reports_events_raw",  "report_info_id",
-            "outbreak_reports_ingest_status_log", "report_info_id")
+  assign_fk(conn, table = "outbreak_reports_events_raw",  table_field = "report_info_id",
+            foreign = "outbreak_reports_ingest_status_log", foreign_field = "report_info_id")
 
-  assign_fk(conn, "outbreak_reports_details_raw",  "report_id",
-            "outbreak_reports_events_raw", "report_id")
+  assign_fk(conn, table = "outbreak_reports_details_raw",  table_field = "report_id",
+            foreign = "outbreak_reports_events_raw", foreign_field = "report_id")
 
   # had to comment this out - foreign key will be violated for new diseases not included in disease_key
   # assign_fk(conn, "outbreak_summary",  "disease",
   #           "disease_key", "disease")
 
-  assign_fk(conn, "outbreak_time_series",  "outbreak_thread_id",
-            "outbreak_summary", "outbreak_thread_id")
+  assign_fk(conn, table = "outbreak_time_series", table_field = "outbreak_thread_id",
+            foreign = "outbreak_summary", foreign_field = "outbreak_thread_id")
 
-  assign_fk(conn, "outbreak_time_series",  "unique_id",
-            "outbreak_reports_details_raw", "unique_id")
+  assign_fk(conn, table = "outbreak_time_series", table_field = "unique_id",
+            foreign = "outbreak_reports_details_raw", foreign_field = "unique_id")
 
   #TODO connect event_id_oie_reference from outbreak_reports_ingest_status_log with outbreak_thread_id from outbreak_summary
   # in current form this cannot be done because
@@ -48,6 +48,6 @@ set_foreign_keys_wahis_outbreak_data <- function(wahis_db_check, wahis_outbreak_
 # }
 
 assign_fk <- function(conn, table, table_field, foreign, foreign_field){
-  dbExecute(conn, glue::glue("alter table {table} add constraint fk_{table}_{table_field} foreign key ({table_field}) references {foreign} ({foreign_field})"))
+  tryCatch(dbExecute(conn, glue::glue("alter table {table} add constraint fk_{table}_{table_field} foreign key ({table_field}) references {foreign} ({foreign_field})")), error=function(e) e, warning=function(w) w)
 }
 

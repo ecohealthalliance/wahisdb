@@ -17,8 +17,8 @@ wahisdb <- tar_plan(
                                                db_branch), cue = tar_cue('thorough')),
 
   # Is this the first time adding to db?
-  tar_target(wahis_db_check, {dolt_checkout(db_branch); length(dbListTables(dolt())) <= 1},
-             cue = tar_cue("always")),
+  # tar_target(wahis_db_check, {dolt_checkout(db_branch); length(dbListTables(dolt())) <= 1},
+  #            cue = tar_cue("always")),
 
   # Get full list of available outbreak reports from wahis API
   tar_target(wahis_outbreak_reports_list, scrape_wahis_outbreak_report_list(), cue = tar_cue(run_cue)),
@@ -79,7 +79,7 @@ wahisdb <- tar_plan(
                                                        wahis_outbreak_data_in_db_rm), cue = tar_cue(run_cue)),
 
   # Set all keys
-  tar_target(wahis_data_in_db_with_foreign_keys, set_foreign_keys_wahis_outbreak_data(wahis_db_check, wahis_outbreak_data_in_db, disease_key_in_db)),
+  tar_target(wahis_data_in_db_with_foreign_keys, set_foreign_keys_wahis_outbreak_data(wahis_outbreak_data_in_db, wahis_outbreak_data_raw_in_db, disease_key_in_db)),
 
   # Add schema
   tar_target(schema_field_info_file, "inst/schema_field_info.xlsx", format = "file", repository = "local", cue = tar_cue("thorough")),

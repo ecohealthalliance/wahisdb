@@ -14,7 +14,7 @@ remove_db_tables <- function(db_branch, data) {
   dolt_checkout(db_branch)
   conn <- dolt()
 
-  purrr::iwalk(data, function(table, tname) {
+  purrr::iwalk(rev(data), function(table, tname) {
     if(nrow(table)){
     dbRemoveTable(conn, tname)
     }
