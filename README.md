@@ -51,6 +51,8 @@ publicly available on DoltHub:
   and taxonomy, used to clean the disease names in outbreak_summary.
   `disease` is the primary key, and can be used to join with outbreak
   summary.
+- **scheme_table_info** Description of tables in database (identical to text above).
+- **scheme_field_info** Data dictionary for fields in all database.
 
 ## Repository Structure and Reproducibility
 
