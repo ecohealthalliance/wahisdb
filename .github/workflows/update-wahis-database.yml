@@ -84,7 +84,6 @@ jobs:
         shell: Rscript {0}
 
       - name: Dolt commit
-        if: always()
         run: |
           cd wahisdb
           rm ./.dolt/*.lock
