@@ -75,7 +75,8 @@ wahisdb <- tar_plan(
 
   tar_target(wahis_outbreak_data_in_db, add_data_to_db(data = wahis_outbreak_data,
                                                        primary_key_lookup = wahis_outbreak_data_primary_keys,
-                                                       db_branch = db_branch), cue = tar_cue(run_cue)),
+                                                       db_branch = db_branch,
+                                                       wahis_outbreak_data_in_db_rm), cue = tar_cue(run_cue)),
 
   # Set all keys
   tar_target(wahis_data_in_db_with_foreign_keys, set_foreign_keys_wahis_outbreak_data(wahis_db_check, wahis_outbreak_data_in_db, disease_key_in_db)),
