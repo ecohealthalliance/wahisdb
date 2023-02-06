@@ -16,7 +16,9 @@ remove_db_tables <- function(db_branch, data) {
 
   purrr::iwalk(rev(data), function(table, tname) {
     if(nrow(table)){
-    dbRemoveTable(conn, tname)
+      if(tname %in% dbListTables(conn)){
+        dbRemoveTable(conn, tname)
+      }
     }
   })
 
