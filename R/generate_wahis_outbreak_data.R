@@ -232,6 +232,8 @@ get_wahis_time_series <- function(wahis_raw) {
       source,
       outbreak_thread_id,
       outbreak_location_id,
+      latitude,
+      longitude,
       taxon,
       is_wild,
       is_aquatic,

@@ -24,23 +24,32 @@ prep_wahis_outbreak_data_raw <- function(wahis_outbreak_data_raw) {
     wahis_outbreak_data_raw$outbreak_reports_details_raw <- wahis_outbreak_data_raw$outbreak_reports_details_raw |>
       mutate(unique_id = paste(report_id,
                                oie_reference,
-                                janitor::make_clean_names(str_extract(unique(species_name), "^[^\\(]+")),
+                               str_extract(species_name, "^[^\\(]+"),
                                sep = "_")) |> # report, thread and taxa
+      mutate(unique_id = str_trim(unique_id)) |> # make_clean_names handles dupes
       dplyr::select(unique_id, report_id, oie_reference, species_name, everything()) |>
       dplyr::select(-one_of("affected_desc")) |>
       distinct()
 
-    outbreak_reports_details_raw_dup_ids <- wahis_outbreak_data_raw$outbreak_reports_details_raw |>
-      janitor::get_dupes(unique_id) |>
-      pull(unique_id) |>
-      unique()
+    # ID any dupes
+    outbreak_reports_details_raw_dups <- wahis_outbreak_data_raw$outbreak_reports_details_raw |>
+      janitor::get_dupes(unique_id)
 
-    assert_that(length(outbreak_reports_details_raw_dup_ids)==0)
+    # Mark unique_id's as dupes
+    if(nrow(outbreak_reports_details_raw_dups)){
+      outbreak_reports_details_raw_dups_fix <- outbreak_reports_details_raw_dups |>
+        group_split(unique_id) |>
+        map_dfr(function(x){
+          mutate(x, unique_id = paste0(unique_id, "_DUPE_", row_number()))
+        })
 
-    if(length(outbreak_reports_details_raw_dup_ids)) warning(paste("removing", length(outbreak_reports_details_raw_dup_ids), "dup IDs"))
+      wahis_outbreak_data_raw$outbreak_reports_details_raw <- wahis_outbreak_data_raw$outbreak_reports_details_raw |>
+        filter(!unique_id %in% unique(outbreak_reports_details_raw_dups$unique_id)) |>
+        bind_rows(outbreak_reports_details_raw_dups_fix)
 
-    wahis_outbreak_data_raw$outbreak_reports_details_raw <- wahis_outbreak_data_raw$outbreak_reports_details_raw |>
-      filter(!unique_id %in% outbreak_reports_details_raw_dup_ids) # handful of dupes, removed
+      warning(paste("identified", n_distinct(outbreak_reports_details_raw_dups$unique_id), "duplicate IDs in outbreak_reports_details_raw"))
+
+    }
   }
 
   # order matters

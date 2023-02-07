@@ -92,7 +92,10 @@ wahisdb <- tar_plan(
                                                       "schema_field_info" = schema_field_info),
                                           primary_key_lookup = c("schema_table_info" = "table_name",
                                                                  "schema_field_info" = "id"),
-                                          db_branch), cue = tar_cue("thorough"))
+                                          db_branch), cue = tar_cue("thorough")),
+
+  # README
+  tar_render(readme, path = "README.Rmd")
 
 
 )
