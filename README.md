@@ -51,8 +51,6 @@ publicly available on DoltHub:
   and taxonomy, used to clean the disease names in outbreak_summary.
   `disease` is the primary key, and can be used to join with outbreak
   summary.
-- **scheme_table_info** Description of tables in database (identical to text above).
-- **scheme_field_info** Data dictionary for fields in all database.
 
 ## Repository Structure and Reproducibility
 
@@ -70,29 +68,30 @@ publicly available on DoltHub:
 graph LR
 subgraph Project Workflow
     direction LR
-    x96e683a1482e53af(["disease_key_in_db"]):::skipped --> x86855963fec06e87(["wahis_data_in_db_with_foreign_keys"]):::built
-    xc01c617dffc67677(["wahis_db_check"]):::built --> x86855963fec06e87(["wahis_data_in_db_with_foreign_keys"]):::built
-    x2f446dad029b8aba(["wahis_outbreak_data_in_db"]):::built --> x86855963fec06e87(["wahis_data_in_db_with_foreign_keys"]):::built
-    xee7424e02a59d87c(["wahis_outbreak_reports_new"]):::skipped --> x0124a0ba3158063b(["wahis_outbreak_reports_responses"]):::skipped
-    x3fa380dc1bb2ee6e(["disease_key"]):::skipped --> x96e683a1482e53af(["disease_key_in_db"]):::skipped
-    xbddb73c04cc744ca(["disease_key_file"]):::skipped --> x3fa380dc1bb2ee6e(["disease_key"]):::skipped
-    x34349c57ef636c8a(["schema_field_info_file"]):::skipped --> x16fa573869d1b28a(["schema_field_info"]):::skipped
-    x5ba3623a087a3fa4(["wahis_outbreak_reports_list"]):::skipped --> xf4db92eee1ce8cbd(["wahis_outbreak_data_raw"]):::built
-    x4b355d8586962d34(["wahis_outbreak_reports_list_updated"]):::skipped --> xf4db92eee1ce8cbd(["wahis_outbreak_data_raw"]):::built
-    x0124a0ba3158063b(["wahis_outbreak_reports_responses"]):::skipped --> xf4db92eee1ce8cbd(["wahis_outbreak_data_raw"]):::built
-    x16fa573869d1b28a(["schema_field_info"]):::skipped --> x9c3cd21d02b17883(["schema_in_db"]):::skipped
-    xfc1ba76ca5308d8a(["schema_table_info"]):::skipped --> x9c3cd21d02b17883(["schema_in_db"]):::skipped
-    x935b960f25c25261(["wahis_outbreak_data"]):::built --> x18f23b0962459876(["wahis_outbreak_data_in_db_rm"]):::queued
-    xf3212ca56c0218b5(["wahis_outbreak_data_raw_in_db"]):::built --> x935b960f25c25261(["wahis_outbreak_data"]):::built
-    x5ba3623a087a3fa4(["wahis_outbreak_reports_list"]):::skipped --> xee7424e02a59d87c(["wahis_outbreak_reports_new"]):::skipped
-    x2cff6713548d5654(["schema_table_info_file"]):::skipped --> xfc1ba76ca5308d8a(["schema_table_info"]):::skipped
-    x935b960f25c25261(["wahis_outbreak_data"]):::built --> x2f446dad029b8aba(["wahis_outbreak_data_in_db"]):::built
-    x171611bc127fe3a4(["wahis_outbreak_data_primary_keys"]):::skipped --> x2f446dad029b8aba(["wahis_outbreak_data_in_db"]):::built
-    x0c4622959901315b(["wahis_outbreak_data_raw_prepped"]):::built --> xf3212ca56c0218b5(["wahis_outbreak_data_raw_in_db"]):::built
-    x48332269973d1dbc(["wahis_outbreak_data_raw_primary_keys"]):::skipped --> xf3212ca56c0218b5(["wahis_outbreak_data_raw_in_db"]):::built
-    xf4db92eee1ce8cbd(["wahis_outbreak_data_raw"]):::built --> x0c4622959901315b(["wahis_outbreak_data_raw_prepped"]):::built
-    xee7424e02a59d87c(["wahis_outbreak_reports_new"]):::skipped --> x4b355d8586962d34(["wahis_outbreak_reports_list_updated"]):::skipped
-    x0124a0ba3158063b(["wahis_outbreak_reports_responses"]):::skipped --> x4b355d8586962d34(["wahis_outbreak_reports_list_updated"]):::skipped
+    x96e683a1482e53af(["disease_key_in_db"]):::queued --> x86855963fec06e87(["wahis_data_in_db_with_foreign_keys"]):::queued
+    x2f446dad029b8aba(["wahis_outbreak_data_in_db"]):::queued --> x86855963fec06e87(["wahis_data_in_db_with_foreign_keys"]):::queued
+    xf3212ca56c0218b5(["wahis_outbreak_data_raw_in_db"]):::queued --> x86855963fec06e87(["wahis_data_in_db_with_foreign_keys"]):::queued
+    xee7424e02a59d87c(["wahis_outbreak_reports_new"]):::queued --> x0124a0ba3158063b(["wahis_outbreak_reports_responses"]):::queued
+    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x96e683a1482e53af(["disease_key_in_db"]):::queued
+    xbddb73c04cc744ca(["disease_key_file"]):::queued --> x3fa380dc1bb2ee6e(["disease_key"]):::queued
+    x34349c57ef636c8a(["schema_field_info_file"]):::queued --> x16fa573869d1b28a(["schema_field_info"]):::queued
+    x5ba3623a087a3fa4(["wahis_outbreak_reports_list"]):::skipped --> xf4db92eee1ce8cbd(["wahis_outbreak_data_raw"]):::queued
+    x4b355d8586962d34(["wahis_outbreak_reports_list_updated"]):::queued --> xf4db92eee1ce8cbd(["wahis_outbreak_data_raw"]):::queued
+    x0124a0ba3158063b(["wahis_outbreak_reports_responses"]):::queued --> xf4db92eee1ce8cbd(["wahis_outbreak_data_raw"]):::queued
+    x16fa573869d1b28a(["schema_field_info"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
+    xfc1ba76ca5308d8a(["schema_table_info"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
+    x935b960f25c25261(["wahis_outbreak_data"]):::queued --> x18f23b0962459876(["wahis_outbreak_data_in_db_rm"]):::queued
+    xf3212ca56c0218b5(["wahis_outbreak_data_raw_in_db"]):::queued --> x935b960f25c25261(["wahis_outbreak_data"]):::queued
+    x5ba3623a087a3fa4(["wahis_outbreak_reports_list"]):::skipped --> xee7424e02a59d87c(["wahis_outbreak_reports_new"]):::queued
+    x2cff6713548d5654(["schema_table_info_file"]):::queued --> xfc1ba76ca5308d8a(["schema_table_info"]):::queued
+    x935b960f25c25261(["wahis_outbreak_data"]):::queued --> x2f446dad029b8aba(["wahis_outbreak_data_in_db"]):::queued
+    x18f23b0962459876(["wahis_outbreak_data_in_db_rm"]):::queued --> x2f446dad029b8aba(["wahis_outbreak_data_in_db"]):::queued
+    x171611bc127fe3a4(["wahis_outbreak_data_primary_keys"]):::queued --> x2f446dad029b8aba(["wahis_outbreak_data_in_db"]):::queued
+    x0c4622959901315b(["wahis_outbreak_data_raw_prepped"]):::queued --> xf3212ca56c0218b5(["wahis_outbreak_data_raw_in_db"]):::queued
+    x48332269973d1dbc(["wahis_outbreak_data_raw_primary_keys"]):::queued --> xf3212ca56c0218b5(["wahis_outbreak_data_raw_in_db"]):::queued
+    xf4db92eee1ce8cbd(["wahis_outbreak_data_raw"]):::queued --> x0c4622959901315b(["wahis_outbreak_data_raw_prepped"]):::queued
+    xee7424e02a59d87c(["wahis_outbreak_reports_new"]):::queued --> x4b355d8586962d34(["wahis_outbreak_reports_list_updated"]):::queued
+    x0124a0ba3158063b(["wahis_outbreak_reports_responses"]):::queued --> x4b355d8586962d34(["wahis_outbreak_reports_list_updated"]):::queued
   end
 linkStyle 0 stroke-width:0px;
 ```

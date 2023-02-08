@@ -5,6 +5,10 @@ generate_wahis_outbreak_data <- function(db_branch, wahis_outbreak_data_raw_prep
 
   wahis_raw <- get_wahis_raw(db_branch)  # this gets and cleans raw, including handling and renaming fields
 
+  wahis_raw <- filter(wahis_raw, cases > 0 ) # the raw data contains "previous" outbreaks that are record in the reports
+  # example: https://wahis.woah.org/#/in-review/822?reportId=3063&fromPage=event-dashboard-url
+  # ^ there are three previous outbreaks here that end up as NA which gets converted to 0
+
   wahis_outbreak_data <- list(
     outbreak_summary = get_wahis_outbreak_summary(wahis_raw),
     outbreak_time_series = get_wahis_time_series(wahis_raw)
