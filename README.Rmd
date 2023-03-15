@@ -58,7 +58,7 @@ cat(
 ## Dolt
 -   Install and configure the database software, dolt: https://www.dolthub.com/blog/2020-02-03-dolt-and-dolthub-getting-started/
 -   Install: sudo curl -L https://github.com/dolthub/dolt/releases/latest/download/install.sh | sudo bash
--   Provide credentials: dolt config --global --add user.email YOU@DOMAIN.COM and dolt config --global --add user.name "YOUR NAME"
+-   Provide credentials: `dolt config --global --add user.email YOU@DOMAIN.COM` and `dolt config --global --add user.name "YOUR NAME"`
 Login: dolt login
 -   Copy key to https://www.dolthub.com/settings/credentials
 -   Clone the dolt database: dolt clone ecohealthalliance/wahisdb
