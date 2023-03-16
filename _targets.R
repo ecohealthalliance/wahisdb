@@ -94,10 +94,26 @@ wahisdb <- tar_plan(
                                                                  "schema_field_info" = "id"),
                                           db_branch), cue = tar_cue("thorough")),
 
-  # README
+  # README --- data DOI should
   tar_render(readme, path = "README.Rmd")
 
 
 )
 
-list(wahisdb)
+### run manually,
+db_export <- tar_plan(
+
+  # check out database from last commit
+  # dump db to csv doltr::dump
+  tar_target(dump_paths, get_dolt_dump()),
+  # make deposits object
+  tar_target(dolt_deposits_cli, make_deposits_cli(dump_paths)),
+  # deposit to Zenodo
+  # make frictionless data package
+  tar_targets(frictionless_data_package, make_frictionless_dp(dump_paths))
+  # send reminder to slack/email to update DOI in dolthub
+
+)
+
+list(wahisdb,
+     db_export)
