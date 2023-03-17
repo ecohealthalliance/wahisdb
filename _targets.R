@@ -107,10 +107,10 @@ db_export <- tar_plan(
   # dump db to csv doltr::dump
   tar_target(dump_paths, get_dolt_dump()),
   # make deposits object
-  tar_target(dolt_deposits_cli, make_deposits_cli(dump_paths)),
+  tar_target(dump_deposits_cli, make_deposits_cli(dump_paths)),
   # deposit to Zenodo
   # make frictionless data package
-  tar_targets(frictionless_data_package, make_frictionless_dp(dump_paths))
+  tar_targets(dump_frictionless_data_package, make_frictionless_dp(dolt_deposits_cli))
   # send reminder to slack/email to update DOI in dolthub
 
 )
