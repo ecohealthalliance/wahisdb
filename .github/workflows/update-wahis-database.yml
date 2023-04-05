@@ -15,8 +15,8 @@ on:
   workflow_dispatch:
     branches:
       - '*'
-  schedule:
-   - cron: "0 4 * * 2" # 4am tuesday
+  # schedule:
+  #  - cron: "0 4 * * 2" # 4am tuesday
 
 env:
   TARGETS_DATA_CUE: "always"
