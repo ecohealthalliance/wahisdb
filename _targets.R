@@ -18,26 +18,36 @@ wahisdb <- tar_plan(
 
   # TODO extract weekly data from sharepoint to tmp directory
   # Currently this reads a static saved file - it will be updated to pull the sharepoint extracts
-  tar_target(wahis_sharepoint_extract, "wahis-extracts/infur_20230414.xlsx",
+  tar_target(wahis_extract_file, "wahis-extracts/infur_20230414.xlsx",
              format = "file",
-             repository = "local", cue = tar_cue(run_cue)),
-  tar_target(wahis_raw, readxl::read_excel(wahis_sharepoint_extract, sheet = 2), cue = tar_cue("thorough")),
+             repository = "local", cue = tar_cue("thorough")),
+  tar_target(wahis_extract, readxl::read_excel(wahis_extract_file, sheet = 2), cue = tar_cue("thorough")),
 
   # Process into epi_event and outbreak table
-  tar_target(wahis_tables, create_wahis_tables(wahis_raw), cue = tar_cue(run_cue)),
-
-  # Set primary keys
-  tar_target(wahis_primary_keys, c("wahis_epi_event" = "epi_event_id",
-                                   "wahis_outbreaks" = "unique_id"),
-             cue = tar_cue(run_cue)),
+  #TODO deal with dupes in epi_events
+  tar_target(wahis_tables, create_wahis_tables(wahis_extract), cue = tar_cue(run_cue)),
 
   # Add to database
   tar_target(wahis_tables_in_db, add_data_to_db(data = wahis_tables,
-                                                primary_key_lookup = wahis_primary_keys,
+                                                primary_key_lookup = c("wahis_epi_events" = "epi_event_id",
+                                                                       "wahis_outbreaks" = "unique_id"),
                                                 db_branch = db_branch), cue = tar_cue(run_cue)),
 
-  # TODO clean disease name and species
-  # TODO schema
+  # TODO clean disease name
+  # TODO set foreign keys
+
+  # Read schema (this can also come from the sharepoint pull)
+  tar_target(schema_extract_file, "wahis-extracts/Field_description.xlsx", format = "file", repository = "local", cue = tar_cue("thorough")),
+  tar_target(schema_extract, readxl::read_excel(schema_extract_file), cue = tar_cue("thorough")),
+  tar_target(schema_fields, process_schema(schema_extract, wahis_tables, disease_key), cue = tar_cue("thorough")),
+  tar_target(schema_tables, create_table_schema(), cue = tar_cue("thorough")),
+
+  # tar_target(schema_in_db, add_data_to_db(data = list("schema_tables" = schema_tables,
+  #                                                     "schema_fields" = schema_fields),
+  #                                         primary_key_lookup = c("schema_table" = "table",
+  #                                                                "schema_fields" = "id"),
+  #                                         db_branch), cue = tar_cue("thorough")),
+
   # TODO readme
 
 )

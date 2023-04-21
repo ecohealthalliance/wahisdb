@@ -1,11 +1,13 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|276f7a8a394e2bb1|||||||||||||||
+.Random.seed|object|288cf89be357a52c|||||||||||||||
 add_data_to_db|function|d080ca0eecac87e3|||||||||||||||
 add_wahis_outbreak_data_raw_to_db|function|7814edfd2e1c5563|||||||||||||||
 add_wahis_outbreak_data_to_db|function|6266074eed3312c2|||||||||||||||
 assign_fk|function|629f4bddf2d411e1|||||||||||||||
 assign_pk|function|5c2ae7aa7a1abe00|||||||||||||||
-create_wahis_tables|function|e4ea3142b2a0e927|||||||||||||||
+create_table_schema|function|e6c194d3547049e0|||||||||||||||
+create_wahis_tables|function|c8ed02d6a4a595b6|||||||||||||||
+create_wahis_tables_old|function|9612b9ca62d96cdc|||||||||||||||
 db_branch|object|5a1ae31a2bbcb455|||||||||||||||
 dbAddData|function|851b88bf6a25200d|||||||||||||||
 delete_all|function|3b6da78f8cd3a9dd|||||||||||||||
@@ -29,17 +31,22 @@ id_wahis_outbreak_reports_new|function|709580a75a96d6fa|||||||||||||||
 ingest_report|function|30ab4881252dd6e7|||||||||||||||
 nproc|object|f3582cdc107e111b|||||||||||||||
 prep_wahis_outbreak_data_raw|function|37bb06d4d0a681e9|||||||||||||||
+process_schema|function|e6ccf1962ee96dad|||||||||||||||
 process_wahis_outbreak_data|function|777becd9c5e6cd6d|||||||||||||||
 process_wahis_outbreak_data_raw|function|3980f8bf7b7d77a2|||||||||||||||
 readme|stem|cf8ed07108560784|2419a0f44a0792be|4745aa592080ea1d|-165896733|README.md*README.Rmd|t19396.6127721477s|53dd909920cbfa40|12562|file|local|vector|||2.826||
 remove_db_tables|function|e073994dcea95e8b|||||||||||||||
 run_cue|object|5dfd2b49ee8a5f13|||||||||||||||
 safe_ingest|function|84658a37ba407492|||||||||||||||
+schema_extract|stem|36d589562273823e|285cb38da424008e|d3dba562669babaa|-627376150||t19468.7875218667s|c6c5ab984638e7c4|1474|rds|local|vector|||0.005||
+schema_extract_file|stem|6cd0a04fa305bb96|bb5c3432f8f01543|ef46db3751d8e999|-1042685371|wahis-extracts/Field_description.xlsx|t19467.7566811889s|e13fae73bb248685|22461|file|local|vector|||0.001||
 schema_field_info|stem|1e1bbd82ab0032e4|c3a951b022e8ad95|83b51124428f66d9|-1564720866||t19395.6191760921s|2fd8c9c68aa0eda1|3315|rds|local|vector|||0.013||
 schema_field_info_file|stem|bd663fbb9b5322f9|a48a51b0cc1be4ae|ef46db3751d8e999|1772838377|inst/schema_field_info.xlsx|t19395.6362359463s|27c5c6319085e092|17396|file|local|vector|||0.002||
-schema_in_db|stem|3e7cf62327fa4fbc|5e1846f83bdcdb9f|e6716e81bfb0a90b|-317300073||t19395.6862850345s|0e833cdd3158622c|249|rds|local|vector|||0.218||
+schema_fields|stem|e9e57ad39bfe8186|fddbb2c20772ea5c|c8644be27da4983f|362133226||t19468.7877287702s|3caa5a62531c33a4|1781|rds|local|vector|||0.09||
+schema_in_db|stem|3e7cf62327fa4fbc|8b20e92f60434279|a4fe6f81d95b1cd9|-317300073||t19395.6862850345s||249|rds|local|vector|||0.096||unknown error Code INVALID_ARGUMENTsyntax error at position 39 near NA 1105
 schema_table_info|stem|df14632c5769ac3e|869eb4e00cb6aeaf|46029ea06c27da4d|432659708||t19395.6191756362s|0ec2cb13f9ef3fc4|941|rds|local|vector|||0.007||
 schema_table_info_file|stem|3c749ee09efe8cc4|5be6fbaf4e98fb72|ef46db3751d8e999|-639554589|inst/schema_table_info.xlsx|t19395.6362391648s|6a569d8313764444|9890|file|local|vector|||0||
+schema_tables|stem|12a9bde49af10951|999e3a9d528b1b26|fa0fc1b7d149dc75|-243871903||t19468.787992978s|642b43294e0d7120|484|rds|local|vector|||0.001||
 scrape_outbreak_report_list|function|82a2efe3f0c46610|||||||||||||||
 scrape_report_list|function|c5169c5144bd313b|||||||||||||||
 scrape_six_month_report_list|function|07bf9458085e5c61|||||||||||||||
@@ -51,10 +58,12 @@ transform_outbreak_reports|function|89ef0056a9afb262|||||||||||||||
 transform_wahis_outbreak_data_raw|function|5ad08658b0c2569f|||||||||||||||
 update_dolt_field_types|function|b639368e9e10cd14|||||||||||||||
 update_wahis_outbreak_reports_list|function|3c9a2bf385247d1b|||||||||||||||
-user_rprof|object|665d4a885691e53e|||||||||||||||
+user_rprof|object|da6e9b4c86f83e6c|||||||||||||||
 wahis|object|1ef94e72ba1befe9|||||||||||||||
 wahis_data_in_db_with_foreign_keys|stem|bb98630c05b5bd13|ecea15f1248727d2|e783bd6783dd9e15|-2076221891||t19396.6135395388s|44989414465ff33d|49|rds|local|vector|||2.82||
 wahis_db_check|stem|e03c01cf252c4480|dc2a5bb8f2554cba|295744c9d16d4ac9|-520703552||t19391.8040651432s|ac45463db19e2cbe|48|rds|local|vector|||0.134||
+wahis_extract|stem|9dff7905665080eb|8640011e24d3ace0|f883b1e6baf9105c|243647958||t19468.7868564589s|6d3bc68680872e79|6551801|rds|local|vector|||5.111||
+wahis_extract_file|stem|25d396d9682367a6|21a7f35107a0b09d|ef46db3751d8e999|1786063758|wahis-extracts/infur_20230414.xlsx|t19467.6520125033s|5a6b125b87e40cc3|32451044|file|local|vector|||0||
 wahis_get_outbreak_reports_new|function|9139c61709edcf43|||||||||||||||
 wahis_get_outbreak_reports_responses|function|2cd1b4d65eaca281|||||||||||||||
 wahis_outbreak_data|stem|254c97bb0b2f821f|1f3081fd92b20703|03ab9fcd406844be|1098903971||t19396.6133377921s|7166b346b55deb8d|2176924|rds|local|vector|||47.881|Some values were not matched unambiguously guadaloupe, türkiye|
@@ -62,7 +71,7 @@ wahis_outbreak_data_in_db|stem|087baae9637d79ed|3161c0ca9b5d4b2b|b9f99a651e4737b
 wahis_outbreak_data_in_db_rm|stem|91f531978db59112|b195d91035ac90d7|ded55f1c6682ade3|549641136||t19396.6133392659s|bf1a1ce7cd804ab5|251|rds|local|vector|||0.122||
 wahis_outbreak_data_primary_keys|stem|20f52814a8bbeb95|f0a32cfbbd3c9eac|a3dad144c40657ed|77664102||t19395.6191792676s|237f91a00ac3de41|125|rds|local|vector|||0.001||
 wahis_outbreak_data_raw|stem|91e762a14663dd78|3f058a4319a142a9|3e9a6d80a523cacc|1910656681||t19395.6218338843s|21ed3f875971e269|2042239130|rds|local|vector|||3024.766|04 Unknown columns reportDate. 08 Unknown columns reportDate. 09 Unknown columns reportDate. 09 Unknown columns reportDate. 09 Unknown columns reportDate. 012  1 failed to parse.. 016  1 failed to parse.. 018  1 failed to parse.. 027 Unknown columns reportDate. 031  1 failed to parse.. 047  1 failed to parse.. 047  1 failed to parse.. 099  1 failed to parse.. 0111  1 failed to parse.. 0115  1 failed to parse.. 0121 Unknown columns reportDate. 0137  2 failed to parse.. 0154  1 failed to parse.. 0157  2 failed to parse.. 0167  1 failed to parse.. 0167  1 failed to parse.. 0171  1 failed to parse.. 0179 Unknown columns reportDate. 0188  1 failed to parse.. 0190  1 failed to parse.. 0190  1 failed to parse.. 0207  1 failed to parse.. 0214  1 failed to parse.. 0219 Unknown columns reportDate. 0220 Unknown columns reportDate. 0222  1 failed to parse.. 0223  1 failed to parse.. 0226 Unknown columns reportDate. 0227 Unknown columns reportDate. 0239  1 failed to parse.. 0249  1 failed to parse.. 0251  1 failed to parse.. 0253  1 failed to parse.. 0254 Unknown columns reportDate. 0254  1 failed to parse.. 0255  1 failed to parse.. 0264  1 failed to parse.. 0265  1 failed to parse.. 0266  1 failed to parse.. 0270  1 failed to parse.|
-wahis_outbreak_data_raw_in_db|stem|5b72eaec24386ff6|99cb3910dc409a85|9d9b83a58ae3afd4|-1813694075||t19395.7170367941s||2.22505688254088e-308|rds|local|vector|||0.326||duplicate primary key given 2014.000000 1062
+wahis_outbreak_data_raw_in_db|stem|5b72eaec24386ff6|99cb3910dc409a85|9d9b83a58ae3afd4|-1813694075||t19395.7170367941s||2.22507385824817e-308|rds|local|vector|||0.326||duplicate primary key given 2014.000000 1062
 wahis_outbreak_data_raw_prepped|stem|4948e99acc97d2e2|fd2580ba5c11ce0c|99bd42161d20a413|-749174464||t19395.683278386s|be60ce068ed77491|75433291|rds|local|vector|||36.734|identified 8 duplicate IDs in outbreak_reports_details_raw|
 wahis_outbreak_data_raw_primary_keys|stem|deea48c2482cf8d2|599632374f7c8aba|a3dad144c40657ed|-754890264||t19395.6259435896s|3e0fddb8c2da2da5|154|rds|local|vector|||0||
 wahis_outbreak_reports_list|stem|30b489e93b935b82|f7ee0ed9c2e9f51e|178d83e3f19ed282|1464949454||t19395.6191788316s|b6b5aacf64773558|577854|rds|local|vector|||14.982||
@@ -72,7 +81,7 @@ wahis_outbreak_reports_responses|stem|2577a60cd3772acf|6d7e80af649b5967|f2022a33
 wahis_primary_keys|stem|4ab57afee8d7ce76|eda848242bac3be5|a3dad144c40657ed|1778716195||t19468.6431527943s|758d7d51407f572d|117|rds|local|vector|||0||
 wahis_raw|stem|9dff7905665080eb|2d96de378be809a8|c51df5e22118fafa|1099324385||t19468.6574787263s|6d3bc68680872e79|6551801|rds|local|vector|||4.844||
 wahis_sharepoint_extract|stem|25d396d9682367a6|21a7f35107a0b09d|ef46db3751d8e999|1226250601|wahis-extracts/infur_20230414.xlsx|t19467.6520125033s|5a6b125b87e40cc3|32451044|file|local|vector|||0.001||
-wahis_tables|stem|e1fe5c3a10aa775b|09396dad34f7c8db|a1025a125f62ca96|1199194344||t19468.6587209895s|f6b59cfa82a12634|6384017|rds|local|vector|||2.256||
-wahis_tables_in_db|stem|7b2e9a1f2bf1193e|99cb3910dc409a85|9d9b83a58ae3afd4|-1610566392||t19468.6508388843s|f61d5eec182b6cd2|255|rds|local|vector|||58.521||
+wahis_tables|stem|ff3ece9f79aa8e1c|1100e2f7928cef98|8c35751bc1aec2ce|1199194344||t19468.7897002783s|e2b0f6a195dd622d|6384019|rds|local|vector|||2.297||
+wahis_tables_in_db|stem|7b2e9a1f2bf1193e|5121dfc2ffe3a954|b886220639e627b4|-1610566392||t19468.6508388843s||255|rds|local|vector|||0.31||duplicate primary key given 2014.000000 1062
 wahis_update_outbreak_reports_list|function|3c9a2bf385247d1b|||||||||||||||
-wahisdb|object|3e2f512537c8fb44|||||||||||||||
+wahisdb|object|120e9be6e0f6d5d5|||||||||||||||

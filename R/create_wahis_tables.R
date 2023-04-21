@@ -7,20 +7,20 @@
 #' @return
 #' @author Emma Mendelsohn
 #' @export
-create_wahis_tables <- function(wahis_raw){
+create_wahis_tables <- function(wahis_extract){
 
-  wahis_raw <- wahis_raw  |>
+  wahis_extract <- wahis_extract  |>
     janitor::clean_names() |>
     mutate_if(is.character, tolower)  |>
     mutate_at(vars(contains("date")), lubridate::as_datetime)
 
   # Epi event table is the high level summary of the disease event thread, each row is an event
-  wahis_epi_event <- wahis_raw |>
+  wahis_epi_events <- wahis_extract |>
     select(epi_event_id:terra_aqua) |>
     distinct()
 
   # Outbreak table has subevent information related to individual outbreak locations, taxa
-  wahis_outbreaks <- wahis_raw |>
+  wahis_outbreaks <- wahis_extract |>
     select(epi_event_id, report_id:last_col()) |>
     mutate(unique_id = paste(epi_event_id, report_id, outbreak_id, str_extract(tolower(species), "^[^\\(]+"), sep = "_")) |>
     mutate(unique_id = str_trim(unique_id)) |>
@@ -45,6 +45,6 @@ create_wahis_tables <- function(wahis_raw){
 
   message(paste("identified", n_distinct(wahis_outbreaks_dups$unique_id), "duplicate IDs in wahis outbreaks"))
 
-  return(list("wahis_epi_event" = wahis_epi_event, "wahis_outbreaks" = wahis_outbreaks))
+  return(list("wahis_epi_events" = wahis_epi_events, "wahis_outbreaks" = wahis_outbreaks))
 
 }
