@@ -16,13 +16,24 @@ wahisdb <- tar_plan(
                                                primary_key_lookup = c("disease_key" = "disease"),
                                                db_branch), cue = tar_cue('thorough')),
 
+  # TODO extract weekly data from sharepoint to tmp directory
 
- # Download Sharepoint
+  # Process into epi_events and outbreaks
+  tar_target(wahis_tables, create_wahis_tables(), cue = tar_cue(run_cue)),
 
- # Divide into tables per previous structure
- tar_target(wahis_tables, create_wahis_tables())
+  # Set primary keys
+  tar_target(wahis_primary_keys, c("wahis_epi_event" = "epi_event_id",
+                                   "wahis_outbreaks" = "unique_id"),
+             cue = tar_cue(run_cue)),
 
- # Push to dolt
+  # Add to database
+  tar_target(wahis_tables_in_db, add_data_to_db(data = wahis_tables,
+                                                primary_key_lookup = wahis_primary_keys,
+                                                db_branch = db_branch), cue = tar_cue(run_cue)),
+
+  # TODO clean disease name and species
+  # TODO schema
+  # TODO readme
 
 )
 
