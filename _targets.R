@@ -17,9 +17,14 @@ wahisdb <- tar_plan(
                                                db_branch), cue = tar_cue('thorough')),
 
   # TODO extract weekly data from sharepoint to tmp directory
+  # Currently this reads a static saved file - it will be updated to pull the sharepoint extracts
+  tar_target(wahis_sharepoint_extract, "wahis-extracts/infur_20230414.xlsx",
+             format = "file",
+             repository = "local", cue = tar_cue(run_cue)),
+  tar_target(wahis_raw, readxl::read_excel(wahis_sharepoint_extract, sheet = 2), cue = tar_cue("thorough")),
 
-  # Process into epi_events and outbreaks
-  tar_target(wahis_tables, create_wahis_tables(), cue = tar_cue(run_cue)),
+  # Process into epi_event and outbreak table
+  tar_target(wahis_tables, create_wahis_tables(wahis_raw), cue = tar_cue(run_cue)),
 
   # Set primary keys
   tar_target(wahis_primary_keys, c("wahis_epi_event" = "epi_event_id",

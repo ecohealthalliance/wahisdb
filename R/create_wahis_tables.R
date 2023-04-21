@@ -7,25 +7,26 @@
 #' @return
 #' @author Emma Mendelsohn
 #' @export
-create_wahis_tables <- function(){
+create_wahis_tables <- function(wahis_raw){
 
-  # temp read from saved file, until we get extraction from sharepoint figured out
-  dat <- readxl::read_excel(here::here("wahis-extracts", "infur_20230414.xlsx"), sheet = 2) |>
+  wahis_raw <- wahis_raw  |>
     janitor::clean_names() |>
     mutate_if(is.character, tolower)  |>
     mutate_at(vars(contains("date")), lubridate::as_datetime)
 
-  wahis_epi_event <- dat |>
+  # Epi event table is the high level summary of the disease event thread, each row is an event
+  wahis_epi_event <- wahis_raw |>
     select(epi_event_id:terra_aqua) |>
     distinct()
 
-  wahis_outbreaks <- dat |>
+  # Outbreak table has subevent information related to individual outbreak locations, taxa
+  wahis_outbreaks <- wahis_raw |>
     select(epi_event_id, report_id:last_col()) |>
     mutate(unique_id = paste(epi_event_id, report_id, outbreak_id, str_extract(tolower(species), "^[^\\(]+"), sep = "_")) |>
     mutate(unique_id = str_trim(unique_id)) |>
     relocate(unique_id, epi_event_id, report_id, outbreak_id, species, everything())
 
-  # ID any dupes
+  # ID dupes
   wahis_outbreaks_dups <- wahis_outbreaks |>
     janitor::get_dupes(unique_id)
 

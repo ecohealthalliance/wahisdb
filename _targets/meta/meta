@@ -1,17 +1,17 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|97bcb195b701b342|||||||||||||||
+.Random.seed|object|276f7a8a394e2bb1|||||||||||||||
 add_data_to_db|function|d080ca0eecac87e3|||||||||||||||
 add_wahis_outbreak_data_raw_to_db|function|7814edfd2e1c5563|||||||||||||||
 add_wahis_outbreak_data_to_db|function|6266074eed3312c2|||||||||||||||
 assign_fk|function|629f4bddf2d411e1|||||||||||||||
 assign_pk|function|5c2ae7aa7a1abe00|||||||||||||||
-create_wahis_tables|function|9612b9ca62d96cdc|||||||||||||||
+create_wahis_tables|function|e4ea3142b2a0e927|||||||||||||||
 db_branch|object|5a1ae31a2bbcb455|||||||||||||||
 dbAddData|function|851b88bf6a25200d|||||||||||||||
 delete_all|function|3b6da78f8cd3a9dd|||||||||||||||
 disease_key|stem|73c4f2c683262aff|56ee358cbbcc3c30|89f6bb05a9d02cf7|-1208351274||t19395.6258782232s|cc5037aa198811cb|5439|rds|local|vector|||0.204||
 disease_key_file|stem|56d13ad4ae6a06ff|fdd28f2dd90d4ca5|ef46db3751d8e999|-144790898|inst/disease_key.csv|t19395.6362364404s|2162e4de2772b351|24482|file|local|vector|||0.001||
-disease_key_in_db|stem|fc0a81a0d5489655|75874076e6421bf8|bf173f1aa592db20|1189961145||t19467.7793099271s|7109262deedf9325|229|rds|local|vector|||0.265||
+disease_key_in_db|stem|560f4a34c574c051|75874076e6421bf8|bf173f1aa592db20|1189961145||t19468.6550862987s|f61d5eec182b6cd2|255|rds|local|vector|||0.235||
 fetch_wahis_outbreak_reports_responses|function|7bf37b664c17317e|||||||||||||||
 flatten_outbreak_reports|function|2e193a73dcfed790|||||||||||||||
 flatten_wahis_outbreak_data_raw|function|49c0d812529506c9|||||||||||||||
@@ -51,7 +51,7 @@ transform_outbreak_reports|function|89ef0056a9afb262|||||||||||||||
 transform_wahis_outbreak_data_raw|function|5ad08658b0c2569f|||||||||||||||
 update_dolt_field_types|function|b639368e9e10cd14|||||||||||||||
 update_wahis_outbreak_reports_list|function|3c9a2bf385247d1b|||||||||||||||
-user_rprof|object|dcb4f4f1a63b97d2|||||||||||||||
+user_rprof|object|665d4a885691e53e|||||||||||||||
 wahis|object|1ef94e72ba1befe9|||||||||||||||
 wahis_data_in_db_with_foreign_keys|stem|bb98630c05b5bd13|ecea15f1248727d2|e783bd6783dd9e15|-2076221891||t19396.6135395388s|44989414465ff33d|49|rds|local|vector|||2.82||
 wahis_db_check|stem|e03c01cf252c4480|dc2a5bb8f2554cba|295744c9d16d4ac9|-520703552||t19391.8040651432s|ac45463db19e2cbe|48|rds|local|vector|||0.134||
@@ -62,7 +62,7 @@ wahis_outbreak_data_in_db|stem|087baae9637d79ed|3161c0ca9b5d4b2b|b9f99a651e4737b
 wahis_outbreak_data_in_db_rm|stem|91f531978db59112|b195d91035ac90d7|ded55f1c6682ade3|549641136||t19396.6133392659s|bf1a1ce7cd804ab5|251|rds|local|vector|||0.122||
 wahis_outbreak_data_primary_keys|stem|20f52814a8bbeb95|f0a32cfbbd3c9eac|a3dad144c40657ed|77664102||t19395.6191792676s|237f91a00ac3de41|125|rds|local|vector|||0.001||
 wahis_outbreak_data_raw|stem|91e762a14663dd78|3f058a4319a142a9|3e9a6d80a523cacc|1910656681||t19395.6218338843s|21ed3f875971e269|2042239130|rds|local|vector|||3024.766|04 Unknown columns reportDate. 08 Unknown columns reportDate. 09 Unknown columns reportDate. 09 Unknown columns reportDate. 09 Unknown columns reportDate. 012  1 failed to parse.. 016  1 failed to parse.. 018  1 failed to parse.. 027 Unknown columns reportDate. 031  1 failed to parse.. 047  1 failed to parse.. 047  1 failed to parse.. 099  1 failed to parse.. 0111  1 failed to parse.. 0115  1 failed to parse.. 0121 Unknown columns reportDate. 0137  2 failed to parse.. 0154  1 failed to parse.. 0157  2 failed to parse.. 0167  1 failed to parse.. 0167  1 failed to parse.. 0171  1 failed to parse.. 0179 Unknown columns reportDate. 0188  1 failed to parse.. 0190  1 failed to parse.. 0190  1 failed to parse.. 0207  1 failed to parse.. 0214  1 failed to parse.. 0219 Unknown columns reportDate. 0220 Unknown columns reportDate. 0222  1 failed to parse.. 0223  1 failed to parse.. 0226 Unknown columns reportDate. 0227 Unknown columns reportDate. 0239  1 failed to parse.. 0249  1 failed to parse.. 0251  1 failed to parse.. 0253  1 failed to parse.. 0254 Unknown columns reportDate. 0254  1 failed to parse.. 0255  1 failed to parse.. 0264  1 failed to parse.. 0265  1 failed to parse.. 0266  1 failed to parse.. 0270  1 failed to parse.|
-wahis_outbreak_data_raw_in_db|stem|5b72eaec24386ff6|99cb3910dc409a85|9d9b83a58ae3afd4|-1813694075||t19395.7170367941s||1.94693962619382e-308|rds|local|vector|||0.326||duplicate primary key given 2014.000000 1062
+wahis_outbreak_data_raw_in_db|stem|5b72eaec24386ff6|99cb3910dc409a85|9d9b83a58ae3afd4|-1813694075||t19395.7170367941s||2.22505688254088e-308|rds|local|vector|||0.326||duplicate primary key given 2014.000000 1062
 wahis_outbreak_data_raw_prepped|stem|4948e99acc97d2e2|fd2580ba5c11ce0c|99bd42161d20a413|-749174464||t19395.683278386s|be60ce068ed77491|75433291|rds|local|vector|||36.734|identified 8 duplicate IDs in outbreak_reports_details_raw|
 wahis_outbreak_data_raw_primary_keys|stem|deea48c2482cf8d2|599632374f7c8aba|a3dad144c40657ed|-754890264||t19395.6259435896s|3e0fddb8c2da2da5|154|rds|local|vector|||0||
 wahis_outbreak_reports_list|stem|30b489e93b935b82|f7ee0ed9c2e9f51e|178d83e3f19ed282|1464949454||t19395.6191788316s|b6b5aacf64773558|577854|rds|local|vector|||14.982||
@@ -70,7 +70,9 @@ wahis_outbreak_reports_list_updated|stem|ce07eb92ba6a5bb4|4b3a0d77a9bb6688|b0f89
 wahis_outbreak_reports_new|stem|92918134396c4503|c19d7c130848aac8|72332eed88329863|1372283252||t19395.6259426252s|4afdf84499b4a793|660705|rds|local|vector|||0.472||
 wahis_outbreak_reports_responses|stem|2577a60cd3772acf|6d7e80af649b5967|f2022a33b27de012|-1099888829||t19395.6258777704s|5585bf100faa1ec1|3315910540|rds|local|vector|||11903.41||
 wahis_primary_keys|stem|4ab57afee8d7ce76|eda848242bac3be5|a3dad144c40657ed|1778716195||t19468.6431527943s|758d7d51407f572d|117|rds|local|vector|||0||
-wahis_tables|stem|e1fe5c3a10aa775b|b127b170ab6a0580|f6686bec011b705c|1199194344||t19468.6386139493s|f6b59cfa82a12634|6384017|rds|local|vector|||6.454||
+wahis_raw|stem|9dff7905665080eb|2d96de378be809a8|c51df5e22118fafa|1099324385||t19468.6574787263s|6d3bc68680872e79|6551801|rds|local|vector|||4.844||
+wahis_sharepoint_extract|stem|25d396d9682367a6|21a7f35107a0b09d|ef46db3751d8e999|1226250601|wahis-extracts/infur_20230414.xlsx|t19467.6520125033s|5a6b125b87e40cc3|32451044|file|local|vector|||0.001||
+wahis_tables|stem|e1fe5c3a10aa775b|09396dad34f7c8db|a1025a125f62ca96|1199194344||t19468.6587209895s|f6b59cfa82a12634|6384017|rds|local|vector|||2.256||
 wahis_tables_in_db|stem|7b2e9a1f2bf1193e|99cb3910dc409a85|9d9b83a58ae3afd4|-1610566392||t19468.6508388843s|f61d5eec182b6cd2|255|rds|local|vector|||58.521||
 wahis_update_outbreak_reports_list|function|3c9a2bf385247d1b|||||||||||||||
-wahisdb|object|b117c79686f88d9c|||||||||||||||
+wahisdb|object|3e2f512537c8fb44|||||||||||||||
