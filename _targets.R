@@ -24,13 +24,12 @@ wahisdb <- tar_plan(
   tar_target(wahis_extract, readxl::read_excel(wahis_extract_file, sheet = 2), cue = tar_cue("thorough")),
 
   # Process into epi_event and outbreak table
-  #TODO deal with dupes in epi_events
   tar_target(wahis_tables, create_wahis_tables(wahis_extract), cue = tar_cue(run_cue)),
 
   # Add to database
   tar_target(wahis_tables_in_db, add_data_to_db(data = wahis_tables,
-                                                primary_key_lookup = c("wahis_epi_events" = "epi_event_id",
-                                                                       "wahis_outbreaks" = "unique_id"),
+                                                primary_key_lookup = c("wahis_epi_events" = "epi_event_id_unique",
+                                                                       "wahis_outbreaks" = "report_outbreak_species_id_unique"),
                                                 db_branch = db_branch), cue = tar_cue(run_cue)),
 
   # TODO clean disease name
