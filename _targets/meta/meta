@@ -1,11 +1,11 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|d54476afa3df245a|||||||||||||||
+.Random.seed|object|b3d30fd98bada5eb|||||||||||||||
 add_data_to_db|function|d080ca0eecac87e3|||||||||||||||
 add_wahis_outbreak_data_raw_to_db|function|7814edfd2e1c5563|||||||||||||||
 add_wahis_outbreak_data_to_db|function|6266074eed3312c2|||||||||||||||
 assign_fk|function|629f4bddf2d411e1|||||||||||||||
 assign_pk|function|5c2ae7aa7a1abe00|||||||||||||||
-create_table_schema|function|753db41a9e698f82|||||||||||||||
+create_table_schema|function|5eeb64912202f293|||||||||||||||
 create_wahis_tables|function|4fe2731e4a2c6e2a|||||||||||||||
 create_wahis_tables_old|function|9612b9ca62d96cdc|||||||||||||||
 db_branch|object|5a1ae31a2bbcb455|||||||||||||||
@@ -34,7 +34,7 @@ prep_wahis_outbreak_data_raw|function|37bb06d4d0a681e9|||||||||||||||
 process_schema|function|3f9814b5892e95d7|||||||||||||||
 process_wahis_outbreak_data|function|777becd9c5e6cd6d|||||||||||||||
 process_wahis_outbreak_data_raw|function|3980f8bf7b7d77a2|||||||||||||||
-readme|stem|cf8ed07108560784|2419a0f44a0792be|4745aa592080ea1d|-165896733|README.md*README.Rmd|t19396.6127721477s|53dd909920cbfa40|12562|file|local|vector|||2.826||
+readme|stem|6b2649a1e0a9c14d|2419a0f44a0792be|4745aa592080ea1d|-165896733|README.md*README.Rmd|t19474.788414743s|865e012b5e4e8fc9|7951|file|local|vector|||3.154||
 remove_db_tables|function|e073994dcea95e8b|||||||||||||||
 run_cue|object|5dfd2b49ee8a5f13|||||||||||||||
 safe_ingest|function|84658a37ba407492|||||||||||||||
@@ -43,10 +43,10 @@ schema_extract_file|stem|6cd0a04fa305bb96|bb5c3432f8f01543|ef46db3751d8e999|-104
 schema_field_info|stem|1e1bbd82ab0032e4|c3a951b022e8ad95|83b51124428f66d9|-1564720866||t19395.6191760921s|2fd8c9c68aa0eda1|3315|rds|local|vector|||0.013||
 schema_field_info_file|stem|bd663fbb9b5322f9|a48a51b0cc1be4ae|ef46db3751d8e999|1772838377|inst/schema_field_info.xlsx|t19395.6362359463s|27c5c6319085e092|17396|file|local|vector|||0.002||
 schema_fields|stem|d5a9fe6672bc9994|fddbb2c20772ea5c|849512cadcb1e51f|362133226||t19474.7846609506s|f5803607d8d15cf4|1839|rds|local|vector|||0.098||
-schema_in_db|stem|7b185adecbc9edb4|3be1e98ec3cdc446|0498497908b74176|-317300073||t19474.7858961068s|81a1853ddabe4117|256|rds|local|vector|||0.276||
+schema_in_db|stem|5645aa6f323d3f7f|3be1e98ec3cdc446|9f73b733c4ab257c|-317300073||t19474.7881649545s|f61d5eec182b6cd2|255|rds|local|vector|||0.262||
 schema_table_info|stem|df14632c5769ac3e|869eb4e00cb6aeaf|46029ea06c27da4d|432659708||t19395.6191756362s|0ec2cb13f9ef3fc4|941|rds|local|vector|||0.007||
 schema_table_info_file|stem|3c749ee09efe8cc4|5be6fbaf4e98fb72|ef46db3751d8e999|-639554589|inst/schema_table_info.xlsx|t19395.6362391648s|6a569d8313764444|9890|file|local|vector|||0||
-schema_tables|stem|dde68c8ab9e4e0c4|999e3a9d528b1b26|918ba09ef53aa64b|-243871903||t19474.7847712345s|773e574814006096|465|rds|local|vector|||0.001||
+schema_tables|stem|e9554c7ac8057315|999e3a9d528b1b26|123d768430ae68e5|-243871903||t19474.7881616328s|bd4e379ac09c3636|464|rds|local|vector|||0.001||
 scrape_outbreak_report_list|function|82a2efe3f0c46610|||||||||||||||
 scrape_report_list|function|c5169c5144bd313b|||||||||||||||
 scrape_six_month_report_list|function|07bf9458085e5c61|||||||||||||||
@@ -59,7 +59,7 @@ transform_outbreak_reports|function|89ef0056a9afb262|||||||||||||||
 transform_wahis_outbreak_data_raw|function|5ad08658b0c2569f|||||||||||||||
 update_dolt_field_types|function|b639368e9e10cd14|||||||||||||||
 update_wahis_outbreak_reports_list|function|3c9a2bf385247d1b|||||||||||||||
-user_rprof|object|62bd650bcc33c982|||||||||||||||
+user_rprof|object|e829b50a56571ac4|||||||||||||||
 wahis|object|1ef94e72ba1befe9|||||||||||||||
 wahis_data_in_db_with_foreign_keys|stem|bb98630c05b5bd13|ecea15f1248727d2|e783bd6783dd9e15|-2076221891||t19396.6135395388s|44989414465ff33d|49|rds|local|vector|||2.82||
 wahis_db_check|stem|e03c01cf252c4480|dc2a5bb8f2554cba|295744c9d16d4ac9|-520703552||t19391.8040651432s|ac45463db19e2cbe|48|rds|local|vector|||0.134||
@@ -86,4 +86,4 @@ wahis_tables|stem|4045b97d5fadcf94|1100e2f7928cef98|5b48b7bbed25d860|1199194344|
 wahis_tables_in_db|stem|b4b2c4236bb88270|0ecead07b7821ef4|236ed9315294d85f|-1610566392||t19474.7844868082s|81a1853ddabe4117|256|rds|local|vector|||59.663||
 wahis_tables_in_db_with_foreign_keys|stem|f2133f7fec54998b|2d5897b648fbb4bf|33a584a368177254|2062365351||t19474.7845064552s|81a1853ddabe4117|256|rds|local|vector|||1.694||
 wahis_update_outbreak_reports_list|function|3c9a2bf385247d1b|||||||||||||||
-wahisdb|object|faf05b58dbacd811|||||||||||||||
+wahisdb|object|35c9c02b80859780|||||||||||||||

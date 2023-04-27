@@ -51,7 +51,8 @@ wahisdb <- tar_plan(
                                                                  "schema_fields" = "id"),
                                           db_branch), cue = tar_cue("thorough")),
 
-  # TODO readme
+  # README
+  tar_render(readme, path = "README.Rmd")
 
 )
 
