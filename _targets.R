@@ -41,11 +41,11 @@ wahisdb <- tar_plan(
   tar_target(schema_fields, process_schema(schema_extract, wahis_tables, disease_key), cue = tar_cue("thorough")),
   tar_target(schema_tables, create_table_schema(), cue = tar_cue("thorough")),
 
-  # tar_target(schema_in_db, add_data_to_db(data = list("schema_tables" = schema_tables,
-  #                                                     "schema_fields" = schema_fields),
-  #                                         primary_key_lookup = c("schema_table" = "table",
-  #                                                                "schema_fields" = "id"),
-  #                                         db_branch), cue = tar_cue("thorough")),
+  tar_target(schema_in_db, add_data_to_db(data = list("schema_tables" = schema_tables,
+                                                      "schema_fields" = schema_fields),
+                                          primary_key_lookup = c("schema_table" = "table",
+                                                                 "schema_fields" = "id"),
+                                          db_branch), cue = tar_cue("thorough")),
 
   # TODO readme
 

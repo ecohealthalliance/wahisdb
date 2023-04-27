@@ -32,7 +32,7 @@ create_wahis_tables <- function(wahis_extract){
   wahis_dup_event_ids <- wahis_dup_event_ids |>
     left_join(wahis_dup_event_ids2) |>
     mutate(epi_event_id_unique = coalesce(epi_event_id_unique2, epi_event_id_unique)) |>
-    select(-epi_event_id_unique2)
+    select(-epi_event_id_unique2, -dupe_count)
 
   assert_that(length(wahis_dup_event_ids$epi_event_id_unique) == n_distinct(wahis_dup_event_ids$epi_event_id_unique))
 
@@ -65,7 +65,8 @@ create_wahis_tables <- function(wahis_extract){
 
   # ID dupes (these are related to separate reports for cases/deaths and overall morbidity and mortality)
   wahis_outbreaks_dups <- wahis_outbreaks |>
-    janitor::get_dupes(report_outbreak_species_id_unique)
+    janitor::get_dupes(report_outbreak_species_id_unique) |>
+    select(-dupe_count)
 
   # Mark report_outbreak_species_id_unique's as dupes
   if(nrow(wahis_outbreaks_dups)){
