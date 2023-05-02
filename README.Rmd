@@ -22,9 +22,8 @@ knitr::opts_chunk$set(
 This package accesses and formats veterinary disease data from [OIE WAHIS](https://wahis.woah.org/#/home). Data is updated weekly and is publicly available on DoltHub: https://www.dolthub.com/repositories/ecohealthalliance/wahisdb.
 
 ## Database Tables
-- **wahis_epi_events** Summarizes high level event data, where each row is an independent event, as defined by the reporting country. `epi_event_id_unique` is the generated primary key.
+- **wahis_epi_events** Summarizes high level event data, where each row is an independent event, as defined by the reporting country. `epi_event_id_unique` is the generated primary key. This table included hand-curated disease name standardization and taxonomy.
 - **wahis_outbreaks** Detailed location and impact data for outbreak subevents (e.g., individual farms within a larger outbreak event). `report_outbreak_species_id_unique` is a generated unique primary key. This table can be joined with wahis_epi_events by `epi_event_id_unique`.
-- **disease_key** Hand-curated lookup for disease name standardization and taxonomy, used to clean the disease names in outbreak_summary. `disease` is the primary key, and can be used to join with outbreak summary. 
 
 ## Repository Structure and Reproducibility
 
