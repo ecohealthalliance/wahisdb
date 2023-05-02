@@ -17,16 +17,13 @@ publicly available on DoltHub:
 
 - **wahis_epi_events** Summarizes high level event data, where each row
   is an independent event, as defined by the reporting country.
-  `epi_event_id_unique` is the generated primary key.
+  `epi_event_id_unique` is the generated primary key. This table
+  included hand-curated disease name standardization and taxonomy.
 - **wahis_outbreaks** Detailed location and impact data for outbreak
   subevents (e.g., individual farms within a larger outbreak event).
   `report_outbreak_species_id_unique` is a generated unique primary key.
   This table can be joined with wahis_epi_events by
   `epi_event_id_unique`.
-- **disease_key** Hand-curated lookup for disease name standardization
-  and taxonomy, used to clean the disease names in outbreak_summary.
-  `disease` is the primary key, and can be used to join with outbreak
-  summary.
 
 ## Repository Structure and Reproducibility
 
@@ -50,11 +47,13 @@ instead.
 graph LR
 subgraph Project Workflow
     direction LR
-    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x96e683a1482e53af(["disease_key_in_db"]):::queued
+    x629c36d2af957bc8(["ando_lookup_file"]):::skipped --> x9f3106cdda58eb5e(["ando_lookup"]):::queued
     x985e8121d5fee0a3(["wahis_tables"]):::queued --> x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued
     xbddb73c04cc744ca(["disease_key_file"]):::queued --> x3fa380dc1bb2ee6e(["disease_key"]):::queued
     xb062d399d449ab75(["schema_extract_file"]):::queued --> xb8193a09354c7cc0(["schema_extract"]):::queued
     x6a8e2c18543f0da1(["wahis_extract_file"]):::skipped --> x800e0120ecf6dba0(["wahis_extract"]):::queued
+    x9f3106cdda58eb5e(["ando_lookup"]):::queued --> x985e8121d5fee0a3(["wahis_tables"]):::queued
+    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x985e8121d5fee0a3(["wahis_tables"]):::queued
     x800e0120ecf6dba0(["wahis_extract"]):::queued --> x985e8121d5fee0a3(["wahis_tables"]):::queued
     x5cbe2bbd0725c754(["schema_fields"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
     xe2a64b31ce9fa139(["schema_tables"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
