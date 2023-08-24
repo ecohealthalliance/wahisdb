@@ -9,7 +9,10 @@ MIT](https://img.shields.io/badge/License%20(for%20code)-MIT-green.svg)](https:/
 CC0-1.0](https://img.shields.io/badge/License%20(for%20data)-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
 This package accesses and formats veterinary disease data from [OIE
-WAHIS](https://wahis.woah.org/#/home). Data is currently static (outbreaks are from April 2023 and six month reports from August 2023). In the future, we expect the data to be updated weekly. Publicly available on DoltHub:
+WAHIS](https://wahis.woah.org/#/home). Data is currently static
+(outbreaks are from April 2023 and six month reports from August 2023).
+In the future, we expect the data to be updated weekly. Publicly
+available on DoltHub:
 <https://www.dolthub.com/repositories/ecohealthalliance/wahisdb>.
 
 ## Database Tables
@@ -36,30 +39,24 @@ WAHIS](https://wahis.woah.org/#/home). Data is currently static (outbreaks are f
   GitHub.It can also be viewed by pasting the code into
   <https://mermaid.live>.)
 
-Warning message: In do_once((if (is_R\_CMD_check()) stop else
-warning)(“The function xfun::isFALSE() will be deprecated in the future.
-Please”, : The function xfun::isFALSE() will be deprecated in the
-future. Please consider using base::isFALSE(x) or identical(x, FALSE)
-instead.
-
 ``` mermaid
 graph LR
 subgraph Project Workflow
     direction LR
-    x629c36d2af957bc8(["ando_lookup_file"]):::skipped --> x9f3106cdda58eb5e(["ando_lookup"]):::queued
-    x985e8121d5fee0a3(["wahis_tables"]):::queued --> x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued
-    xbddb73c04cc744ca(["disease_key_file"]):::queued --> x3fa380dc1bb2ee6e(["disease_key"]):::queued
-    xb062d399d449ab75(["schema_extract_file"]):::queued --> xb8193a09354c7cc0(["schema_extract"]):::queued
-    x6a8e2c18543f0da1(["wahis_extract_file"]):::skipped --> x800e0120ecf6dba0(["wahis_extract"]):::queued
-    x9f3106cdda58eb5e(["ando_lookup"]):::queued --> x985e8121d5fee0a3(["wahis_tables"]):::queued
-    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x985e8121d5fee0a3(["wahis_tables"]):::queued
-    x800e0120ecf6dba0(["wahis_extract"]):::queued --> x985e8121d5fee0a3(["wahis_tables"]):::queued
-    x5cbe2bbd0725c754(["schema_fields"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
-    xe2a64b31ce9fa139(["schema_tables"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
-    x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued --> x1bd336b143fd25fb(["wahis_tables_in_db_with_foreign_keys"]):::queued
-    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
-    xb8193a09354c7cc0(["schema_extract"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
-    x985e8121d5fee0a3(["wahis_tables"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    x629c36d2af957bc8(["ando_lookup_file"]):::skipped --> x9f3106cdda58eb5e(["ando_lookup"]):::skipped
+    x985e8121d5fee0a3(["wahis_tables"]):::skipped --> x251c9f94619dd3ca(["wahis_tables_in_db"]):::skipped
+    xbddb73c04cc744ca(["disease_key_file"]):::skipped --> x3fa380dc1bb2ee6e(["disease_key"]):::skipped
+    xb062d399d449ab75(["schema_extract_file"]):::skipped --> xb8193a09354c7cc0(["schema_extract"]):::skipped
+    x6a8e2c18543f0da1(["wahis_extract_file"]):::skipped --> x800e0120ecf6dba0(["wahis_extract"]):::skipped
+    x9f3106cdda58eb5e(["ando_lookup"]):::skipped --> x985e8121d5fee0a3(["wahis_tables"]):::skipped
+    x3fa380dc1bb2ee6e(["disease_key"]):::skipped --> x985e8121d5fee0a3(["wahis_tables"]):::skipped
+    x800e0120ecf6dba0(["wahis_extract"]):::skipped --> x985e8121d5fee0a3(["wahis_tables"]):::skipped
+    x5cbe2bbd0725c754(["schema_fields"]):::skipped --> x9c3cd21d02b17883(["schema_in_db"]):::skipped
+    xe2a64b31ce9fa139(["schema_tables"]):::skipped --> x9c3cd21d02b17883(["schema_in_db"]):::skipped
+    x251c9f94619dd3ca(["wahis_tables_in_db"]):::skipped --> x1bd336b143fd25fb(["wahis_tables_in_db_with_foreign_keys"]):::skipped
+    x3fa380dc1bb2ee6e(["disease_key"]):::skipped --> x5cbe2bbd0725c754(["schema_fields"]):::skipped
+    xb8193a09354c7cc0(["schema_extract"]):::skipped --> x5cbe2bbd0725c754(["schema_fields"]):::skipped
+    x985e8121d5fee0a3(["wahis_tables"]):::skipped --> x5cbe2bbd0725c754(["schema_fields"]):::skipped
   end
 linkStyle 0 stroke-width:0px;
 ```
