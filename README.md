@@ -9,8 +9,7 @@ MIT](https://img.shields.io/badge/License%20(for%20code)-MIT-green.svg)](https:/
 CC0-1.0](https://img.shields.io/badge/License%20(for%20data)-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
 This package accesses and formats veterinary disease data from [OIE
-WAHIS](https://wahis.woah.org/#/home). Data is updated weekly and is
-publicly available on DoltHub:
+WAHIS](https://wahis.woah.org/#/home). Data is currently static (outbreaks are from April 2023 and six month reports from August 2023). In the future, we expect the data to be updated weekly. Publicly available on DoltHub:
 <https://www.dolthub.com/repositories/ecohealthalliance/wahisdb>.
 
 ## Database Tables
