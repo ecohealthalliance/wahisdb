@@ -9,6 +9,8 @@ run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when 
 
 wahisdb <- tar_plan(
 
+  # Standardization keys ---------------------------------------------------------
+
   # ANDO disease lookup (leave cue as thorough because it will only be updated manually)
   tar_target(ando_lookup_file, "inst/ando_disease_lookup.xlsx", format = "file", repository = "local", cue = tar_cue("thorough")),
   tar_target(ando_lookup, process_ando_lookup(ando_lookup_file), cue = tar_cue("thorough")),
@@ -17,6 +19,8 @@ wahisdb <- tar_plan(
   # Note this key builds on cleaning from ANDO standardization (Nate developed this as part of dtra-ml, eventually we should have just a single cleaning file)
   tar_target(disease_key_file, "inst/disease_key.csv", format = "file", repository = "local", cue = tar_cue("thorough")),
   tar_target(disease_key, process_disease_key(disease_key_file), cue = tar_cue("thorough")),
+
+  # Outbreak events ---------------------------------------------------------
 
   # TODO extract weekly data from sharepoint to tmp directory
   # Currently this reads a static saved file - it will be updated to pull the sharepoint extracts
@@ -47,12 +51,24 @@ wahisdb <- tar_plan(
 
   tar_target(schema_in_db, add_data_to_db(data = list("schema_tables" = schema_tables,
                                                       "schema_fields" = schema_fields
-                                                      ),
-                                          primary_key_lookup = c("schema_tables" = "table",
-                                                                 "schema_fields" = "id"),
-                                          db_branch), cue = tar_cue("thorough")),
+  ),
+  primary_key_lookup = c("schema_tables" = "table",
+                         "schema_fields" = "id"),
+  db_branch), cue = tar_cue("thorough")),
 
-  # README
+  # Six month reports ---------------------------------------------------------
+
+  # Currently this reads a static saved file - downloaded manually from https://wahis.woah.org/#/dashboards/country-or-disease-dashboard
+  tar_target(six_month_file, "wahis-extracts/afghanistan-six-month.xlsx",
+             format = "file",
+             repository = "local", cue = tar_cue("thorough")),
+  tar_target(six_month_extract, readxl::read_excel(six_month_file, sheet = 1), cue = tar_cue("thorough")),
+
+  # Process
+  tar_target(six_month_tables, create_six_month_table(six_month_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
+
+
+  # README ---------------------------------------------------------
   tar_render(readme, path = "README.Rmd")
 
 )
