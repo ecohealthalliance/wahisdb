@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|70d05542fdee5a07|||||||||||||||
+.Random.seed|object|5142d09e096da2f7|||||||||||||||
 add_data_to_db|function|d080ca0eecac87e3|||||||||||||||
 add_wahis_outbreak_data_raw_to_db|function|7814edfd2e1c5563|||||||||||||||
 add_wahis_outbreak_data_to_db|function|6266074eed3312c2|||||||||||||||
@@ -8,10 +8,11 @@ ando_lookup_file|stem|fe404596c08fc0a3|1745d231a57b992c|ef46db3751d8e999|1988763
 ando_lookup_in_db|stem|12a658eb42aad402|57936c2074e7f74a|e76fb7231f0b80a6|1251557357||t19479.5910010584s|bd9cdb2e6c3ecc89|253|rds|local|vector|||0.341||
 assign_fk|function|629f4bddf2d411e1|||||||||||||||
 assign_pk|function|5c2ae7aa7a1abe00|||||||||||||||
+create_six_month_table|function|345417ecafc94865|||||||||||||||
 create_table_schema|function|47d3ef9b39419703|||||||||||||||
 create_wahis_tables|function|db236da09a9f97eb|||||||||||||||
 create_wahis_tables_old|function|9612b9ca62d96cdc|||||||||||||||
-db_branch|object|102a6837de10ee06|||||||||||||||
+db_branch|object|650398e50de77ab6|||||||||||||||
 dbAddData|function|851b88bf6a25200d|||||||||||||||
 delete_all|function|3b6da78f8cd3a9dd|||||||||||||||
 disease_key|stem|b393460cd361f251|25103073e0f254ab|5e0a65bcec63deb9|-1208351274||t19479.6323876855s|a82fe9f2a9da15e2|5407|rds|local|vector|||0.091||
@@ -57,18 +58,20 @@ scrape_report_list|function|c5169c5144bd313b|||||||||||||||
 scrape_six_month_report_list|function|07bf9458085e5c61|||||||||||||||
 scrape_wahis_outbreak_report_list|function|46aae5c53c44cd8f|||||||||||||||
 set_foreign_keys|function|0a99146c4be408f0|||||||||||||||
-set_foreign_keys_wahis_outbreak_data|function|74185a986cb274c8|||||||||||||||
+set_foreign_keys_wahis_outbreak_data|function|30a26ed2a28f5717|||||||||||||||
 set_keys_wahis_outbreak_data|function|e9c3d17f7ab89703|||||||||||||||
 set_keys_wahis_outbreak_data_raw|function|871c3fdb92ba0263|||||||||||||||
 six_month_extract|stem|2b4bfbab759a7c54|c8ce68fdeca4ef55|53b14110d0e47acd|-1006396483||t19593.7586443988s|0ff0897544823735|15303|rds|local|vector|||0.051||
 six_month_file|stem|78579d23b6178796|53b1cb07525ccb0c|ef46db3751d8e999|1022336587|wahis-extracts/afghanistan-six-month.xlsx|t19593.7118252079s|947d8046813b7bc4|210804|file|local|vector|||0||
 six_month_report_extract|stem|2b4bfbab759a7c54|510ad44d978991d4|ffd4a9eb0005ac64|-1854678254||t19593.7579293646s|0ff0897544823735|15303|rds|local|vector|||0.049||
 six_month_report_file|stem|78579d23b6178796|53b1cb07525ccb0c|ef46db3751d8e999|-1455922712|wahis-extracts/afghanistan-six-month.xlsx|t19593.7118252079s|947d8046813b7bc4|210804|file|local|vector|||0.001||
+six_month_table|stem|3e3234e107e493e7|a6f3209013ae5398|3f525f94a27dd0b0|-714584812||t19593.8720941074s|f0c62828986a3bd9|38873|rds|local|vector|||0.176||
+six_month_table_in_db|stem||541be57d5669adfc|3a12cf5ee1863907|-1994223478||t19593.8745626895s||0|rds|local|vector|||0.593||error in evaluating the argument conn in selecting a method for function dbExecute No such process, pid 58934,
 transform_outbreak_reports|function|89ef0056a9afb262|||||||||||||||
 transform_wahis_outbreak_data_raw|function|5ad08658b0c2569f|||||||||||||||
 update_dolt_field_types|function|b639368e9e10cd14|||||||||||||||
 update_wahis_outbreak_reports_list|function|3c9a2bf385247d1b|||||||||||||||
-user_rprof|object|d30ec5bb62b28b9b|||||||||||||||
+user_rprof|object|c8113368a45b8e5a|||||||||||||||
 wahis|object|1ef94e72ba1befe9|||||||||||||||
 wahis_data_in_db_with_foreign_keys|stem|bb98630c05b5bd13|ecea15f1248727d2|e783bd6783dd9e15|-2076221891||t19396.6135395388s|44989414465ff33d|49|rds|local|vector|||2.82||
 wahis_db_check|stem|e03c01cf252c4480|dc2a5bb8f2554cba|295744c9d16d4ac9|-520703552||t19391.8040651432s|ac45463db19e2cbe|48|rds|local|vector|||0.134||
@@ -97,4 +100,4 @@ wahis_tables|stem|11dc60ea02cac3dd|5d08c1fb60cb377e|2e3a77e569455e27|1199194344|
 wahis_tables_in_db|stem|3b414e0636b115fb|0ecead07b7821ef4|05a1f0b22fc60260|-1610566392||t19479.6422873792s|1018763f8eb390c8|254|rds|local|vector|||58.446||
 wahis_tables_in_db_with_foreign_keys|stem|ad8bd7e6ba024ddb|2d5897b648fbb4bf|67e1051a26b09c75|2062365351||t19479.6423074892s|f61d5eec182b6cd2|255|rds|local|vector|||1.659||
 wahis_update_outbreak_reports_list|function|3c9a2bf385247d1b|||||||||||||||
-wahisdb|object|c24b64b2c3d57681|||||||||||||||
+wahisdb|object|575ad09b0facfa2d|||||||||||||||

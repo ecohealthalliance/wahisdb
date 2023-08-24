@@ -3,7 +3,7 @@ suppressPackageStartupMessages(
   targets::tar_source(c("packages.R", "R"))
 )
 
-db_branch = "main"
+db_branch = "six-month-reports"
 nproc = 10
 run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
@@ -65,7 +65,13 @@ wahisdb <- tar_plan(
   tar_target(six_month_extract, readxl::read_excel(six_month_file, sheet = 1), cue = tar_cue("thorough")),
 
   # Process
-  tar_target(six_month_tables, create_six_month_table(six_month_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
+  # TODO need to improve disease name standardization - many diseases are currently missing in the lookup tables
+  tar_target(six_month_table, create_six_month_table(six_month_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
+
+  # Add to database
+  tar_target(six_month_table_in_db, add_data_to_db(data = six_month_table,
+                                                primary_key_lookup = c("six_month_reports" = "unique_id"),
+                                                db_branch = db_branch), cue = tar_cue(run_cue)),
 
 
   # README ---------------------------------------------------------
