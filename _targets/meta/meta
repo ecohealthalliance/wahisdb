@@ -1,6 +1,6 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|5142d09e096da2f7|||||||||||||||
-add_data_to_db|function|d080ca0eecac87e3|||||||||||||||
+.Random.seed|object|97911712cc591e3d|||||||||||||||
+add_data_to_db|function|9f8117fd02c06d1f|||||||||||||||
 add_wahis_outbreak_data_raw_to_db|function|7814edfd2e1c5563|||||||||||||||
 add_wahis_outbreak_data_to_db|function|6266074eed3312c2|||||||||||||||
 ando_lookup|stem|a4c4149e845cda50|fe23811cec92f503|ba712757321f5759|-886226371||t19479.5909970736s|094f25b3b03407db|6316|rds|local|vector|||0.034||
@@ -8,12 +8,12 @@ ando_lookup_file|stem|fe404596c08fc0a3|1745d231a57b992c|ef46db3751d8e999|1988763
 ando_lookup_in_db|stem|12a658eb42aad402|57936c2074e7f74a|e76fb7231f0b80a6|1251557357||t19479.5910010584s|bd9cdb2e6c3ecc89|253|rds|local|vector|||0.341||
 assign_fk|function|629f4bddf2d411e1|||||||||||||||
 assign_pk|function|5c2ae7aa7a1abe00|||||||||||||||
-create_six_month_table|function|345417ecafc94865|||||||||||||||
+create_six_month_table|function|92a5d22f40da74f9|||||||||||||||
 create_table_schema|function|47d3ef9b39419703|||||||||||||||
 create_wahis_tables|function|db236da09a9f97eb|||||||||||||||
 create_wahis_tables_old|function|9612b9ca62d96cdc|||||||||||||||
 db_branch|object|650398e50de77ab6|||||||||||||||
-dbAddData|function|851b88bf6a25200d|||||||||||||||
+dbAddData|function|a5e226433cf3f66e|||||||||||||||
 delete_all|function|3b6da78f8cd3a9dd|||||||||||||||
 disease_key|stem|b393460cd361f251|25103073e0f254ab|5e0a65bcec63deb9|-1208351274||t19479.6323876855s|a82fe9f2a9da15e2|5407|rds|local|vector|||0.091||
 disease_key_file|stem|56d13ad4ae6a06ff|fdd28f2dd90d4ca5|ef46db3751d8e999|-144790898|inst/disease_key.csv|t19395.6362364404s|2162e4de2772b351|24482|file|local|vector|||0.001||
@@ -65,13 +65,13 @@ six_month_extract|stem|2b4bfbab759a7c54|c8ce68fdeca4ef55|53b14110d0e47acd|-10063
 six_month_file|stem|78579d23b6178796|53b1cb07525ccb0c|ef46db3751d8e999|1022336587|wahis-extracts/afghanistan-six-month.xlsx|t19593.7118252079s|947d8046813b7bc4|210804|file|local|vector|||0||
 six_month_report_extract|stem|2b4bfbab759a7c54|510ad44d978991d4|ffd4a9eb0005ac64|-1854678254||t19593.7579293646s|0ff0897544823735|15303|rds|local|vector|||0.049||
 six_month_report_file|stem|78579d23b6178796|53b1cb07525ccb0c|ef46db3751d8e999|-1455922712|wahis-extracts/afghanistan-six-month.xlsx|t19593.7118252079s|947d8046813b7bc4|210804|file|local|vector|||0.001||
-six_month_table|stem|3e3234e107e493e7|a6f3209013ae5398|3f525f94a27dd0b0|-714584812||t19593.8720941074s|f0c62828986a3bd9|38873|rds|local|vector|||0.176||
-six_month_table_in_db|stem||541be57d5669adfc|3a12cf5ee1863907|-1994223478||t19593.8745626895s||0|rds|local|vector|||0.593||error in evaluating the argument conn in selecting a method for function dbExecute No such process, pid 58934,
+six_month_table|stem|a7f3487fdd5c83e9|a6f3209013ae5398|903b8f92701c1d90|-714584812||t19599.6125946483s|2677b5c3d7098b96|38904|rds|local|vector|||0.184||
+six_month_table_in_db|stem|3bedeb94b1a504fb|541be57d5669adfc|a260d4040564d2d8|-1994223478||t19599.629543309s|a0e78b2d8c9ef097|260|rds|local|vector|||1.471||
 transform_outbreak_reports|function|89ef0056a9afb262|||||||||||||||
 transform_wahis_outbreak_data_raw|function|5ad08658b0c2569f|||||||||||||||
 update_dolt_field_types|function|b639368e9e10cd14|||||||||||||||
 update_wahis_outbreak_reports_list|function|3c9a2bf385247d1b|||||||||||||||
-user_rprof|object|c8113368a45b8e5a|||||||||||||||
+user_rprof|object|278fb12c57734010|||||||||||||||
 wahis|object|1ef94e72ba1befe9|||||||||||||||
 wahis_data_in_db_with_foreign_keys|stem|bb98630c05b5bd13|ecea15f1248727d2|e783bd6783dd9e15|-2076221891||t19396.6135395388s|44989414465ff33d|49|rds|local|vector|||2.82||
 wahis_db_check|stem|e03c01cf252c4480|dc2a5bb8f2554cba|295744c9d16d4ac9|-520703552||t19391.8040651432s|ac45463db19e2cbe|48|rds|local|vector|||0.134||

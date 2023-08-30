@@ -73,6 +73,7 @@ wahisdb <- tar_plan(
                                                 primary_key_lookup = c("six_month_reports" = "unique_id"),
                                                 db_branch = db_branch), cue = tar_cue(run_cue)),
 
+  # TODO add documentation of sixmonth reports, and get full download
 
   # README ---------------------------------------------------------
   tar_render(readme, path = "README.Rmd")

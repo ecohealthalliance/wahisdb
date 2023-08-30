@@ -14,7 +14,7 @@ create_six_month_table <- function(six_month_extract, ando_lookup, disease_key){
     janitor::clean_names() |>
     mutate_if(is.character, tolower) |>
     mutate(semester = str_remove(semester, "-\\b\\d{4}\\b")) |>
-    mutate(semester_code = case_when(semester == "jan-jun" ~ 1, semester == "jul-dec" ~ 2))
+    mutate(semester_code = case_when(semester == "jan-jun" ~ "1", semester == "jul-dec" ~ "2"))
 
   assert_that(length(unique(six_month_extract$semester)) <= 2)
 
@@ -43,7 +43,7 @@ create_six_month_table <- function(six_month_extract, ando_lookup, disease_key){
   # create unique ID
   six_month_extract <- six_month_extract |>
     #mutate(unique_id = paste(year, semester_code, country, animal_category, standardized_disease_name, sep = "_"))
-    mutate(unique_id = row_number()) |>
+    mutate(unique_id = as.character(row_number())) |>
     relocate(unique_id, .before = everything())
 
   return(list("six_month_reports" = six_month_extract))
