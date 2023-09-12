@@ -24,7 +24,7 @@ add_data_to_db <- function(data, primary_key_lookup = NULL, db_branch, ...) {
   })
 
   data_in_db <- dolt_state(conn = conn)
-  dbDisconnect(conn)
+  # dbDisconnect(conn) Last error: Lost connection to MySQL server during query [2013]
   data_in_db
 }
 

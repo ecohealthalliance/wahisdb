@@ -16,9 +16,9 @@ dbAddData <- function(conn,
   if(!dbExistsTable(conn, name)) {
     data_types <- dbDataType(conn, value)
     dbCreateTable(conn, name, data_types)
-    for(idf in primary_key) {
-      dbExecute(conn, glue::glue("alter table {name} modify {idf} {data_types[idf]} NOT NULL"))
-    }
+    # for(idf in primary_key) {
+    #   dbExecute(conn, glue::glue("alter table {name} modify {idf} {data_types[idf]} NOT NULL"))
+    # }
     dbExecute(conn, glue::glue("alter table {name} add constraint pk_{name} primary key ({glue::glue_collapse(primary_key, ',')})")) # can be more than one field
     dbxInsert(conn, name, value, batch_size)
     # Otherwise check if we need new columns in the table and add them
