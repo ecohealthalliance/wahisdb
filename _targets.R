@@ -3,7 +3,7 @@ suppressPackageStartupMessages(
   targets::tar_source(c("packages.R", "R"))
 )
 
-db_branch = "six-month-reports"
+db_branch = "main"
 nproc = 10
 run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
@@ -60,8 +60,8 @@ wahisdb <- tar_plan(
 
   # Add to database
   tar_target(six_month_table_in_db, add_data_to_db(data = six_month_table,
-                                                primary_key_lookup = c("wahis_six_month_reports" = "unique_id"),
-                                                db_branch = db_branch), cue = tar_cue(run_cue)),
+                                                   primary_key_lookup = c("wahis_six_month_status" = "unique_id"),
+                                                   db_branch = db_branch), cue = tar_cue(run_cue)),
 
   # Control measures  ---------------------------------------------------------
 
@@ -73,12 +73,12 @@ wahisdb <- tar_plan(
   tar_target(control_measures_extract, readxl::read_excel(control_measures_file, sheet = 1), cue = tar_cue("thorough")),
 
   # Process
- tar_target(control_measures_table, create_control_measures_table(control_measures_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
+  tar_target(control_measures_table, create_control_measures_table(control_measures_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
 
   # Add to database
   tar_target(control_measures_table_in_db, add_data_to_db(data = control_measures_table,
-                                                   primary_key_lookup = c("wahis_control_measures" = "unique_id"),
-                                                   db_branch = db_branch), cue = tar_cue(run_cue)),
+                                                          primary_key_lookup = c("wahis_control_measures" = "unique_id"),
+                                                          db_branch = db_branch), cue = tar_cue(run_cue)),
 
 
   # Schema ---------------------------------------------------------

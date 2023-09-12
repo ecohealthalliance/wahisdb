@@ -46,6 +46,6 @@ create_six_month_table <- function(six_month_extract, ando_lookup, disease_key){
     mutate(unique_id = as.character(row_number())) |>
     relocate(unique_id, .before = everything())
 
-  return(list("wahis_six_month_reports" = six_month_extract))
+  return(list("wahis_six_month_status" = six_month_extract))
 
 }

@@ -26,7 +26,7 @@ available on DoltHub:
   `report_outbreak_species_id_unique` is a generated unique primary key.
   This table can be joined with wahis_epi_events by
   `epi_event_id_unique`.
-- **wahis_six_month_reports** Disease status by 6-month semester.
+- **wahis_six_month_status** Disease status by 6-month semester.
   `unique_id` is a generated unique primary key.
 - \*\*wahis_control_measures\*“\*\* Control measures applied by disease
   and taxa by 6-month semester. `unique_id` is a generated unique

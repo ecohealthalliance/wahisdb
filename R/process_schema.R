@@ -58,10 +58,10 @@ process_schema <- function(schema_extract, wahis_tables, six_month_table, contro
     mutate(foreign_key = ifelse(field == "epi_event_id_unique", "epi_event_id_unique in wahis_epi_events (many to one)", "")) |>
     mutate(generated_field = field %in% c("epi_event_id_unique", "report_outbreak_species_id_unique"))
 
-  ### wahis_six_month_reports (with disease key)
-  wahis_six_month_schema <- tibble(table = "wahis_six_month_reports",
-                                   field = colnames(six_month_table$wahis_six_month_reports),
-                                   field_type = map_chr(six_month_table$wahis_six_month_reports, ~class(.)[1])) |>
+  ### wahis_six_month_status (with disease key)
+  wahis_six_month_schema <- tibble(table = "wahis_six_month_status",
+                                   field = colnames(six_month_table$wahis_six_month_status),
+                                   field_type = map_chr(six_month_table$wahis_six_month_status, ~class(.)[1])) |>
     mutate(field_description = case_when(field == "unique_id" ~ "unique id",
                                          field == "year" ~ "report year",
                                          field == "semester" ~ "jan-jun or jul-dec",
