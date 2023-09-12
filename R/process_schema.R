@@ -58,7 +58,7 @@ process_schema <- function(schema_extract, wahis_tables, six_month_table, contro
     mutate(foreign_key = ifelse(field == "epi_event_id_unique", "epi_event_id_unique in wahis_epi_events (many to one)", "")) |>
     mutate(generated_field = field %in% c("epi_event_id_unique", "report_outbreak_species_id_unique"))
 
-  ### wahis_six_month_reports
+  ### wahis_six_month_reports (with disease key)
   wahis_six_month_schema <- tibble(table = "wahis_six_month_reports",
                                    field = colnames(six_month_table$wahis_six_month_reports),
                                    field_type = map_chr(six_month_table$wahis_six_month_reports, ~class(.)[1])) |>
@@ -80,9 +80,31 @@ process_schema <- function(schema_extract, wahis_tables, six_month_table, contro
     mutate(foreign_key = "") |>
     mutate(generated_field = field %in% c(disease_key_schema$field[-1], "unique_id","semester_code"))
 
+  ### wahis_control_measures (with disease key)
+  wahis_control_measures_schema <- tibble(table = "wahis_control_measures",
+                                   field = colnames(control_measures_table$wahis_control_measures),
+                                   field_type = map_chr(control_measures_table$wahis_control_measures, ~class(.)[1])) |>
+    mutate(field_description = case_when(field == "unique_id" ~ "unique id",
+                                         field == "year" ~ "report year",
+                                         field == "semester" ~ "jan-jun or jul-dec",
+                                         field == "region" ~ "geographical region",
+                                         field == "country" ~ "country name",
+                                         field == "disease" ~ "disease name",
+                                         field == "species" ~ "taxa type",
+                                         field == "control_measure" ~ "type of control measure applied",
+                                         field == "animal_category" ~ "domestic or wild",
+                                         field == "semester_code" ~ "1 for jan-jun and 2 for jul-dec",
+                                         .default = NA)) |>
+    left_join(disease_key_schema) |>
+    mutate(field_description = coalesce(field_description, disease_descripton)) |>
+    select(-disease_descripton) |>
+    mutate(primary_key = ifelse(field == "unique_id", "*", "")) |>
+    mutate(foreign_key = "") |>
+    mutate(generated_field = field %in% c(disease_key_schema$field[-1], "unique_id","semester_code"))
+
   ### Full schema
 
-  schema <- bind_rows(wahis_epi_events_schema, wahis_outbreaks_schema, wahis_six_month_schema) |>
+  schema <- bind_rows(wahis_epi_events_schema, wahis_outbreaks_schema, wahis_six_month_schema, wahis_control_measures_schema) |>
     mutate(id = row_number()) |>
     relocate(id, .before = everything())
 

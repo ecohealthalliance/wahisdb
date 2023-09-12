@@ -19,7 +19,7 @@ set_foreign_keys <- function(wahis_tables_in_db, db_branch) {
             foreign = "wahis_epi_events", foreign_field = "epi_event_id_unique")
 
   data_in_db <- dolt_state(conn = conn)
-  dbDisconnect(conn)
+  #dbDisconnect(conn)
   data_in_db
 
 }
