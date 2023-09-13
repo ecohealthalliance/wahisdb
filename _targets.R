@@ -77,7 +77,7 @@ wahisdb <- tar_plan(
 
   # Add to database
   tar_target(control_measures_table_in_db, add_data_to_db(data = control_measures_table,
-                                                          primary_key_lookup = c("wahis_control_measures" = "unique_id"),
+                                                          primary_key_lookup = c("wahis_six_month_controls" = "unique_id"),
                                                           db_branch = db_branch), cue = tar_cue(run_cue)),
 
 

@@ -49,6 +49,6 @@ create_control_measures_table <- function(control_measures_extract, ando_lookup,
     mutate(unique_id = as.character(row_number())) |>
     relocate(unique_id, .before = everything())
 
-  return(list("wahis_control_measures" = control_measures_extract))
+  return(list("wahis_six_month_controls" = control_measures_extract))
 
 }

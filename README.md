@@ -28,9 +28,9 @@ available on DoltHub:
   `epi_event_id_unique`.
 - **wahis_six_month_status** Disease status by 6-month semester.
   `unique_id` is a generated unique primary key.
-- \*\*wahis_control_measures\*“\*\* Control measures applied by disease
-  and taxa by 6-month semester. `unique_id` is a generated unique
-  primary key.
+- \*\*wahis_six_month_controls\*“\*\* Control measures applied by
+  disease and taxa by 6-month semester. `unique_id` is a generated
+  unique primary key.
 
 ## Repository Structure and Reproducibility
 

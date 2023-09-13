@@ -80,10 +80,10 @@ process_schema <- function(schema_extract, wahis_tables, six_month_table, contro
     mutate(foreign_key = "") |>
     mutate(generated_field = field %in% c(disease_key_schema$field[-1], "unique_id","semester_code"))
 
-  ### wahis_control_measures (with disease key)
+  ### wahis_six_month_controls (with disease key)
   wahis_control_measures_schema <- tibble(table = "wahis_control_measures",
-                                   field = colnames(control_measures_table$wahis_control_measures),
-                                   field_type = map_chr(control_measures_table$wahis_control_measures, ~class(.)[1])) |>
+                                   field = colnames(control_measures_table$wahis_six_month_controls),
+                                   field_type = map_chr(control_measures_table$wahis_six_month_controls, ~class(.)[1])) |>
     mutate(field_description = case_when(field == "unique_id" ~ "unique id",
                                          field == "year" ~ "report year",
                                          field == "semester" ~ "jan-jun or jul-dec",
