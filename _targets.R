@@ -20,6 +20,11 @@ wahisdb <- tar_plan(
   tar_target(disease_key_file, "inst/disease_key.csv", format = "file", repository = "local", cue = tar_cue("thorough")),
   tar_target(disease_key, process_disease_key(disease_key_file), cue = tar_cue("thorough")),
 
+  # Add to database
+  tar_target(disease_key_in_db, add_data_to_db(data = list("disease_key" = disease_key),
+                                               primary_key_lookup = c("disease_key" = "disease"),
+                                               db_branch = db_branch), cue = tar_cue(run_cue)),
+
   # Event Reports ---------------------------------------------------------
 
   # Currently this reads a static saved file from the WAHIS sharepoint
@@ -33,9 +38,9 @@ wahisdb <- tar_plan(
 
   # Add to database
   tar_target(outbreak_events_tables_in_db, add_data_to_db(data = outbreak_events_tables,
-                                                primary_key_lookup = c("wahis_epi_events" = "epi_event_id_unique",
-                                                                       "wahis_outbreaks" = "report_outbreak_species_id_unique"),
-                                                db_branch = db_branch), cue = tar_cue(run_cue)),
+                                                          primary_key_lookup = c("wahis_epi_events" = "epi_event_id_unique",
+                                                                                 "wahis_outbreaks" = "report_outbreak_species_id_unique"),
+                                                          db_branch = db_branch), cue = tar_cue(run_cue)),
 
   # Set foreign keys
   tar_target(outbreak_events_tables_in_db_with_foreign_keys,
@@ -90,11 +95,10 @@ wahisdb <- tar_plan(
   tar_target(schema_tables, create_table_schema(), cue = tar_cue("thorough")),
 
   tar_target(schema_in_db, add_data_to_db(data = list("schema_tables" = schema_tables,
-                                                      "schema_fields" = schema_fields
-  ),
-  primary_key_lookup = c("schema_tables" = "table",
-                         "schema_fields" = "id"),
-  db_branch), cue = tar_cue("thorough")),
+                                                      "schema_fields" = schema_fields),
+                                          primary_key_lookup = c("schema_tables" = "table",
+                                                                 "schema_fields" = "id"),
+                                          db_branch), cue = tar_cue("thorough")),
 
   # README ---------------------------------------------------------
   tar_render(readme, path = "README.Rmd")
