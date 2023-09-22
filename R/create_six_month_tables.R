@@ -5,7 +5,7 @@
 #' @title
 #' @param six_month_status_extract
 #' @param six_month_controls_extract
-#' @param six_month_quantiative_extract
+#' @param six_month_quantitative_extract
 #' @param ando_lookup
 #' @param disease_key
 #' @return
@@ -13,7 +13,7 @@
 #' @export
 create_six_month_tables <- function(six_month_status_extract,
                                     six_month_controls_extract,
-                                    six_month_quantiative_extract,
+                                    six_month_quantitative_extract,
                                     ando_lookup,
                                     disease_key) {
 
@@ -22,7 +22,7 @@ create_six_month_tables <- function(six_month_status_extract,
 
   six_month_tables <- list("wahis_six_month_status" = six_month_status_extract,
                            "wahis_six_month_controls" = six_month_controls_extract,
-                           "wahis_six_month_quantiative" = six_month_quantiative_extract)
+                           "wahis_six_month_quantitative" = six_month_quantitative_extract)
 
   ### Initial clean
   six_month_tables <- map(six_month_tables, function(six_month_table){
@@ -82,16 +82,16 @@ create_six_month_tables <- function(six_month_status_extract,
 
   assert_that(n_distinct(six_month_tables$wahis_six_month_controls$six_month_controls_unique_id) == nrow(six_month_tables$wahis_six_month_controls))
 
-  six_month_tables$wahis_six_month_quantiative <- six_month_tables$wahis_six_month_quantiative |>
-    mutate(six_month_quantiative_unique_id = paste(year, semester_code, country, disease, serotype_subtype_genotype, animal_category, species, outbreak_id, administrative_division, sep = "_")) |>
-    relocate(six_month_quantiative_unique_id, .before = everything())
+  six_month_tables$wahis_six_month_quantitative <- six_month_tables$wahis_six_month_quantitative |>
+    mutate(six_month_quantitative_unique_id = paste(year, semester_code, country, disease, serotype_subtype_genotype, animal_category, species, outbreak_id, administrative_division, sep = "_")) |>
+    relocate(six_month_quantitative_unique_id, .before = everything())
 
-  assert_that(n_distinct(six_month_tables$wahis_six_month_quantiative$six_month_quantiative_unique_id) == nrow(six_month_tables$wahis_six_month_quantiative))
+  assert_that(n_distinct(six_month_tables$wahis_six_month_quantitative$six_month_quantitative_unique_id) == nrow(six_month_tables$wahis_six_month_quantitative))
 
   ### Harmonize
   #colnames(six_month_tables$wahis_six_month_status)
   #colnames(six_month_tables$wahis_six_month_controls)
-  #colnames(six_month_tables$wahis_six_month_quantiative)
+  #colnames(six_month_tables$wahis_six_month_quantitative)
 
   six_month_tables$wahis_six_month_status <- six_month_tables$wahis_six_month_status |> rename(world_region = region)
   six_month_tables$wahis_six_month_controls <- six_month_tables$wahis_six_month_controls |> rename(world_region = region)

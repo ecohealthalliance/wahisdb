@@ -65,20 +65,20 @@ wahisdb <- tar_plan(
   # The quantitative data dashboard provides aggregated data from events reports and six monthly reports.
   # Its limitation is that it's broken down by semester and doesn't provide further outbreaks details such as geographical coordinates etc.
   # Case counts and other metrics by semester, country, disease, serotype, animal_category (wild/domestic), species, outbreak_id, administrative_division
-  tar_target(six_month_quantiative_file, "wahis-extracts/c940c93d-474e-4c94-b1de-82cb4f0522f0.xlsx",
+  tar_target(six_month_quantitative_file, "wahis-extracts/c940c93d-474e-4c94-b1de-82cb4f0522f0.xlsx",
              format = "file",
              repository = "local", cue = tar_cue("thorough")),
-  tar_target(six_month_quantiative_extract, readxl::read_excel(six_month_quantiative_file, sheet = 1), cue = tar_cue("thorough")),
+  tar_target(six_month_quantitative_extract, readxl::read_excel(six_month_quantitative_file, sheet = 1), cue = tar_cue("thorough")),
 
 
   # Process
-  tar_target(six_month_tables, create_six_month_tables(six_month_status_extract, six_month_controls_extract, six_month_quantiative_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
+  tar_target(six_month_tables, create_six_month_tables(six_month_status_extract, six_month_controls_extract, six_month_quantitative_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
 
   # Add to database
   tar_target(six_month_tables_in_db, add_data_to_db(data = six_month_tables,
                                                     primary_key_lookup = c("wahis_six_month_status" = "six_month_status_unique_id",
                                                                            "wahis_six_month_controls" = "six_month_controls_unique_id",
-                                                                           "wahis_six_month_quantiative" = "six_month_quantiative_unique_id"),
+                                                                           "wahis_six_month_quantitative" = "six_month_quantitative_unique_id"),
                                                     db_branch = db_branch), cue = tar_cue(run_cue)),
 
   # Schema ---------------------------------------------------------
