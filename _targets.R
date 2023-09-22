@@ -3,7 +3,7 @@ suppressPackageStartupMessages(
   targets::tar_source(c("packages.R", "R"))
 )
 
-db_branch = "main"
+db_branch = "six-month-tweaks"
 nproc = 10
 run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
@@ -20,7 +20,7 @@ wahisdb <- tar_plan(
   tar_target(disease_key_file, "inst/disease_key.csv", format = "file", repository = "local", cue = tar_cue("thorough")),
   tar_target(disease_key, process_disease_key(disease_key_file), cue = tar_cue("thorough")),
 
-  # Outbreak events ---------------------------------------------------------
+  # Event/Outbreak Reports ---------------------------------------------------------
 
   # Currently this reads a static saved file from the WAHIS sharepoint
   tar_target(wahis_extract_file, "wahis-extracts/infur_20230414.xlsx",
@@ -42,44 +42,44 @@ wahisdb <- tar_plan(
              set_foreign_keys(wahis_tables_in_db,
                               db_branch = db_branch), cue = tar_cue(run_cue)),
 
-  # Six month reports ---------------------------------------------------------
+  # Six Month Reports ---------------------------------------------------------
 
   # Currently this reads a static saved file
   # https://wahis.woah.org/#/dashboards/country-or-disease-dashboard
-  # But when the above was down, we acquired the data by:
-  #   Go to: https://dashboards-wahis.woah.org/sense/app/d56ee542-175f-47e0-a210-61d2a976741d/sheet/33ed7149-028c-484e-aa3e-ebae6eb4be75 (which is the dashboard that is embedded in WOAH, (en-language, public version found from the hub at https://dashboards-wahis.woah.org)
-  #   Click “Selections” then “Show fields” in App Dimensions, select the region(s) or other filters.  This selected all regions.
-  #   Click the back button back to the app, then wait for it to load the table and the export button. (Note pop-ups must be allowed in your browser).
-  tar_target(six_month_file, "wahis-extracts/4a115a74-6ad4-4031-94a4-2f48256f09d1.xlsx",
+  # Disease status by semester, country, disease, animal_category (wild/domestic)
+  tar_target(six_month_status_file, "wahis-extracts/4a115a74-6ad4-4031-94a4-2f48256f09d1.xlsx",
              format = "file",
              repository = "local", cue = tar_cue("thorough")),
-  tar_target(six_month_extract, readxl::read_excel(six_month_file, sheet = 1), cue = tar_cue("thorough")),
-
-  # Process
-  tar_target(six_month_table, create_six_month_table(six_month_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
-
-  # Add to database
-  tar_target(six_month_table_in_db, add_data_to_db(data = six_month_table,
-                                                   primary_key_lookup = c("wahis_six_month_status" = "unique_id"),
-                                                   db_branch = db_branch), cue = tar_cue(run_cue)),
-
-  # Control measures  ---------------------------------------------------------
+  tar_target(six_month_status_extract, readxl::read_excel(six_month_status_file, sheet = 1), cue = tar_cue("thorough")),
 
   # Currently this reads a static saved file
   # from https://wahis.woah.org/#/dashboards/control-measure-dashboard
-  tar_target(control_measures_file, "wahis-extracts/088b3012-d64a-45d8-8997-87f8d9123f4e.xlsx",
+  # Disease controls applied by semester, country, disease, animal_category (wild/domestic), and species
+  tar_target(six_month_controls_file, "wahis-extracts/088b3012-d64a-45d8-8997-87f8d9123f4e.xlsx",
              format = "file",
              repository = "local", cue = tar_cue("thorough")),
-  tar_target(control_measures_extract, readxl::read_excel(control_measures_file, sheet = 1), cue = tar_cue("thorough")),
+  tar_target(six_month_controls_extract, readxl::read_excel(six_month_controls_file, sheet = 1), cue = tar_cue("thorough")),
+
+  # Currently this reads a static saved file
+  # from https://wahis.woah.org/#/dashboards/qd-dashboard
+  # The quantitative data dashboard provides aggregated data from events reports and six monthly reports.
+  # Its limitation is that it's broken down by semester and doesn't provide further outbreaks details such as geographical coordinates etc.
+  # Case counts and other metrics by semester, country, disease, serotype, animal_category (wild/domestic), species, outbreak_id, administrative_division
+  tar_target(six_month_quantiative_file, "wahis-extracts/c940c93d-474e-4c94-b1de-82cb4f0522f0.xlsx",
+             format = "file",
+             repository = "local", cue = tar_cue("thorough")),
+  tar_target(six_month_quantiative_extract, readxl::read_excel(six_month_quantiative_file, sheet = 1), cue = tar_cue("thorough")),
+
 
   # Process
-  tar_target(control_measures_table, create_control_measures_table(control_measures_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
+  tar_target(six_month_tables, create_six_month_tables(six_month_status_extract, six_month_controls_extract, six_month_quantiative_extract, ando_lookup, disease_key), cue = tar_cue(run_cue)),
 
   # Add to database
-  tar_target(control_measures_table_in_db, add_data_to_db(data = control_measures_table,
-                                                          primary_key_lookup = c("wahis_six_month_controls" = "unique_id"),
-                                                          db_branch = db_branch), cue = tar_cue(run_cue)),
-
+  tar_target(six_month_tables_in_db, add_data_to_db(data = six_month_tables,
+                                                    primary_key_lookup = c("six_month_status" = "six_month_status_unique_id",
+                                                                           "six_month_controls" = "six_month_controls_unique_id",
+                                                                           "six_month_quantiative" = "six_month_quantiative_unique_id"),
+                                                    db_branch = db_branch), cue = tar_cue(run_cue)),
 
   # Schema ---------------------------------------------------------
 
