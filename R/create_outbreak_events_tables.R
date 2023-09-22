@@ -7,16 +7,19 @@
 #' @return
 #' @author Emma Mendelsohn
 #' @export
-create_wahis_tables <- function(wahis_extract, ando_lookup, disease_key){
+create_outbreak_events_tables <- function(outbreak_events_extract, ando_lookup, disease_key){
+
+  disease_key <- disease_key |>
+    select(disease, standardized_disease_name)
 
   ### Initial clean
-  wahis_extract <- wahis_extract  |>
+  outbreak_events_extract <- outbreak_events_extract  |>
     janitor::clean_names() |>
     mutate_if(is.character, tolower)  |>
     mutate_at(vars(contains("date")), lubridate::as_datetime)
 
   ### There is subreporting by serotype that needs to be handled before splitting
-  wahis_dup_event_ids <- wahis_extract |>
+  wahis_dup_event_ids <- outbreak_events_extract |>
     select(epi_event_id:terra_aqua) |>
     distinct() |>
     get_dupes(epi_event_id) |>
@@ -43,14 +46,14 @@ create_wahis_tables <- function(wahis_extract, ando_lookup, disease_key){
     select(epi_event_id, epi_event_id_unique, reporting_level, sero_sub_genotype_eng, strain_eng)
 
   # add epi_event_id_unique colum
-  wahis_extract <- wahis_extract |>
+  outbreak_events_extract <- outbreak_events_extract |>
     left_join(wahis_dup_event_ids) |>
     mutate(epi_event_id_unique = coalesce(epi_event_id_unique, as.character(epi_event_id))) |>
     relocate(epi_event_id_unique)
 
   ### Epi event table is the high level summary of the disease event thread, each row is an event
   # exception for events with subtype reporting
-  wahis_epi_events <- wahis_extract |>
+  wahis_epi_events <- outbreak_events_extract |>
     select(epi_event_id_unique:terra_aqua) |>
     distinct()
 
@@ -78,7 +81,7 @@ create_wahis_tables <- function(wahis_extract, ando_lookup, disease_key){
     select(-disease_intermediate)
 
   ### Outbreak table has subevent information related to individual outbreak locations, taxa
-  wahis_outbreaks <- wahis_extract |>
+  wahis_outbreaks <- outbreak_events_extract |>
     select(epi_event_id_unique, report_id:last_col()) |>
     mutate(report_outbreak_species_id_unique = paste(report_id, outbreak_id, str_extract(tolower(species), "^[^\\(]+"), sep = "_")) |>
     mutate(report_outbreak_species_id_unique = str_trim(report_outbreak_species_id_unique)) |>
