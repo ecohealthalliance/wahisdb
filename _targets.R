@@ -96,7 +96,7 @@ wahisdb <- tar_plan(
 
   tar_target(schema_in_db, add_data_to_db(data = list("schema_tables" = schema_tables,
                                                       "schema_fields" = schema_fields),
-                                          primary_key_lookup = c("schema_tables" = "table",
+                                          primary_key_lookup = c("schema_tables" = "table_name",
                                                                  "schema_fields" = "id"),
                                           db_branch), cue = tar_cue("thorough")),
 
