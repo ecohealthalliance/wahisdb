@@ -3,7 +3,7 @@ suppressPackageStartupMessages(
   targets::tar_source(c("packages.R", "R"))
 )
 
-db_branch = "six-month-tweaks"
+db_branch = "main"
 nproc = 10
 run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
@@ -12,13 +12,17 @@ wahisdb <- tar_plan(
   # Standardization keys ---------------------------------------------------------
 
   # ANDO disease lookup (leave cue as thorough because it will only be updated manually)
+  # TODO get rid of this
   tar_target(ando_lookup_file, "inst/ando_disease_lookup.xlsx", format = "file", repository = "local", cue = tar_cue("thorough")),
   tar_target(ando_lookup, process_ando_lookup(ando_lookup_file), cue = tar_cue("thorough")),
 
   # Disease Key (leave cue as thorough because it will only be updated manually)
   # Note this key builds on cleaning from ANDO standardization (Nate developed this as part of dtra-ml, eventually we should have just a single cleaning file)
+  # TODO update with all diseases, from outbreaks and six month
   tar_target(disease_key_file, "inst/disease_key.csv", format = "file", repository = "local", cue = tar_cue("thorough")),
   tar_target(disease_key, process_disease_key(disease_key_file), cue = tar_cue("thorough")),
+
+  # TODO add taxa lookup file
 
   # Add to database
   tar_target(disease_key_in_db, add_data_to_db(data = list("disease_key" = disease_key),
