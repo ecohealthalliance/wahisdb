@@ -9,7 +9,6 @@ run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when 
 
 wahisdb <- tar_plan(
 
-
   # Event Reports ---------------------------------------------------------
 
   # Currently this reads a static saved file from the WAHIS sharepoint
@@ -53,27 +52,20 @@ wahisdb <- tar_plan(
   tar_target(six_month_tables, create_six_month_tables(six_month_status_extract, six_month_controls_extract, six_month_quantitative_extract), cue = tar_cue(run_cue)),
 
 
-  # Standardization keys ---------------------------------------------------------
+  # Standardization  ---------------------------------------------------------
 
-  # This was the original key developed by Nate for DTRA-ML base on the WAHIS API extract data
-  tar_target(disease_key_0_file, "inst/disease_key_0.csv", format = "file", repository = "local", cue = tar_cue("thorough")),
-  tar_target(disease_key_0, process_disease_key(disease_key_0_file), cue = tar_cue("thorough")),
+  # TODO read in disease_key, add targets for cleaning disease names in all six month reports and in wahis_epi_events
 
-  # Now update this disease key based on the current data
-  tar_target(disease_key)
+  # TODO eventually do the same for taxa
 
+  # Add everything to the database  ---------------------------------------------------------
 
-
-  # TODO add taxa lookup file
+  # TODO once the above is completed, add all to database
 
   # Add to database
   # tar_target(disease_key_in_db, add_data_to_db(data = list("disease_key" = disease_key),
   #                                              primary_key_lookup = c("disease_key" = "disease"),
   #                                              db_branch = db_branch), cue = tar_cue(run_cue)),
-
-
-
-
   # Add to database
   # tar_target(outbreak_events_tables_in_db, add_data_to_db(data = outbreak_events_tables,
   #                                                         primary_key_lookup = c("wahis_epi_events" = "epi_event_id_unique",
@@ -93,22 +85,24 @@ wahisdb <- tar_plan(
   #                                                                          "wahis_six_month_quantitative" = "six_month_quantitative_unique_id"),
   #                                                   db_branch = db_branch), cue = tar_cue(run_cue)),
   #
-  # # Schema ---------------------------------------------------------
-  #
-  # # Read wahis-generated schema (this can also come from the sharepoint pull)
-  # tar_target(schema_extract_file, "wahis-extracts/Field_description.xlsx", format = "file", repository = "local", cue = tar_cue("thorough")), # this is extracted from the WAHIS sharepoint
-  # tar_target(schema_extract, readxl::read_excel(schema_extract_file), cue = tar_cue("thorough")),
-  # tar_target(schema_fields, process_schema(schema_extract, outbreak_events_tables, six_month_tables, disease_key), cue = tar_cue("thorough")),
-  # tar_target(schema_tables, create_table_schema(), cue = tar_cue("thorough")),
-  #
-  # tar_target(schema_in_db, add_data_to_db(data = list("schema_tables" = schema_tables,
-  #                                                     "schema_fields" = schema_fields),
-  #                                         primary_key_lookup = c("schema_tables" = "table_name",
-  #                                                                "schema_fields" = "id"),
-  #                                         db_branch), cue = tar_cue("thorough")),
-  #
-  # # README ---------------------------------------------------------
-  # tar_render(readme, path = "README.Rmd")
+  # Schema ---------------------------------------------------------
+
+  # TODO schema may need to be updated
+
+  # Read wahis-generated schema (this can also come from the sharepoint pull)
+  tar_target(schema_extract_file, "wahis-extracts/Field_description.xlsx", format = "file", repository = "local", cue = tar_cue("thorough")), # this is extracted from the WAHIS sharepoint
+  tar_target(schema_extract, readxl::read_excel(schema_extract_file), cue = tar_cue("thorough")),
+  tar_target(schema_fields, process_schema(schema_extract, outbreak_events_tables, six_month_tables, disease_key), cue = tar_cue("thorough")),
+  tar_target(schema_tables, create_table_schema(), cue = tar_cue("thorough")),
+
+  tar_target(schema_in_db, add_data_to_db(data = list("schema_tables" = schema_tables,
+                                                      "schema_fields" = schema_fields),
+                                          primary_key_lookup = c("schema_tables" = "table_name",
+                                                                 "schema_fields" = "id"),
+                                          db_branch), cue = tar_cue("thorough")),
+
+  # README ---------------------------------------------------------
+  tar_render(readme, path = "README.Rmd")
 
 )
 

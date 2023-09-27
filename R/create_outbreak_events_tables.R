@@ -7,10 +7,7 @@
 #' @return
 #' @author Emma Mendelsohn
 #' @export
-create_outbreak_events_tables <- function(outbreak_events_extract, ando_lookup, disease_key){
-
-  disease_key <- disease_key |>
-    select(disease, standardized_disease_name)
+create_outbreak_events_tables <- function(outbreak_events_extract){
 
   ### Initial clean
   outbreak_events_extract <- outbreak_events_extract  |>
@@ -58,27 +55,6 @@ create_outbreak_events_tables <- function(outbreak_events_extract, ando_lookup, 
     distinct()
 
   assert_that(length(wahis_epi_events$epi_event_id_unique) == n_distinct(wahis_epi_events$epi_event_id_unique))
-
-  ### Disease name standardization
-  # first some manual cleaning
-  wahis_epi_events <- wahis_epi_events |>
-    mutate(disease_intermediate = trimws(disease_eng)) |>
-    mutate(disease_intermediate = textclean::replace_non_ascii(disease_intermediate)) |>
-    mutate(disease_intermediate = str_remove_all(disease_intermediate, "\\s*\\([^\\)]+\\)")) |>
-    mutate(disease_intermediate = str_remove(disease_intermediate, "virus")) |>
-    mutate(disease_intermediate = trimws(disease_intermediate))
-
-  # bring in ANDO standardization
-  wahis_epi_events <- wahis_epi_events |>
-    left_join(ando_lookup |> select(disease, preferred_label), by = c("disease_intermediate" = "disease")) |>
-    mutate(disease_intermediate = coalesce(preferred_label, disease_intermediate)) |>
-    select(-preferred_label)
-
-  # bring in manual disease key
-  wahis_epi_events <- wahis_epi_events |>
-    left_join(disease_key, by = c("disease_intermediate" = "disease")) |>
-    mutate(standardized_disease_name = coalesce(standardized_disease_name, disease_intermediate)) |>
-    select(-disease_intermediate)
 
   ### Outbreak table has subevent information related to individual outbreak locations, taxa
   wahis_outbreaks <- outbreak_events_extract |>
