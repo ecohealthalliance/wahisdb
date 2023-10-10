@@ -58,7 +58,7 @@ create_outbreak_events_tables <- function(outbreak_events_extract){
 
   ### Outbreak table has subevent information related to individual outbreak locations, taxa
   wahis_outbreaks <- outbreak_events_extract |>
-    select(epi_event_id_unique, report_id:last_col()) |>
+    select(epi_event_id_unique, disease_eng, report_id:last_col()) |>
     mutate(report_outbreak_species_id_unique = paste(report_id, outbreak_id, str_extract(tolower(species), "^[^\\(]+"), sep = "_")) |>
     mutate(report_outbreak_species_id_unique = str_trim(report_outbreak_species_id_unique)) |>
     relocate(report_outbreak_species_id_unique, report_id, outbreak_id, species, epi_event_id_unique, everything())
