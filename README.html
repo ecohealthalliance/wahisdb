@@ -626,6 +626,10 @@ semester. <code>unique_id</code> is a generated unique primary key.</li>
 <li>**wahis_six_month_controls*“** Control measures applied by disease
 and taxa by 6-month semester. <code>unique_id</code> is a generated
 unique primary key.</li>
+<li><strong>wahis_six_month_quantitative</strong> Aggregated impact data
+from outbreak events reports AND six monthly reports on 6-month basis.
+<code>six_month_quantitative_unique_id</code> is a generated unique
+primary key.</li>
 </ul>
 <h2 id="repository-structure-and-reproducibility">Repository Structure
 and Reproducibility</h2>
@@ -644,32 +648,35 @@ graph on GitHub.It can also be viewed by pasting the code into <a href="https://
 <pre class="mermaid"><code>graph LR
 subgraph Project Workflow
     direction LR
-    x9f3106cdda58eb5e([&quot;ando_lookup&quot;]):::queued --&gt; xa3c86d4a4ccf7acc([&quot;six_month_table&quot;]):::queued
-    x3fa380dc1bb2ee6e([&quot;disease_key&quot;]):::queued --&gt; xa3c86d4a4ccf7acc([&quot;six_month_table&quot;]):::queued
-    x1e1a7b77c7f535ce([&quot;six_month_extract&quot;]):::queued --&gt; xa3c86d4a4ccf7acc([&quot;six_month_table&quot;]):::queued
-    x91216ef50cf9c7a2([&quot;control_measures_table&quot;]):::queued --&gt; x0342fd6f5a92474b([&quot;control_measures_table_in_db&quot;]):::queued
-    x629c36d2af957bc8([&quot;ando_lookup_file&quot;]):::skipped --&gt; x9f3106cdda58eb5e([&quot;ando_lookup&quot;]):::queued
-    xdb29bbcc08e88d8b([&quot;control_measures_file&quot;]):::skipped --&gt; x08b65fdc2260a2a0([&quot;control_measures_extract&quot;]):::queued
-    x985e8121d5fee0a3([&quot;wahis_tables&quot;]):::queued --&gt; x251c9f94619dd3ca([&quot;wahis_tables_in_db&quot;]):::queued
-    xbddb73c04cc744ca([&quot;disease_key_file&quot;]):::queued --&gt; x3fa380dc1bb2ee6e([&quot;disease_key&quot;]):::queued
-    xb062d399d449ab75([&quot;schema_extract_file&quot;]):::queued --&gt; xb8193a09354c7cc0([&quot;schema_extract&quot;]):::queued
-    x6b3c3493de9c64ab([&quot;six_month_file&quot;]):::queued --&gt; x1e1a7b77c7f535ce([&quot;six_month_extract&quot;]):::queued
-    x6a8e2c18543f0da1([&quot;wahis_extract_file&quot;]):::skipped --&gt; x800e0120ecf6dba0([&quot;wahis_extract&quot;]):::queued
-    x9f3106cdda58eb5e([&quot;ando_lookup&quot;]):::queued --&gt; x91216ef50cf9c7a2([&quot;control_measures_table&quot;]):::queued
-    x08b65fdc2260a2a0([&quot;control_measures_extract&quot;]):::queued --&gt; x91216ef50cf9c7a2([&quot;control_measures_table&quot;]):::queued
-    x3fa380dc1bb2ee6e([&quot;disease_key&quot;]):::queued --&gt; x91216ef50cf9c7a2([&quot;control_measures_table&quot;]):::queued
-    x9f3106cdda58eb5e([&quot;ando_lookup&quot;]):::queued --&gt; x985e8121d5fee0a3([&quot;wahis_tables&quot;]):::queued
-    x3fa380dc1bb2ee6e([&quot;disease_key&quot;]):::queued --&gt; x985e8121d5fee0a3([&quot;wahis_tables&quot;]):::queued
-    x800e0120ecf6dba0([&quot;wahis_extract&quot;]):::queued --&gt; x985e8121d5fee0a3([&quot;wahis_tables&quot;]):::queued
-    x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued --&gt; x9c3cd21d02b17883([&quot;schema_in_db&quot;]):::queued
-    xe2a64b31ce9fa139([&quot;schema_tables&quot;]):::queued --&gt; x9c3cd21d02b17883([&quot;schema_in_db&quot;]):::queued
-    x251c9f94619dd3ca([&quot;wahis_tables_in_db&quot;]):::queued --&gt; x1bd336b143fd25fb([&quot;wahis_tables_in_db_with_foreign_keys&quot;]):::queued
-    xa3c86d4a4ccf7acc([&quot;six_month_table&quot;]):::queued --&gt; xd6445f363ad9c5a1([&quot;six_month_table_in_db&quot;]):::queued
-    x91216ef50cf9c7a2([&quot;control_measures_table&quot;]):::queued --&gt; x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued
+    xbddb73c04cc744ca([&quot;disease_key_file&quot;]):::skipped --&gt; x3fa380dc1bb2ee6e([&quot;disease_key&quot;]):::queued
+    x3fa380dc1bb2ee6e([&quot;disease_key&quot;]):::queued --&gt; x57ec39d36d300eb7([&quot;six_month_tables_standardized&quot;]):::queued
+    x37b36237069aea80([&quot;six_month_tables&quot;]):::queued --&gt; x57ec39d36d300eb7([&quot;six_month_tables_standardized&quot;]):::queued
+    x8b6a5220bfbdabdf([&quot;taxon_key&quot;]):::queued --&gt; x57ec39d36d300eb7([&quot;six_month_tables_standardized&quot;]):::queued
     x3fa380dc1bb2ee6e([&quot;disease_key&quot;]):::queued --&gt; x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued
+    xdca9076b94036ae3([&quot;outbreak_events_tables_standardized&quot;]):::queued --&gt; x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued
     xb8193a09354c7cc0([&quot;schema_extract&quot;]):::queued --&gt; x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued
-    xa3c86d4a4ccf7acc([&quot;six_month_table&quot;]):::queued --&gt; x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued
-    x985e8121d5fee0a3([&quot;wahis_tables&quot;]):::queued --&gt; x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued
+    x57ec39d36d300eb7([&quot;six_month_tables_standardized&quot;]):::queued --&gt; x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued
+    x8b6a5220bfbdabdf([&quot;taxon_key&quot;]):::queued --&gt; x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued
+    x3fa380dc1bb2ee6e([&quot;disease_key&quot;]):::queued --&gt; xa7adee78ecc918bb([&quot;keys_in_db&quot;]):::queued
+    x8b6a5220bfbdabdf([&quot;taxon_key&quot;]):::queued --&gt; xa7adee78ecc918bb([&quot;keys_in_db&quot;]):::queued
+    xa4fa2a66c31d7b33([&quot;six_month_status_file&quot;]):::skipped --&gt; xde280acaaefdc7be([&quot;six_month_status_extract&quot;]):::queued
+    x52f10102fdbda18d([&quot;six_month_controls_file&quot;]):::skipped --&gt; x6740ee55561635cd([&quot;six_month_controls_extract&quot;]):::queued
+    x3fa380dc1bb2ee6e([&quot;disease_key&quot;]):::queued --&gt; xdca9076b94036ae3([&quot;outbreak_events_tables_standardized&quot;]):::queued
+    x32a3bb2ce92d02b0([&quot;outbreak_events_tables&quot;]):::queued --&gt; xdca9076b94036ae3([&quot;outbreak_events_tables_standardized&quot;]):::queued
+    x8b6a5220bfbdabdf([&quot;taxon_key&quot;]):::queued --&gt; xdca9076b94036ae3([&quot;outbreak_events_tables_standardized&quot;]):::queued
+    xb062d399d449ab75([&quot;schema_extract_file&quot;]):::skipped --&gt; xb8193a09354c7cc0([&quot;schema_extract&quot;]):::queued
+    x5cbe2bbd0725c754([&quot;schema_fields&quot;]):::queued --&gt; x9c3cd21d02b17883([&quot;schema_in_db&quot;]):::queued
+    xe2a64b31ce9fa139([&quot;schema_tables&quot;]):::skipped --&gt; x9c3cd21d02b17883([&quot;schema_in_db&quot;]):::queued
+    x37b36237069aea80([&quot;six_month_tables&quot;]):::queued --&gt; x06f5315659bba48a([&quot;six_month_tables_in_db&quot;]):::queued
+    x32a3bb2ce92d02b0([&quot;outbreak_events_tables&quot;]):::queued --&gt; xe395ec11fce57977([&quot;outbreak_events_tables_in_db&quot;]):::queued
+    xcc7bba8de0af4cfe([&quot;outbreak_events_file&quot;]):::skipped --&gt; xed1d4a32cc4d66ec([&quot;outbreak_events_extract&quot;]):::queued
+    x6740ee55561635cd([&quot;six_month_controls_extract&quot;]):::queued --&gt; x37b36237069aea80([&quot;six_month_tables&quot;]):::queued
+    x52699edfaa6546df([&quot;six_month_quantitative_extract&quot;]):::queued --&gt; x37b36237069aea80([&quot;six_month_tables&quot;]):::queued
+    xde280acaaefdc7be([&quot;six_month_status_extract&quot;]):::queued --&gt; x37b36237069aea80([&quot;six_month_tables&quot;]):::queued
+    xe395ec11fce57977([&quot;outbreak_events_tables_in_db&quot;]):::queued --&gt; x706a5521f33a5641([&quot;outbreak_events_tables_in_db_with_foreign_keys&quot;]):::queued
+    xb3e4b9db3d59cdbc([&quot;taxon_key_file&quot;]):::skipped --&gt; x8b6a5220bfbdabdf([&quot;taxon_key&quot;]):::queued
+    xc235746cd78fdcc9([&quot;six_month_quantitative_file&quot;]):::skipped --&gt; x52699edfaa6546df([&quot;six_month_quantitative_extract&quot;]):::queued
+    xed1d4a32cc4d66ec([&quot;outbreak_events_extract&quot;]):::queued --&gt; x32a3bb2ce92d02b0([&quot;outbreak_events_tables&quot;]):::queued
   end
 linkStyle 0 stroke-width:0px;</code></pre>
 <h2 id="dolt">Dolt</h2>

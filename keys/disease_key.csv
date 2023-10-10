@@ -1,0 +1,293 @@
+disease,standardized_disease_name,standardized_disease_name_alt,disease_group,disease_order,disease_family,disease_genus,disease_species,disease_abbreviation,disease_details,disease_details1,disease_details2,disease_vector
+abalone icosahedral virus disease,abalone icosahedral virus disease,NA,virus,Herpesvirales,Malacoherpesviridae,Aurivirus,Haliotid herpesvirus 1,HaHV-1,DNA,double-stranded,NA,NA
+acarapisosis,acarapisosis,NA,eukaryote,Trombidiformes,Tarsonemidae,Acarapis,woodi,NA,arachnid,NA,NA,NA
+aeromonas hydrophila,aeromonas hydrophila,NA,bacteria,Aeromonadales,Aeromonadaceae,Aeromonas,hydrophila,NA,gram-negative,facultative anaerobe,NA,NA
+aethina tumida,aethina tumida,small hive beetle inf.,eukaryote,Coleoptera,Nitidulidae,Aethina,tumida,NA,beetle,NA,NA,NA
+african horse sickness,african horse sickness,NA,virus,Reovirales,Reoviridae,Orbivirus,African horse sickness virus,AHSV,RNA,double-stranded,NA,NA
+african swine fever,african swine fever,NA,virus,Asfuvirales,Reoviridae,Asfivirus,African swine fever virus,ASFV,DNA,double-stranded,NA,NA
+american fool brood,american fool brood,NA,bacteria,Bacillales,Paenibacillaceae,Paenibacillus,larvae,NA,gram-positive,facultative anaerobe,NA,NA
+anthrax,anthrax,Anthrax,bacteria,Bacillales,Bacillaceae,Bacillus,anthracis,NA,gram-positive,facultative anaerobe,NA,NA
+aphanomyces astaci,aphanomyces astaci,crayfish pague,eukaryote,Saprolegniales,Leptolegniaceae,Aphanomyces,astaci,NA,mould,NA,NA,NA
+aphanomyces invadans,epizootic ulcerative syndrome,epizootic ulcerative syndrome,eukaryote,Saprolegniales,Leptolegniaceae,Aphanomyces,invadans,NA,mould,NA,NA,NA
+aujeszkys disease,aujeszkys disease,pseudorabies,virus,Herpesvirales,Herpesviridae,Varicellovirus,Suid alphaherpesvirus 1,SuHV-1,DNA,double-stranded,NA,NA
+avian chlamydiosis,avian chlamydiosis,NA,bacteria,Chlamydiales,Chlamydiaceae,Chlamydia,psittaci,NA,gram-negative,anaerobe,obligate intracellular,NA
+avian infectious bronchitis,avian infectious bronchitis,NA,virus,Nidovirales,Coronaviridae,Gammacoronavirus,Avian coronavirus,IBV,RNA,single-stranded,positive-sense,NA
+avian infectious laryngotracheitis,avian infectious laryngotracheitis,NA,virus,Herpesvirales,Herpesviridae,Iltovirus,Gallid alphaherpesvirus 1,GaHV-1,DNA,double-stranded,NA,NA
+batrachochytrium dendrobatidis,batrachochytrium dendrobatidis,NA,eukaryote,Rhizophydiales,Batrachochytriaceae,Batrachochytrium,dendrobatidis,NA,fungus,NA,NA,NA
+bonamia exitiosa,bonamia exitiosa,NA,eukaryote,Haplosporida,Haplosporidiidae,Bonamia,exitiosa,NA,rhizaria,NA,NA,NA
+bonamia ostreae,bonamia ostreae,NA,eukaryote,Haplosporida,Haplosporidiidae,Bonamia,ostrea,NA,rhizaria,NA,NA,NA
+bovine anaplasmosis,bovine anaplasmosis,NA,bacteria,Rickettsiales,Ehrlichiaceae,Anaplasma,NA,NA,gram-negative,aerobe,obligate intracellular,NA
+bovine babesiosis,bovine babesiosis,piroplasmosis,eukaryote,Piroplasmida,NA,NA,NA,NA,alveolate,NA,NA,NA
+bovine genital campylobacteriosis,bovine genital campylobacteriosis,campylobacteriosis,bacteria,Campylobacterales,Campylobacteraceae,Campylobacter,fetus,NA,gram-negative,microaerobe,NA,NA
+bovine leukosis,bovine leukosis,NA,virus,Ortervirales,Retroviridae,Deltaretrovirus,Bovine leukemia virus,BLV,RNA,single-stranded,positive-sense,NA
+bovine spongiform encephalopathy,bovine spongiform encephalopathy,mad cow disease,prion,NA,NA,NA,NA,NA,NA,NA,NA,NA
+brucella abortus,brucella abortus,NA,bacteria,Hyphomicrobiales,Brucellaceae,Brucella,abortus,NA,gram-negative,aerobe,facultative intracellular,NA
+brucella melitensis,brucellosis,Brucellosis,bacteria,Hyphomicrobiales,Brucellaceae,Brucella,melitensis,NA,gram-negative,aerobe,facultative intracellular,NA
+brucellosis,brucellosis,Brucellosis,bacteria,Hyphomicrobiales,Brucellaceae,Brucella,melitensis,NA,gram-negative,aerobe,facultative intracellular,NA
+caprine arthritis and encephalitis,caprine arthritis and encephalitis,NA,virus,Ortervirales,Retroviridae,Lentivirus,Caprine arthritis encephalitis virus,CAEV,RNA,single-stranded,positive-sense,NA
+classical swine fever,classical swine fever,hog cholera,virus,Amarillovirales,Flaviviridae,Pestivirus,Pestivirus C,CSFV,RNA,single-stranded,positive-sense,NA
+contagious agalactia,contagious agalactia,NA,bacteria,Mycoplasmatales,Mycoplasmataceae,Mycoplasma,agalactiae,NA,gram-negative,facultative anaerobe,NA,NA
+coronavirus,coronavirus,NA,virus,Nidovirales,Coronaviridae,NA,NA,NA,RNA,single-stranded,positive-sense,NA
+crayfish plague,crayfish plague,NA,eukaryote,Saprolegniales,Leptolegniaceae,Aphanomyces,astaci,NA,mould,NA,NA,NA
+decapod iridescent  1 infection,decapod iridescent 1 infection,NA,virus,Bunyavirales,Nairoviridae,Orthonairovirus,Orthonairovirus,CCHFV,RNA,single-stranded,negative-sense,NA
+dourine,dourine,NA,eukaryote,Trypanosomatida,Trypanosomatidae,Trypanosoma,equiperdum,NA,kinetoplastid,NA,NA,NA
+duck  hepatitis,duck hepatitis,NA,virus,Picornavirales,Picornaviridae,Avihepatovirus,Avihepatovirus A,DHV-1,RNA,single-stranded,positive-sense,NA
+echinococcosis,echinococcosis,NA,eukaryote,Cyclophyllidea,Taeniidae,Echinococcus,NA,NA,platyhelminth,NA,NA,NA
+enzootic abortion of ewes,enzootic abortion of ewes,chlamydiosis,bacteria,Chlamydiales,Chlamydiaceae,Chlamydia,abortus,NA,gram-negative,anaerobe,obligate intracellular,NA
+epizootic haemorrhagic disease,epizootic hemorrhagic disease,epizootic hemorrhagic disease,virus,Reovirales,Reoviridae,Orbivirus,Epizootic hemorrhagic disease virus,NA,RNA,double-stranded,NA,NA
+epizootic hemorrhagic disease,epizootic hemorrhagic disease,epizootic haemorrhagic disease,virus,Reovirales,Reoviridae,Orbivirus,Epizootic hemorrhagic disease virus,NA,RNA,double-stranded,NA,NA
+epizootic ulcerative syndrome,epizootic ulcerative syndrome,aphanomyces invadans,eukaryote,Saprolegniales,Leptolegniaceae,Aphanomyces,invadans,NA,mould,NA,NA,NA
+equine arteritis,equine arteritis,NA,virus,Nidovirales,Arteriviridae,Alphaarterivirus,Alphaarterivirus equid,EAV,RNA,single-stranded,positive-sense,NA
+equine encephalitis,equine encephalitis,NA,virus,Martellivirales,Togaviridae,Alphavirus,NA,NA,RNA,single-stranded,positive-sense,NA
+equine herpes virus,equine herpes virus,NA,virus,Herpesvirales,Herpesviridae,NA,NA,NA,DNA,double-stranded,NA,NA
+equine infectious anaemia,equine infectious anaemia,swamp fever,virus,Ortervirales,Retroviridae,Lentivirus,Equine infectious anemia virus,EIAV,RNA,single-stranded,positive-sense,NA
+equine influenza,equine influenza,NA,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,NA,RNA,single-stranded,negative-sense,NA
+equine piroplasmosis,equine piroplasmosis,piroplasmosis,eukaryote,Piroplasmida,NA,NA,NA,NA,alveolate,NA,NA,NA
+equine viral arthritis,equine viral arthritis,NA,virus,Nidovirales,Arteriviridae,Alphaarterivirus,Alphaarterivirus equid,EAV,RNA,single-stranded,positive-sense,NA
+equine viral rhinopneumonitis,equine viral rhinopneumonitis,NA,virus,Herpesvirales,Herpesviridae,Varicellovirus,Equid alphaherpesvirus 4,EHV-4,DNA,double-stranded,NA,NA
+foot-and-mouth disease,foot-and-mouth disease,Foot And Mouth Disease,virus,Picornavirales,Picornaviridae,Aphthovirus,Foot-and-mouth disease virus,FMDV,RNA,single-stranded,positive-sense,NA
+fowl typhoid,fowl typhoid,NA,bacteria,Enterobacterales,Enterobacteriaceae,Salmonella,gallinarum,NA,gram-negative,facultative anaerobe,NA,NA
+glanders,glanders,NA,bacteria,Burkholderiales,Burkholderiaceae,Burkholderia,mallei,NA,gram-negative,aerobe,NA,NA
+gyrodactylosis,gyrodactylosis,Gyrodactylus,eukaryote,Gyrodactylidea,Gyrodactylidae,Gyrodactylus,salaris,NA,platyhelminth,NA,NA,na
+heartwater,heartwater,cowdriosis,bacteria,Rickettsiales,Ehrlichiaceae,Ehrlichia,ruminantium,NA,gram-negative,aerobic,NA,tick
+hemorrhagic septicemia,hemorrhagic septicemia,fowl cholera,bacteria,Pasteurellales,Pasteurellaceae,Pasteurella,multocida,NA,gram-negative,facultative anaerobe,NA,NA
+hendra virus pneumonia,hendra virus pneumonia,NA,virus,Mononegavirales,Paramyxoviridae,Henipavirus,Hendra henipavirus,HeV,RNA,single-stranded,negative-sense,NA
+hepatobacter penaei,necrotising hepatopancreatitis,Texas Pond Mortality Syndrome,bacteria,Rickettsiales,Incertae sedis,Hepatobacter,penaei,NA,gram-negative,NA,intracytoplasmic,NA
+hepatopancreatitis in prawns,hepatopancreatitis in prawns,Texas necrotizing hepatopancreatitis,bacteria,Vibrionales,Vibrionaceae,Vibrio,parahaemolyticus,NA,gram-negative,facultatively aerobic,NA,NA
+herpesvirus,herpesvirus,NA,virus,Herpesvirales,Herpesviridae,NA,NA,NA,DNA,double-stranded,NA,NA
+high pathogenicity avian influenza es,highly pathogenic avian influenza,hpai,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,HPAI,RNA,single-stranded,NA,NA
+highly pathogenic avian influenza,highly pathogenic avian influenza,hpai,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,HPAI,RNA,single-stranded,negative-sense,NA
+hpai,highly pathogenic avian influenza,highly pathogenic avian influenza,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,HPAI,RNA,single-stranded,negative-sense,NA
+infectious bovine rhinotracheitis,infectious bovine rhinotracheitis,NA,virus,Herpesvirales,Herpesviridae,Varicellovirus,Bovine alphaherpesvirus 1,BoHV-1,DNA,double-stranded,NA,NA
+infectious bursal disease,infectious bursal disease,Gumboro disease,virus,incertae sedis,Birnaviridae,Avibirnavirus,Infectious bursal disease virus,IBDV,RNA,double-stranded,NA,NA
+infectious haematopoietic necrosis,infectious haematopoietic necrosis,NA,virus,Mononegavirales,Rhabdoviridae,Novirhabdovirus,Salmonid novirhabdovirus,IHNV,RNA,single-stranded,negative-sense,NA
+infectious hypodermal and hematopoietic necrosis ihhn,infectious hypodermal and hematopoietic necrosis ihhn,NA,virus,Piccovirales,Parvoviridae,Penstylhamaparvovirus,Decapod penstylhamaparvovirus 1,IHHNV,DNA,single-stranded,NA,NA
+infectious myonecrosis,infectious myonecrosis,Gas gangrene,bacteria,Clostridiales,Clostridiaceae,Clostridium,NA,NA,gram-positive,anaerobe,NA,na
+infectious pancreatic necrosis,infectious pancreatic necrosis,NA,virus,incertae sedis,Birnaviridae,Aquabirnavirus,Infectious pancreatic necrosis virus,IPNV,RNA,double-stranded,NA,na
+infectious salmon anaemia,infectious salmon anaemia,NA,virus,Articulavirales,Orthomyxoviridae,Isavirus,Salmon isavirus,ISA,RNA,single-stranded,negative-sense,NA
+infectious spleen and kidney necrosis,infectious spleen and kidney necrosis,NA,virus,Pimascovirales,Iridoviridae,Megalocytivirus,Infectious spleen and kidney necrosis virus,ISKNV,DNA,double-stranded,NA,NA
+influenza a,influenza a,NA,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,NA,RNA,single-stranded,negative-sense,NA
+influenza a es of high pathogenicity,highly pathogenic avian influenza,hpai,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,HPAI,RNA,single-stranded,negative-sense,NA
+koi herpes disease,koi herpesvirus disease,koi herpesvirus disease,virus,Herpesvirales,Alloherpesviridae,Cyprinivirus,Cyprinid herpesvirus 3,KHV,DNA,double-stranded,NA,NA
+koi herpesvirus disease,koi herpesvirus disease,koi herpes disease,virus,Herpesvirales,Alloherpesviridae,Cyprinivirus,Cyprinid herpesvirus 3,KHV,DNA,double-stranded,NA,NA
+leishmaniosis,leishmaniasis,Leishmaniasis,eukaryote,Trypanosomatida,Trypanosomatidae,Leishmania,NA,NA,excavate,NA,NA,sandflies
+low pathogenic avian influenza,low pathogenic avian influenza,NA,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,NA,RNA,single-stranded,negative-sense,NA
+lumpy skin disease,lumpy skin disease,Neethling virus,virus,Chitovirales,Poxviridae,Capripoxvirus,Lumpy skin disease virus,LSDV,DNA,double-stranded,NA,NA
+maedi visna,maedi visna,NA,virus,Ortervirales,Retroviridae,Lentivirus,Visna virus,VMV,RNA,single-stranded,positive-sense,NA
+malignant catarrhal fever,malignant catarrhal fever,snotsiekte,virus,Herpesvirales,Herpesviridae,Macavirus,NA,NA,DNA,double-stranded,NA,NA
+marteilia refringens,marteilia refringens,NA,eukaryote,Paramyxida,Marteiliidae,Marteilia,efringens,NA,protozoan,NA,NA,NA
+mikrocytos mimicus n. sp.,mikrocytos mimicus n. sp.,NA,eukaryote,Mikrocytida,Mikrocytidae,Mikrocytos,mimicus,NA,rhizaria,NA,NA,NA
+mycobacterium tuberculosis,mycobacterium tuberculosis,NA,bacteria,Mycobacteriales,Mycobacteriaceae,Mycobacterium,tuberculosis,NA,gram-resistant,aerobe,NA,NA
+mycoplasma infection,mycoplasma infection,NA,bacteria,Mycoplasmatales,Mycoplasmataceae,Mycoplasma,NA,NA,gram-negative,facultative anaerobe,NA,NA
+myxoma virus,myxoma virus,NA,virus,Chitovirales,Poxviridae,Leporipoxvirus,Myxoma virus,MV,DNA,double-stranded,NA,NA
+new disease in rainbow trout,new disease in rainbow trout,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+newcastle disease,newcastle disease,NA,virus,Mononegavirales,Paramyxoviridae,Orthoavulavirus,Avian orthoavulavirus 1,NDV,RNA,single-stranded,negative-sense,NA
+nodavirus,nodavirus,NA,virus,Nodamuvirales,Nodaviridae,NA,NA,NA,RNA,single-stranded,positive-sense,NA
+ostreid herpes-1,ostreid herpes-1,NA,virus,Herpesvirales,Malacoherpesviridae,Ostreavirus,Ostreid herpesvirus 1,OsHV-1,DNA,NA,NA,NA
+ovine bluetongue disease,ovine bluetongue disease,NA,virus,Reovirales,Reoviridae,Orbivirus,Bluetongue virus,BTV,RNA,double-stranded,NA,NA
+ovine contagious epididymitis,ovine contagious epididymitis,NA,bacteria+D95,NA,NA,NA,NA,NA,NA,NA,NA,NA
+ovine pox disease,ovine pox disease,Sheeppox,virus,Chitovirales,Poxviridae,Capripoxvirus,Sheeppox virus,SPV,DNA,double-stranded,NA,NA
+parasitic gastroenteritis,parasitic gastroenteritis,NA,eukaryote,NA,NA,NA,NA,NA,giardia?,cryptosporidium?,NA,NA
+paratuberculosis,paratuberculosis,NA,bacteria,Corynebacteriales,Mycobacteriaceae,Mycobacterium,M. avium,NA,gram-resistant,aerobe,NA,NA
+perkinsus marinus,perkinsus marinus,NA,eukaryote,Perkinsida,Perkinsidae,Perkinsus,marinus,NA,alveolate,NA,NA,NA
+perkinsus olseni,perkinsus olseni,perkinsus atlanticus,eukaryote,Perkinsida,Perkinsidae,Perkinsus,olseni,NA,alveolate,NA,NA,NA
+peste des petits ruminants,peste des petits ruminants,Ovine rinderpest,virus,Mononegavirales,Paramyxoviridae,Morbillivirus,Small ruminant morbillivirus,PPR,RNA,single-stranded,negative-sense,NA
+pleuropneumonia,pleuropneumonia,NA,bacteria,Mycoplasmatales,Mycoplasmataceae,Mycoplasma,mycoides,NA,gram-negative,facultative anaerobe,NA,NA
+porcine epidemic diarrhea,porcine epidemic diarrhea,NA,virus,Coronaviridae,Alphacoronavirus,Pedacovirus,Porcine epidemic diarrhea virus,PEDV,RNA,single-stranded,NA,NA
+porcine reproductive and respiratory syndrome,porcine reproductive and respiratory syndrome,NA,virus,Nidovirales,Arteriviridae,Betaarterivirus,Betaarterivirus suid 1,PRRSV,RNA,single-stranded,positive-sense,NA
+postweaning multisystemic wasting syndrome,postweaning multisystemic wasting syndrome,NA,virus,Cirlivirales,Circoviridae,Circovirus,Porcine circovirus 2,PCV,DNA,single-stranded,NA,NA
+poxvirus,poxvirus,NA,virus,Chitovirales,Poxviridae,NA,NA,NA,DNA,double-stranded,NA,NA
+"primary screwworm, new world screwworm","primary screwworm, new world screwworm",NA,eukaryote,Diptera,Calliphoridae,Cochliomyia,NA,NA,insecta,NA,NA,NA
+pullorum disease,pullorum disease,NA,bacteria,Enterobacterales,Enterobacteriaceae,Salmonella,pullorum,NA,gram-negative,facultative anaerobe,NA,NA
+q fever,q fever,Q fever,bacteria,Legionellales,Coxiellaceae,Coxiella,burnetii,NA,gram-negative,aerobe,NA,NA
+rabies,rabies,NA,virus,Mononegavirales,Rhabdoviridae,Lyssavirus,NA,NA,RNA,single-stranded,negative-sense,NA
+rana,rana,ranavirus,virus,Iridoviridae,Alphairidovirinae,Ranavirus,NA,NA,DNA,double-stranded,NA,NA
+red sea bream iridoviral disease rsivd,red sea bream iridoviral disease rsivd,NA,virus,Pimascovirales,Iridoviridae,Iridovirus,Red sea bream iridovirus,RSIV,DNA,double-stranded,NA,NA
+rift valley fever,rift valley fever,Rift Valley Fever,virus,Bunyavirales,Phenuiviridae,Phlebovirus,Rift Valley fever phlebovirus,RVF,RNA,single-stranded,ambi-sense,mosquito
+sars-cov-2,sars-cov-2,NA,virus,Nidovirales,Coronaviridae,Betacoronavirus,Severe acute respiratory syndrome coronavirus 2,SARS-CoV-2,RNA,single-stranded,positive-sense,positive-sense
+schmallenberg virus,schmallenberg virus,NA,virus,Bunyavirales,Peribunyaviridae,Orthobunyavirus,Schmallenberg orthobunyavirus,SBV,RNA,single-stranded,negative-sense,NA
+scrapie,scrapie,NA,prion,NA,NA,NA,NA,NA,NA,NA,NA,NA
+small hive beetle inf.,small hive beetle inf.,aethina tumida,eukaryote,Coleoptera,Nitidulidae,Aethina,tumida,NA,insecta,NA,NA,NA
+spring viremia of carp,spring viremia of carp,swim bladder inflammation,virus,Mononegavirales,Rhabdoviridae,Sprivivirus,Carp sprivivirus,SVCV,RNA,single-stranded,negative-sense,NA
+surra,surra,NA,eukaryote,Trypanosomatida,Trypanosomatidae,Trypanosoma,evansi,NA,excavate,NA,NA,NA
+swine vesicular disease,swine vesicular disease,NA,virus,Picornavirales,Picornaviridae,Enterovirus,Enterovirus B,EV-B,RNA,single-stranded,positive-sense,NA
+taura syndrome,taura syndrome,NA,virus,Picornavirales,Dicistroviridae,Aparavirus,Taura syndrome virus,TSV,RNA,single-stranded,positive-sense,NA
+taylorella equigenitalis,taylorella equigenitalis,Contagious equine metritis,bacteria,Burkholderiales,Alcaligenaceae,Taylorella,equigenitalis,NA,gram-negative,aerobe,NA,NA
+tilapia lake  disease,tilapia lake disease,NA,virus,Articulavirales,Amnoonviridae,Tilapinevirus,Tilapia tilapinevirus,TiLV,RNA,single-stranded,negative-sense,NA
+trichinellosis,trichinellosis,NA,eukaryote,Trichocephalida,Trichinellidae,Trichinella,NA,NA,nematode,NA,NA,NA
+trypanosomiasis,trypanosomiasis,NA,eukaryote,Trypanosomatida,Trypanosomatidae,Trypanosoma,NA,NA,NA,NA,NA,"flies,triatome bugs"
+tularemia,tularemia,rabbit fever,bacteria,Thiotrichales,Francisellaceae,Francisella,tularensis,NA,gram-negative,aerobe,NA,"ticks,deer flies"
+varroosis,varroosis,NA,eukaryote,Mesostigmata,Varroidae,Varroa,destructor,NA,arachnid,NA,NA,NA
+venezuelan equine encephalitis,venezuelan equine encephalitis,NA,virus,Martellivirales,Togaviridae,Alphavirus,Venezuelan equine encephalitis virus,VEE,RNA,single-stranded,positive-sense,NA
+vesicular stomatitis,vesicular stomatitis,NA,virus,Mononegavirales,Rhabdoviridae,Vesiculovirus,Indiana vesiculovirus,VSIV,RNA,single-stranded,negative-sense,NA
+viral haemorrhagic disease,viral hemorrhagic septicemia,viral hemorrhagic septicemia,virus,Picornavirales,Caliciviridae,Lagovirus,Rabbit hemorrhagic disease virus,RHDV,RNA,single-stranded,positive-sense,NA
+viral hemorrhagic septicemia,viral hemorrhagic septicemia,viral haemorrhagic disease,virus,Picornavirales,Caliciviridae,Lagovirus,Rabbit hemorrhagic disease virus,RHDV,RNA,single-stranded,positive-sense,NA
+west nile encephalitis,west nile encephalitis,NA,virus,Amarillovirales,Flaviviridae,Flavivirus,West Nile virus,WNV,RNA,single-stranded,positive-sense,NA
+white spot syndrome virus 1,white spot syndrome virus 1,NA,virus,incertae sedis,Nimaviridae,Whispovirus,White spot syndrome virus,WSS,DNA,double-stranded,NA,NA
+xenohaliotis californiensis,xenohaliotis californiensis,NA,bacteria,Rickettsiales,Rickettsiaceae,Candidatus,Xenohaliotis californiensis,NA,gram-negative,aerobe,obligate intracellular,NA
+west nile fever,west nile encephalitis,NA,virus,Amarillovirales,Flaviviridae,Flavivirus,West Nile virus,WNV,RNA,single-stranded,positive-sense,NA
+high pathogenicity avian influenza viruses (poultry) (inf. with),highly pathogenic avian influenza,hpai,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,HPAI,RNA,single-stranded,negative-sense,NA
+high pathogenicity avian influenza viruses (poultry) (inf. with),highly pathogenic avian influenza,highly pathogenic avian influenza,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,HPAI,RNA,single-stranded,negative-sense,NA
+foot and mouth disease virus (inf. with),foot-and-mouth disease,Foot And Mouth Disease,virus,Picornavirales,Picornaviridae,Aphthovirus,Foot-and-mouth disease virus,FMDV,RNA,single-stranded,positive-sense,NA
+aphanomyces invadans (inf. with) (epizootic ulcerative syndrome),epizootic ulcerative syndrome,epizootic ulcerative syndrome,eukaryote,Saprolegniales,Leptolegniaceae,Aphanomyces,invadans,NA,mould,NA,NA,NA
+aphanomyces invadans (inf. with) (epizootic ulcerative syndrome),epizootic ulcerative syndrome,aphanomyces invadans,eukaryote,Saprolegniales,Leptolegniaceae,Aphanomyces,invadans,NA,mould,NA,NA,NA
+newcastle disease virus (inf. with),newcastle disease,NA,virus,Mononegavirales,Paramyxoviridae,Orthoavulavirus,Avian orthoavulavirus 1,NDV,RNA,single-stranded,negative-sense,NA
+echinococcosis/hydatidosis,echinococcosis,NA,eukaryote,Cyclophyllidea,Taeniidae,Echinococcus,NA,NA,platyhelminth,NA,NA,NA
+bonamia exitiosa (inf. with),bonamia exitiosa,NA,eukaryote,Haplosporida,Haplosporidiidae,Bonamia,exitiosa,NA,rhizaria,NA,NA,NA
+vesicular stomatitis (-2014),vesicular stomatitis,NA,virus,Mononegavirales,Rhabdoviridae,Vesiculovirus,Indiana vesiculovirus,VSIV,RNA,single-stranded,negative-sense,NA
+african swine fever virus (inf. with),african swine fever,NA,virus,Asfuvirales,Reoviridae,Asfivirus,African swine fever virus,ASFV,DNA,double-stranded,NA,NA
+xenohaliotis californiensis (inf. with),xenohaliotis californiensis,NA,bacteria,Rickettsiales,Rickettsiaceae,Candidatus,Xenohaliotis californiensis,NA,gram-negative,aerobe,obligate intracellular,NA
+porcine reproductive and respiratory syndrome virus (inf. with),porcine reproductive and respiratory syndrome,NA,virus,Nidovirales,Arteriviridae,Betaarterivirus,Betaarterivirus suid 1,PRRSV,RNA,single-stranded,positive-sense,NA
+bluetongue virus (inf. with),ovine bluetongue disease,NA,virus,Reovirales,Reoviridae,Orbivirus,Bluetongue virus,BTV,RNA,double-stranded,NA,NA
+sheep pox and goat pox,ovine pox disease,Sheeppox,virus,Chitovirales,Poxviridae,Capripoxvirus,Sheeppox virus,SPV,DNA,double-stranded,NA,NA
+low pathogenic avian influenza (poultry) (2006-2021),low pathogenic avian influenza,NA,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,NA,RNA,single-stranded,negative-sense,NA
+african horse sickness virus (inf. with),african horse sickness,NA,virus,Reovirales,Reoviridae,Orbivirus,African horse sickness virus,AHSV,RNA,double-stranded,NA,NA
+venezuelan equine encephalomyelitis,venezuelan equine encephalitis,NA,virus,Martellivirales,Togaviridae,Alphavirus,Venezuelan equine encephalitis virus,VEE,RNA,single-stranded,positive-sense,NA
+classical swine fever virus (inf. with),classical swine fever,hog cholera,virus,Amarillovirales,Flaviviridae,Pestivirus,Pestivirus C,CSFV,RNA,single-stranded,positive-sense,NA
+peste des petits ruminants virus (inf. with),peste des petits ruminants,Ovine rinderpest,virus,Mononegavirales,Paramyxoviridae,Morbillivirus,Small ruminant morbillivirus,PPR,RNA,single-stranded,negative-sense,NA
+aphanomyces astaci (inf. with)(crayfish plague),aphanomyces astaci,crayfish pague,eukaryote,Saprolegniales,Leptolegniaceae,Aphanomyces,astaci,NA,mould,NA,NA,NA
+white spot syndrome virus (inf. with),white spot syndrome virus 1,NA,virus,incertae sedis,Nimaviridae,Whispovirus,White spot syndrome virus,WSS,DNA,double-stranded,NA,NA
+burkholderia mallei (inf. with) (glanders),glanders,NA,bacteria,Burkholderiales,Burkholderiaceae,Burkholderia,mallei,NA,gram-negative,aerobe,NA,NA
+contagious equine metritis,taylorella equigenitalis,Contagious equine metritis,bacteria,Burkholderiales,Alcaligenaceae,Taylorella,equigenitalis,NA,gram-negative,aerobe,NA,NA
+rabbit haemorrhagic disease,viral hemorrhagic septicemia,viral haemorrhagic disease,virus,Picornavirales,Caliciviridae,Lagovirus,Rabbit hemorrhagic disease virus,RHDV,RNA,single-stranded,positive-sense,NA
+equine rhinopneumonitis (-2013),equine viral rhinopneumonitis,NA,virus,Herpesvirales,Herpesviridae,Varicellovirus,Equid alphaherpesvirus 4,EHV-4,DNA,double-stranded,NA,NA
+caprine arthritis/encephalitis,caprine arthritis and encephalitis,NA,virus,Ortervirales,Retroviridae,Lentivirus,Caprine arthritis encephalitis virus,CAEV,RNA,single-stranded,positive-sense,NA
+rift valley fever virus (inf. with),rift valley fever,Rift Valley Fever,virus,Bunyavirales,Phenuiviridae,Phlebovirus,Rift Valley fever phlebovirus,RVF,RNA,single-stranded,ambi-sense,mosquito
+spring viraemia of carp virus (inf. with),spring viremia of carp,swim bladder inflammation,virus,Mononegavirales,Rhabdoviridae,Sprivivirus,Carp sprivivirus,SVCV,RNA,single-stranded,negative-sense,NA
+perkinsus olseni (inf. with)(2006-),perkinsus olseni,perkinsus atlanticus,eukaryote,Perkinsida,Perkinsidae,Perkinsus,olseni,NA,alveolate,NA,NA,NA
+koi herpesvirus (inf. with),koi herpesvirus disease,koi herpesvirus disease,virus,Herpesvirales,Alloherpesviridae,Cyprinivirus,Cyprinid herpesvirus 3,KHV,DNA,double-stranded,NA,NA
+koi herpesvirus (inf. with),koi herpesvirus disease,koi herpes disease,virus,Herpesvirales,Alloherpesviridae,Cyprinivirus,Cyprinid herpesvirus 3,KHV,DNA,double-stranded,NA,NA
+ostreid herpesvirus-1 microvariant (inf. with)(-2014),ostreid herpes-1,NA,virus,Herpesvirales,Malacoherpesviridae,Ostreavirus,Ostreid herpesvirus 1,OsHV-1,DNA,NA,NA,NA
+equine influenza virus (inf. with),equine infectious anaemia,swamp fever,virus,Ortervirales,Retroviridae,Lentivirus,Equine infectious anemia virus,EIAV,RNA,single-stranded,positive-sense,NA
+hendra viruses (inf. with),hendra virus pneumonia,NA,virus,Mononegavirales,Paramyxoviridae,Henipavirus,Hendra henipavirus,HeV,RNA,single-stranded,negative-sense,NA
+rabies virus (inf. with),rabies,NA,virus,Mononegavirales,Rhabdoviridae,Lyssavirus,NA,NA,RNA,single-stranded,negative-sense,NA
+marteilia refringens (inf. with),marteilia refringens,NA,eukaryote,Paramyxida,Marteiliidae,Marteilia,efringens,NA,protozoan,NA,NA,NA
+ranavirus (inf. with)(2009-),rana,ranavirus,virus,Iridoviridae,Alphairidovirinae,Ranavirus,NA,NA,DNA,double-stranded,NA,NA
+transmissible gastroenteritis,transmissible gastroenteritis,NA,virus,Nidovirales,Coronaviridae,Alphacoronavirus,Transmissible gastroenteritis virus,TGEV,RNA,single-stranded,positive-sense,NA
+paenibacillus larvae (inf. of honey bees with) (american foulbrood),american fool brood,NA,bacteria,Bacillales,Paenibacillaceae,Paenibacillus,larvae,NA,gram-positive,facultative anaerobe,NA,NA
+brucella suis (inf. with),brucellosis,Brucellosis,bacteria,Hyphomicrobiales,Brucellaceae,Brucella,suis,NA,gram-negative,aerobe,facultative intracellular,NA
+bovine tuberculosis (-2018),bovine tuberculosis,NA,bacteria,Mycobacteriales,Mycobacteriaceae,Mycobacterium,tuberculosis,NA,gram-resistant,aerobe,NA,NA
+myxomatosis,myxoma virus,NA,virus,Chitovirales,Poxviridae,Leporipoxvirus,Myxoma virus,MV,DNA,double-stranded,NA,NA
+lumpy skin disease virus (inf. with),lumpy skin disease,Neethling virus,virus,Chitovirales,Poxviridae,Capripoxvirus,Lumpy skin disease virus,LSDV,DNA,double-stranded,NA,NA
+schmallenberg virus (inf. with),schmallenberg virus,NA,virus,Bunyavirales,Peribunyaviridae,Orthobunyavirus,Schmallenberg orthobunyavirus,SBV,RNA,single-stranded,negative-sense,NA
+aujeszky's disease virus (inf. with),aujeszkys disease,pseudorabies,virus,Herpesvirales,Herpesviridae,Varicellovirus,Suid alphaherpesvirus 1,SuHV-1,DNA,double-stranded,NA,NA
+infectious salmon anaemia virus (inf. with) (hpr-deleted or hpr0 genotypes),infectious salmon anaemia,NA,virus,Articulavirales,Orthomyxoviridae,Isavirus,Salmon isavirus,ISA,RNA,single-stranded,negative-sense,NA
+"chlamydia abortus (inf. with) (enzootic abortion of ewes, ovine chlamydiosis)",enzootic abortion of ewes,chlamydiosis,bacteria,Chlamydiales,Chlamydiaceae,Chlamydia,abortus,NA,gram-negative,anaerobe,obligate intracellular,NA
+brucella abortus (inf. with),brucella abortus,NA,bacteria,Hyphomicrobiales,Brucellaceae,Brucella,abortus,NA,gram-negative,aerobe,facultative intracellular,NA
+viral haemorrhagic septicaemia virus (inf. with),viral hemorrhagic septicemia,viral hemorrhagic septicemia,virus,Picornavirales,Caliciviridae,Lagovirus,Rabbit hemorrhagic disease virus,RHDV,RNA,single-stranded,positive-sense,NA
+viral haemorrhagic septicaemia virus (inf. with),viral hemorrhagic septicemia,viral haemorrhagic disease,virus,Picornavirales,Caliciviridae,Lagovirus,Rabbit hemorrhagic disease virus,RHDV,RNA,single-stranded,positive-sense,NA
+brucella melitensis (inf. with),brucellosis,Brucellosis,bacteria,Hyphomicrobiales,Brucellaceae,Brucella,melitensis,NA,gram-negative,aerobe,facultative intracellular,NA
+aethina tumida (inf. with)(small hive beetle)(2006-),small hive beetle inf.,aethina tumida,eukaryote,Coleoptera,Nitidulidae,Aethina,tumida,NA,insecta,NA,NA,NA
+melissococcus plutonius (inf. of honey bees with) (european foulbrood),european foulbrood,NA,bacteria,Lactobacillales,Enterococcaceae,Melissococcus,plutonius,NA,NA,NA,NA,NA
+maedi-visna,maedi visna,NA,virus,Ortervirales,Retroviridae,Lentivirus,Visna virus,VMV,RNA,single-stranded,positive-sense,NA
+mycoplasma mycoides subsp. mycoides sc (inf. with) (contagious bovine pleuropneumonia),mycoplasma infection,NA,bacteria,Mycoplasmatales,Mycoplasmataceae,Mycoplasma,mycoides,NA,gram-negative,facultative anaerobe,NA,NA
+equine arteritis virus (inf. with),equine arteritis,NA,virus,Nidovirales,Arteriviridae,Alphaarterivirus,Alphaarterivirus equid,EAV,RNA,single-stranded,positive-sense,NA
+infectious bovine rhinotracheitis/infectious pustular vulvovaginitis,infectious bovine rhinotracheitis,NA,virus,Herpesvirales,Herpesviridae,Varicellovirus,Bovine alphaherpesvirus 1,BoHV-1,DNA,double-stranded,NA,NA
+perkinsus marinus (inf. with),perkinsus marinus,NA,eukaryote,Perkinsida,Perkinsidae,Perkinsus,marinus,NA,alveolate,NA,NA,NA
+varroa spp. (inf. of honey bees with) (varroosis),varroosis,NA,eukaryote,Mesostigmata,Varroidae,Varroa,destructor,NA,arachnid,NA,NA,NA
+old world screwworm (chrysomya bezziana),"primary screwworm, new world screwworm",NA,eukaryote,Diptera,Calliphoridae,Chrysomya,bezziana,NA,insecta,NA,NA,NA
+equine encephalomyelitis (eastern)(2006-),equine encephalitis,NA,virus,Martellivirales,Togaviridae,Alphavirus,NA,NA,RNA,single-stranded,positive-sense,NA
+red sea bream iridovirus (inf. with),red sea bream iridoviral disease rsivd,NA,virus,Pimascovirales,Iridoviridae,Iridovirus,Red sea bream iridovirus,RSIV,DNA,double-stranded,NA,NA
+mikrocytos mimicus n. sp. (inf. with),mikrocytos mimicus n. sp.,NA,eukaryote,Mikrocytida,Mikrocytidae,Mikrocytos,mimicus,NA,rhizaria,NA,NA,NA
+middle east respiratory syndrome coronavirus (inf. with) (2022-),middle east respiratory syndrome coronavirus,NA,virus,Nidovirales,Coronaviridae,Betacoronavirus,Middle East respiratory syndrome–related coronavirus,MERS-CoV,RNA,single-stranded,positive-sense,positive-sense
+infectious haematopoietic necrosis virus (inf. with),infectious haematopoietic necrosis,NA,virus,Mononegavirales,Rhabdoviridae,Novirhabdovirus,Salmonid novirhabdovirus,IHNV,RNA,single-stranded,negative-sense,NA
+porcine epidemic diarrhoea virus (inf. with),porcine epidemic diarrhea,NA,virus,Coronaviridae,Alphacoronavirus,Pedacovirus,Porcine epidemic diarrhea virus,PEDV,RNA,single-stranded,NA,NA
+monkey pox,monkeypox,Mpox,virus,Chitovirales,Poxviridae,Orthopoxvirus,Monkeypox virus,MPV,DNA,double-stranded,NA,NA
+gyrodactylus salaris (inf. with),gyrodactylosis,Gyrodactylus,eukaryote,Gyrodactylidea,Gyrodactylidae,Gyrodactylus,salaris,NA,platyhelminth,NA,NA,na
+equid herpesvirus-1 (inf. with) (equine rhinopneumonitis) (2014-),equine viral rhinopneumonitis,NA,virus,Herpesvirales,Herpesviridae,Varicellovirus,Equid alphaherpesvirus 4,EHV-4,DNA,double-stranded,NA,NA
+hepatobacter penaei (inf. with)(necrotising hepatopancreatitis)(2011-),hepatopancreatitis in prawns,Texas necrotizing hepatopancreatitis,bacteria,Vibrionales,Vibrionaceae,Vibrio,parahaemolyticus,NA,gram-negative,facultatively aerobic,NA,NA
+bonamia ostreae (inf. with),bonamia ostreae,NA,eukaryote,Haplosporida,Haplosporidiidae,Bonamia,ostrea,NA,rhizaria,NA,NA,NA
+haemorrhagic septicaemia (pasteurella multocida serotypes 6:b and 6:e),hemorrhagic septicemia,fowl cholera,bacteria,Pasteurellales,Pasteurellaceae,Pasteurella,multocida,NA,gram-negative,facultative anaerobe,NA,NA
+mycoplasma gallisepticum¬†(avian mycoplasmosis) (inf. with),mycoplasma infection,NA,bacteria,Mycoplasmatales,Mycoplasmataceae,Mycoplasma,gallisepticum,NA,gram-negative,facultative anaerobe,NA,NA
+avian mycoplasmosis (m.synoviae) (2006-),mycoplasma infection,NA,bacteria,Mycoplasmatales,Mycoplasmataceae,Mycoplasma,synoviae,NA,gram-negative,facultative anaerobe,NA,NA
+duck virus hepatitis,duck hepatitis,NA,virus,Picornavirales,Picornaviridae,Avihepatovirus,Avihepatovirus A,DHV-1,RNA,single-stranded,positive-sense,NA
+epizootic hemorrhagic disease virus (inf. with),epizootic hemorrhagic disease,epizootic hemorrhagic disease,virus,Reovirales,Reoviridae,Orbivirus,Epizootic hemorrhagic disease virus,NA,RNA,double-stranded,NA,NA
+epizootic hemorrhagic disease virus (inf. with),epizootic hemorrhagic disease,epizootic haemorrhagic disease,virus,Reovirales,Reoviridae,Orbivirus,Epizootic hemorrhagic disease virus,NA,RNA,double-stranded,NA,NA
+camelpox (2006-),camelpox,NA,virus,Chitovirales,Poxviridae,Orthopoxvirus,Camelpox virus,SPV,DNA,double-stranded,NA,NA
+pox viruses (other than those listed by the oie)(inf. with)(2011-),mycoplasma infection,NA,bacteria,Mycoplasmatales,Mycoplasmataceae,Mycoplasma,synoviae,NA,gram-negative,facultative anaerobe,NA,NA
+new world screwworm (cochliomyia hominivorax),"primary screwworm, new world screwworm",NA,eukaryote,Diptera,Calliphoridae,Cochliomyia,NA,NA,insecta,NA,NA,NA
+surra (trypanosoma evansi),trypanosomiasis,NA,eukaryote,Trypanosomatida,Trypanosomatidae,Trypanosoma,NA,NA,NA,NA,NA,"flies,triatome bugs"
+taura syndrome virus (inf. with),taura syndrome,NA,virus,Picornavirales,Dicistroviridae,Aparavirus,Taura syndrome virus,TSV,RNA,single-stranded,positive-sense,NA
+influenza a viruses of high pathogenicity (inf. with) (non-poultry including wild birds) (2017-),highly pathogenic avian influenza,hpai,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,HPAI,RNA,single-stranded,negative-sense,NA
+influenza a viruses of high pathogenicity (inf. with) (non-poultry including wild birds) (2017-),highly pathogenic avian influenza,highly pathogenic avian influenza,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,HPAI,RNA,single-stranded,negative-sense,NA
+ovine epididymitis (brucella ovis),ovine brucellosis,brucellosis,bacteria,Hyphomicrobiales,Brucellaceae,Brucella,ovis,NA,gram-negative,aerobe,facultative intracellular,NA
+pigeon rotavirus,pigeon rotavirus,NA,virus,Reovirales,Sedoreoviridae,Sedoreovirinae,Rotavirus,NA,RNA,double-stranded,positive-sense,NA
+aeromonas hydrophila (inf. with),aeromonas hydrophila,NA,bacteria,Aeromonadales,Aeromonadaceae,Aeromonas,hydrophila,NA,gram-negative,facultative anaerobe,NA,NA
+tilapia lake virus (tilv) disease,tilapia lake disease,NA,virus,Articulavirales,Amnoonviridae,Tilapinevirus,Tilapia tilapinevirus,TiLV,RNA,single-stranded,negative-sense,NA
+trypanosomosis (tsetse-transmitted) (-2021),trypanosomiasis,NA,eukaryote,Trypanosomatida,Trypanosomatidae,Trypanosoma,NA,NA,NA,NA,NA,"flies,triatome bugs"
+acute hepatopancreatic necrosis disease (2016-),hepatopancreatitis in prawns,Texas necrotizing hepatopancreatitis,bacteria,Vibrionales,Vibrionaceae,Vibrio,parahaemolyticus,NA,gram-negative,facultatively aerobic,NA,NA
+macrobrachium rosenbergii nodavirus (inf. with) (white tail disease) (2008-),white muscle disease,white tail disease,virus,NA,Sarthroviridae,Macronovirus,Macrobrachium satellite virus 1,MrNV,RNA,single-stranded,positive-sense,NA
+infectious myonecrosis virus (inf. with)(2008-),infectious myonecrosis virus,NA,virus,Ghabrivirales,Totiviridae,NA,Infectious myonecrosis virus,IMNV,RNA,NA,NA,NA
+swine vesicular disease (-2014),swine vesicular disease,NA,virus,Picornavirales,Picornaviridae,Enterovirus,Enterovirus B,EV-B,RNA,single-stranded,positive-sense,NA
+mycobacterium tuberculosis complex (inf. with)(2019-),mycobacterium tuberculosis,NA,bacteria,Mycobacteriales,Mycobacteriaceae,Mycobacterium,tuberculosis,NA,gram-resistant,aerobe,NA,NA
+equine encephalomyelitis (western)(2006-),equine encephalitis,NA,virus,Martellivirales,Togaviridae,Alphavirus,NA,NA,RNA,single-stranded,positive-sense,NA
+bovine viral diarrhoea (2006-),bovine viral diarrhoea,mucosal disease,virus,Amarillovirales,Flaviviridae,Pestivirus,NA,BVDV,RNA,single-stranded,positive-sense,NA
+infectious hypodermal and haematopoietic necrosis virus (inf. with),infectious hypodermal and hematopoietic necrosis ihhn,NA,virus,Piccovirales,Parvoviridae,Penstylhamaparvovirus,Decapod penstylhamaparvovirus 1,IHHNV,DNA,single-stranded,NA,NA
+infectious bursal disease (gumboro disease),infectious bursal disease,Gumboro disease,virus,incertae sedis,Birnaviridae,Avibirnavirus,Infectious bursal disease virus,IBDV,RNA,double-stranded,NA,NA
+equine encephalomyelitis (eastern and western)(-2005),equine encephalitis,NA,virus,Martellivirales,Togaviridae,Alphavirus,NA,NA,RNA,single-stranded,positive-sense,NA
+sars-cov-2 in animals (inf. with),sars-cov-2,NA,virus,Nidovirales,Coronaviridae,Betacoronavirus,Severe acute respiratory syndrome coronavirus 2,SARS-CoV-2,RNA,single-stranded,positive-sense,positive-sense
+ehrlichia canis (inf. with),ehrlichia canis,NA,bacteria,Rickettsiales,Ehrlichiaceae,Ehrlichia,canis,NA,gram-negative,NA,NA,NA
+decapod iridescent virus 1 (inf. with) (2022-),decapod iridescent 1 infection,NA,virus,Pimascovirales,Iridoviridae,Iridoviridae,Decapodiridovirus,DIV1,DNA,double-stranded,NA,NA
+enzootic bovine leukosis,bovine leukosis,NA,virus,Ortervirales,Retroviridae,Deltaretrovirus,Bovine leukemia virus,BLV,RNA,single-stranded,positive-sense,NA
+infectious spleen and kidney necrosis (isknv),infectious spleen and kidney necrosis,NA,virus,Pimascovirales,Iridoviridae,Megalocytivirus,Infectious spleen and kidney necrosis virus,ISKNV,DNA,double-stranded,NA,NA
+streptococcus suis (inf. with),streptococcus suis,NA,bacteria,Lactobacillales,Streptococcaceae,Streptococcus,suis,NA,gram-positive,NA,NA,NA
+botulism (-2014),botulism,NA,bacteria,Eubacteriales,Clostridiaceae,Clostridium,botulinum,NA,gram-positive,NA,NA,NA
+crimean congo haemorrhagic fever (2006-),crimean congo hemorrhagic fever,NA,virus,Bunyavirales,Nairoviridae,Orthonairovirus,Crimean-Congo hemorrhagic fever orthonairovirus,CCHFV,RNA,single-stranded,negative-sense,NA
+japanese encephalitis,japanese encephalitis,NA,virus,Amarillovirales,Flaviviridae,Flavivirus,Japanese encephalitis virus,JEV,RNA,single-stranded,positive-sense,NA
+malignant catarrhal fever (wildebeest only)(2006-2008),malignant catarrhal fever,snotsiekte,virus,Herpesvirales,Herpesviridae,Macavirus,NA,NA,DNA,double-stranded,NA,NA
+trichinella spp. (inf. with),trichinellosis,NA,eukaryote,Trichocephalida,Trichinellidae,Trichinella,NA,NA,nematode,NA,NA,NA
+abalone herpesvirus (inf. with),abalone herpesvirus disease,NA,virus,Herpesvirales,Malacoherpesviridae,Aurivirus,Haliotid herpesvirus 1,KHV,DNA,double-stranded,NA,NA
+postweaning multisystemic wasting syndrome (pmws),postweaning multisystemic wasting syndrome,NA,virus,Cirlivirales,Circoviridae,Circovirus,Porcine circovirus 2,PCV,DNA,single-stranded,NA,NA
+equine encephalosis virus (inf. with),equine encephalitis,NA,virus,Martellivirales,Togaviridae,Alphavirus,NA,NA,RNA,single-stranded,positive-sense,NA
+influenza a virus (inf. with),influenza,NA,virus,Articulavirales,Orthomyxoviridae,Alphainfluenzavirus,Influenza A virus,NA,RNA,single-stranded,negative-sense,NA
+contagious caprine pleuropneumonia,Contagious caprine pleuropneumonia,NA,bacteria,Mycoplasmatales,Mycoplasmataceae,Mycoplasma,NA,NA,gram-negative,facultative anaerobe,NA,NA
+acarapis woodi (inf. of honey bees with),acarapisosis,NA,eukaryote,Trombidiformes,Tarsonemidae,Acarapis,woodi,NA,arachnid,NA,NA,NA
+batrachochytrium dendrobatidis (inf. with)(2009-),batrachochytrium dendrobatidis,NA,eukaryote,Rhizophydiales,Batrachochytriaceae,Batrachochytrium,dendrobatidis,NA,fungus,NA,NA,NA
+mycobacterium tuberculosis (inf. with)(-2017),mycobacterium tuberculosis,NA,bacteria,Mycobacteriales,Mycobacteriaceae,Mycobacterium,tuberculosis,NA,gram-resistant,aerobe,NA,NA
+"infection with theileria annulata, theileria orientalis and theileria parva",piroplasmosis,NA,eukaryote,Piroplasmida,Theileriidae,Theileria,NA,NA,NA,NA,NA,NA
+rinderpest virus (inf. with),rinderpest,NA,virus,Mononegavirales,Paramyxoviridae,Morbillivirus,Rinderpest morbillivirus,RPV,RNA,single-stranded,negative-sense,NA
+yellow head disease (-2018),yellow head disease,NA,virus,Nidovirales,Roniviridae,Okavirus,Yellow head virus,YHV1,RNA,single-stranded,positive-sense,NA
+echinococcus granulosus (inf. with) (2014-),hydatid worm,dog tapeworm,eukaryote,Cyclophyllidea,Taeniidae,Echinococcus,granulosus,NA,tapeworm,NA,NA,NA
+epizootic haematopoietic necrosis virus (inf. with),infectious haematopoietic necrosis,NA,virus,Mononegavirales,Rhabdoviridae,Novirhabdovirus,Salmonid novirhabdovirus,IHNV,RNA,single-stranded,negative-sense,NA
+nairobi sheep disease,Nairobi sheep disease orthonairovirus,ganjam virus,virus,Bunyavirales,Nairoviridae,Orthonairovirus,Nairobi sheep disease orthonairovirus,NSDV,RNA,single-stranded,negative-sense,NA
+salmonid alphavirus (inf. with)(2014-),Salmon pancreas disease virus,salmonid alphavirus,virus,Martellivirales,Togaviridae,Alphavirus,Salmon pancreas disease virus,SAV,RNA,single-stranded,positive-sense,NA
+trichomonosis,trichomonosis,NA,eukaryote,Trichomonadida,Trichomonadidae,Trichomonas,NA,NA,NA,NA,NA,NA
+tropilaelaps spp. (inf. of honey bees with),acarapisosis,NA,eukaryote,Mesostigmata,Laelapidae,Tropilaelaps,NA,NA,arachnid,NA,NA,NA
+echinococcus multilocularis (inf. with) (2014-),echinococcus multilocularis,fox tapeworm,eukaryote,Cyclophyllidea,Taeniidae,Echinococcus,multilocularis,NA,NA,NA,NA,NA
+salmonellosis (s. abortusovis),Salmonella,NA,bacteria,Enterobacterales,Enterobacteriaceae,Salmonella,abortusovis,NA,gram-negative,NA,NA,NA
+taenia solium (inf. with) (porcine cysticercosis),porcine cysticercosis,pork tapeworm,eukaryote,Cyclophyllidea,Taeniidae,Taenia,solium,NA,NA,NA,NA,NA
+mycoplasma synoviae (avian mycoplasmosis) (inf. with) (2006-),mycoplasma,avian mycoplasmosis,bacteria,Mycoplasmatales,Mycoplasmataceae,Mycoplasma,gallisepticum,NA,gram-negative,facultative anaerobe,NA,NA
+nipah virus encephalitis,nipah virus encephalitis,NA,virus,Mononegavirales,Paramyxoviridae,Henipavirus,Nipah virus,WNV,RNA,single-stranded,negative-sense,NA
+turkey rhinotracheitis (2006-),Avian metapneumovirus,NA,virus,Mononegavirales,Pneumoviridae,Metapneumovirus,Avian metapneumovirus,aMPV,RNA,single-stranded,negative-sense,NA
+batrachochytrium salamandrivorans (inf. with)(2014-),batrachochytrium salamandrivorans,NA,eukaryote,Rhizophydiales,Batrachochytriaceae,Batrachochytrium,salamandrivorans,NA,fungus,NA,NA,NA
+yellow head virus genotype 1 (inf. with) (2019-),yellow head disease,NA,virus,Nidovirales,Roniviridae,Okavirus,Yellow head virus,YHV1,RNA,single-stranded,positive-sense,NA
+low pathogenicity avian influenza viruses transmissible to humans (inf. with) (2022-),low pathogenic avian influenza,NA,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,NA,RNA,single-stranded,negative-sense,NA
+"trypanosoma brucei, t. congolense, t. simiae and t. vivax (inf. with) (2022-)",trypanosomiasis ,NA,eukaryote,Trypanosomatida,Trypanosomatidae,Trypanosoma,brucei,NA,NA,NA,NA,NA
+dermatophilosis (-2005),dermatophilosis,rain scald,bacteria,Micrococcales,Dermatophilaceae,Dermatophilus,congolensis,NA,gram-positive,facultative anaerobe,NA,NA
+bovine cysticercosis (-2014),bovine cysticercosis,tapeworm,eukaryote,Cyclophyllidea,Taeniidae,Taenia,saginata,NA,NA,NA,NA,NA
+horse mange (-2005),horse mange,NA,eukaryote,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"theileria annulata, theileria orientalis and theileria parva (inf. with) (2023-)",piroplasmosis,NA,eukaryote,Piroplasmida,Theileriidae,Theileria,NA,NA,NA,NA,NA,NA
+marteilia sydneyi (inf. with)(-2005),QX disease,NA,eukaryote,Paramyxida,Marteiliidae,Marteilia,sydneyi,NA,NA,NA,NA,NA
+perkinsus olseni/atlanticus (inf. with)(-2005),perkinsus olseni,perkinsus atlanticus,eukaryote,Perkinsida,Perkinsidae,Perkinsus,olseni,NA,alveolate,NA,NA,NA
+viral encephalopathy and retinopathy (-2005),encephalopathy,NA,virus,NA,NA,NA,NA,NA,NA,NA,NA,NA
+avian tuberculosis (-2005),mycobacteriosis,NA,bacteria,Mycobacteriales,Mycobacteriaceae,Mycobacterium,avium,NA,gram-resistant,aerobe,NA,NA
+enterovirus encephalomyelitis (-2005),enterovirus encephalitis,NA,virus,Picornavirales,Picornaviridae,Enterovirus,NA,NA,RNA,single-stranded,positive-sense,NA
+fowl cholera (-2011),avian cholera,"avian pasteurellosis, avian hemorrhagic septicemia",bacteria,Pasteurellales,Pasteurellaceae,Pasteurella,multocida,NA,gram-negative,NA,NA,NA
+marek's disease (-2011),marek's disease,NA,virus,Herpesvirales,Orthoherpesviridae,Mardivirus,Gallid alphaherpesvirus 2,MDV,DNA,double-stranded,NA,NA
+leptospirosis,leptospirosis,Rat fever,bacteria,Leptospirales,Leptospiraceae,Leptospira,NA,NA,gram-negative,NA,NA,NA
+fowl pox (-2005),fowl pox,NA,virus,Chitovirales,Poxviridae,Avipoxvirus,Fowlpox virus,NA,DNA,double-stranded,NA,NA
+atrophic rhinitis of swine (-2005),atrophic rhinitis,NA,bacteria,Pasteurellales,Pasteurellaceae,Pasteurella,multocida,NA,gram-negative,NA,NA,NA
+duck virus enteritis (-2005),duck viral enteritis,duck plague,virus,Herpesvirales,Orthoherpesviridae,Mardivirus,Anatid alphaherpesvirus 1,MDV,DNA,double-stranded,NA,NA
+bacterial kidney disease (renibacterium salmoninarum)(-2006),bacterial kidney disease,NA,bacteria,Micrococcales,Micrococcaceae,Renibacterium,salmoninarum,NA,gram-positive,NA,NA,NA
+infectious pancreatic necrosis (-2006),infectious pancreatic necrosis,NA,virus,incertae sedis,Birnaviridae,Aquabirnavirus,Infectious pancreatic necrosis virus,IPNV,RNA,double-stranded,NA,NA
+ovine pulmonary adenomatosis (-2005),Ovine pulmonary adenocarcinoma,"ovine pulmonary adenomatosis, jaagsiekte",virus,Ortervirales,Retroviridae,Betaretrovirus,Jaagsiekte sheep retrovirus,VSIV,RNA,single-stranded,NA,NA
+oncorhynchus masou virus disease (-2005),oncorhynchus masou virus disease,NA,virus,Herpesvirales,Alloherpesviridae,Salmonivirus,Salmonid herpesvirus 2,SalHV-2,DNA,double-stranded,NA,NA
+epizootic lymphangitis (-2005),epizootic lymphangitis,NA,fungus,Onygenales,Ajellomycetaceae,Histoplasma,farciminosum,NA,NA,NA,NA,NA
+piscirickettsiosis (piscirickettsia salmonis)(-2005),piscirickettsiosis,NA,bacteria,Thiotrichales,Piscirickettsiaceae,Piscirickettsia,salmonis,NA,gram-negative,NA,NA,NA
+mikrocytos roughleyi (inf. with)(-2005),Bonamia ostreae,NA,eukaryote,Haplosporida,Haplosporidiidae,Bonamia,ostrea,NA,rhizaria,NA,NA,NA
+spherical baculovirosis (penaeus monodon-type baculovirus)(-2009),spherical baculovirosis,NA,virus,Lefavirales,Baculoviridae,nudivirus,P. monodon baculovirus,PmSNPV,DNA,double-stranded,NA,NA
+haplosporidium nelsoni (inf. with)(-2005),MSX,NA,eukaryote,Haplosporida,Haplosporiidae,Haplosporidium,nelsoni,NA,NA,NA,NA,NA
+horse pox (-2005),camelpox,NA,virus,Chitovirales,Poxviridae,Orthopoxvirus,Horsepox virus,HSPV,DNA,double-stranded,NA,NA
+tilapia lake virus (inf. with) (2023-),tilapia lake disease,NA,virus,Articulavirales,Amnoonviridae,Tilapinevirus,Tilapia tilapinevirus,TiLV,RNA,single-stranded,negative-sense,NA
+tetrahedral baculovirosis (baculovirus penaei)(-2009),tetrahedral baculovirosis,NA,virus,Lefavirales,Baculoviridae,Nucleopolyherdovirus,Baculovirus penaei,NA,DNA,double-stranded,NA,NA
+tilapia lake virus (inf. with),tilapia lake disease,NA,virus,Articulavirales,Amnoonviridae,Tilapinevirus,Tilapia tilapinevirus,TiLV,RNA,single-stranded,negative-sense,NA

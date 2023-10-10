@@ -31,6 +31,9 @@ available on DoltHub:
 - \*\*wahis_six_month_controls\*“\*\* Control measures applied by
   disease and taxa by 6-month semester. `unique_id` is a generated
   unique primary key.
+- **wahis_six_month_quantitative** Aggregated impact data from outbreak
+  events reports AND six monthly reports on 6-month basis.
+  `six_month_quantitative_unique_id` is a generated unique primary key.
 
 ## Repository Structure and Reproducibility
 
@@ -48,32 +51,35 @@ available on DoltHub:
 graph LR
 subgraph Project Workflow
     direction LR
-    x9f3106cdda58eb5e(["ando_lookup"]):::queued --> xa3c86d4a4ccf7acc(["six_month_table"]):::queued
-    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> xa3c86d4a4ccf7acc(["six_month_table"]):::queued
-    x1e1a7b77c7f535ce(["six_month_extract"]):::queued --> xa3c86d4a4ccf7acc(["six_month_table"]):::queued
-    x91216ef50cf9c7a2(["control_measures_table"]):::queued --> x0342fd6f5a92474b(["control_measures_table_in_db"]):::queued
-    x629c36d2af957bc8(["ando_lookup_file"]):::skipped --> x9f3106cdda58eb5e(["ando_lookup"]):::queued
-    xdb29bbcc08e88d8b(["control_measures_file"]):::skipped --> x08b65fdc2260a2a0(["control_measures_extract"]):::queued
-    x985e8121d5fee0a3(["wahis_tables"]):::queued --> x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued
-    xbddb73c04cc744ca(["disease_key_file"]):::queued --> x3fa380dc1bb2ee6e(["disease_key"]):::queued
-    xb062d399d449ab75(["schema_extract_file"]):::queued --> xb8193a09354c7cc0(["schema_extract"]):::queued
-    x6b3c3493de9c64ab(["six_month_file"]):::queued --> x1e1a7b77c7f535ce(["six_month_extract"]):::queued
-    x6a8e2c18543f0da1(["wahis_extract_file"]):::skipped --> x800e0120ecf6dba0(["wahis_extract"]):::queued
-    x9f3106cdda58eb5e(["ando_lookup"]):::queued --> x91216ef50cf9c7a2(["control_measures_table"]):::queued
-    x08b65fdc2260a2a0(["control_measures_extract"]):::queued --> x91216ef50cf9c7a2(["control_measures_table"]):::queued
-    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x91216ef50cf9c7a2(["control_measures_table"]):::queued
-    x9f3106cdda58eb5e(["ando_lookup"]):::queued --> x985e8121d5fee0a3(["wahis_tables"]):::queued
-    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x985e8121d5fee0a3(["wahis_tables"]):::queued
-    x800e0120ecf6dba0(["wahis_extract"]):::queued --> x985e8121d5fee0a3(["wahis_tables"]):::queued
-    x5cbe2bbd0725c754(["schema_fields"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
-    xe2a64b31ce9fa139(["schema_tables"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
-    x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued --> x1bd336b143fd25fb(["wahis_tables_in_db_with_foreign_keys"]):::queued
-    xa3c86d4a4ccf7acc(["six_month_table"]):::queued --> xd6445f363ad9c5a1(["six_month_table_in_db"]):::queued
-    x91216ef50cf9c7a2(["control_measures_table"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    xbddb73c04cc744ca(["disease_key_file"]):::skipped --> x3fa380dc1bb2ee6e(["disease_key"]):::queued
+    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x57ec39d36d300eb7(["six_month_tables_standardized"]):::queued
+    x37b36237069aea80(["six_month_tables"]):::queued --> x57ec39d36d300eb7(["six_month_tables_standardized"]):::queued
+    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> x57ec39d36d300eb7(["six_month_tables_standardized"]):::queued
     x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    xdca9076b94036ae3(["outbreak_events_tables_standardized"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
     xb8193a09354c7cc0(["schema_extract"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
-    xa3c86d4a4ccf7acc(["six_month_table"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
-    x985e8121d5fee0a3(["wahis_tables"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    x57ec39d36d300eb7(["six_month_tables_standardized"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> xa7adee78ecc918bb(["keys_in_db"]):::queued
+    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> xa7adee78ecc918bb(["keys_in_db"]):::queued
+    xa4fa2a66c31d7b33(["six_month_status_file"]):::skipped --> xde280acaaefdc7be(["six_month_status_extract"]):::queued
+    x52f10102fdbda18d(["six_month_controls_file"]):::skipped --> x6740ee55561635cd(["six_month_controls_extract"]):::queued
+    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> xdca9076b94036ae3(["outbreak_events_tables_standardized"]):::queued
+    x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued --> xdca9076b94036ae3(["outbreak_events_tables_standardized"]):::queued
+    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> xdca9076b94036ae3(["outbreak_events_tables_standardized"]):::queued
+    xb062d399d449ab75(["schema_extract_file"]):::skipped --> xb8193a09354c7cc0(["schema_extract"]):::queued
+    x5cbe2bbd0725c754(["schema_fields"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
+    xe2a64b31ce9fa139(["schema_tables"]):::skipped --> x9c3cd21d02b17883(["schema_in_db"]):::queued
+    x37b36237069aea80(["six_month_tables"]):::queued --> x06f5315659bba48a(["six_month_tables_in_db"]):::queued
+    x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued --> xe395ec11fce57977(["outbreak_events_tables_in_db"]):::queued
+    xcc7bba8de0af4cfe(["outbreak_events_file"]):::skipped --> xed1d4a32cc4d66ec(["outbreak_events_extract"]):::queued
+    x6740ee55561635cd(["six_month_controls_extract"]):::queued --> x37b36237069aea80(["six_month_tables"]):::queued
+    x52699edfaa6546df(["six_month_quantitative_extract"]):::queued --> x37b36237069aea80(["six_month_tables"]):::queued
+    xde280acaaefdc7be(["six_month_status_extract"]):::queued --> x37b36237069aea80(["six_month_tables"]):::queued
+    xe395ec11fce57977(["outbreak_events_tables_in_db"]):::queued --> x706a5521f33a5641(["outbreak_events_tables_in_db_with_foreign_keys"]):::queued
+    xb3e4b9db3d59cdbc(["taxon_key_file"]):::skipped --> x8b6a5220bfbdabdf(["taxon_key"]):::queued
+    xc235746cd78fdcc9(["six_month_quantitative_file"]):::skipped --> x52699edfaa6546df(["six_month_quantitative_extract"]):::queued
+    xed1d4a32cc4d66ec(["outbreak_events_extract"]):::queued --> x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued
   end
 linkStyle 0 stroke-width:0px;
 ```
