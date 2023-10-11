@@ -96,13 +96,13 @@ wahisdb <- tar_plan(
                                                                "taxon_key" = "taxon"),
                                         db_branch = db_branch)),
 
-  tar_target(outbreak_events_tables_in_db, add_data_to_db(data = outbreak_events_tables,
+  tar_target(outbreak_events_tables_in_db, add_data_to_db(data = outbreak_events_tables_standardized,
                                                           primary_key_lookup = c("wahis_epi_events" = "epi_event_id_unique",
                                                                                  "wahis_outbreaks" = "report_outbreak_species_id_unique"),
                                                           db_branch = db_branch)),
 
 
-  tar_target(six_month_tables_in_db, add_data_to_db(data = six_month_tables,
+  tar_target(six_month_tables_in_db, add_data_to_db(data = six_month_tables_standardized,
                                                     primary_key_lookup = c("wahis_six_month_status" = "six_month_status_unique_id",
                                                                            "wahis_six_month_controls" = "six_month_controls_unique_id",
                                                                            "wahis_six_month_quantitative" = "six_month_quantitative_unique_id"),
