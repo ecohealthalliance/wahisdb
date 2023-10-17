@@ -60,7 +60,8 @@ wahisdb <- tar_plan(
              repository = "local"),
   tar_target(disease_key, readr::read_csv(disease_key_file) |>
                select(-standardized_disease_name_alt) |>
-               distinct()),
+               distinct() |>
+               mutate(standardized_disease_name = tolower(standardized_disease_name))),
 
   # Taxon key for outbreak reports
   # TODO six month reports

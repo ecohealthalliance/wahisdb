@@ -185,7 +185,7 @@ equine arteritis virus (inf. with),equine arteritis,NA,virus,Nidovirales,Arteriv
 infectious bovine rhinotracheitis/infectious pustular vulvovaginitis,infectious bovine rhinotracheitis,NA,virus,Herpesvirales,Herpesviridae,Varicellovirus,Bovine alphaherpesvirus 1,BoHV-1,DNA,double-stranded,NA,NA
 perkinsus marinus (inf. with),perkinsus marinus,NA,eukaryote,Perkinsida,Perkinsidae,Perkinsus,marinus,NA,alveolate,NA,NA,NA
 varroa spp. (inf. of honey bees with) (varroosis),varroosis,NA,eukaryote,Mesostigmata,Varroidae,Varroa,destructor,NA,arachnid,NA,NA,NA
-old world screwworm (chrysomya bezziana),"primary screwworm, new world screwworm",NA,eukaryote,Diptera,Calliphoridae,Chrysomya,bezziana,NA,insecta,NA,NA,NA
+old world screwworm (chrysomya bezziana),"primary screwworm, old world screwworm",NA,eukaryote,Diptera,Calliphoridae,Chrysomya,bezziana,NA,insecta,NA,NA,NA
 equine encephalomyelitis (eastern)(2006-),equine encephalitis,NA,virus,Martellivirales,Togaviridae,Alphavirus,NA,NA,RNA,single-stranded,positive-sense,NA
 red sea bream iridovirus (inf. with),red sea bream iridoviral disease rsivd,NA,virus,Pimascovirales,Iridoviridae,Iridovirus,Red sea bream iridovirus,RSIV,DNA,double-stranded,NA,NA
 mikrocytos mimicus n. sp. (inf. with),mikrocytos mimicus n. sp.,NA,eukaryote,Mikrocytida,Mikrocytidae,Mikrocytos,mimicus,NA,rhizaria,NA,NA,NA
@@ -216,7 +216,7 @@ aeromonas hydrophila (inf. with),aeromonas hydrophila,NA,bacteria,Aeromonadales,
 tilapia lake virus (tilv) disease,tilapia lake disease,NA,virus,Articulavirales,Amnoonviridae,Tilapinevirus,Tilapia tilapinevirus,TiLV,RNA,single-stranded,negative-sense,NA
 trypanosomosis (tsetse-transmitted) (-2021),trypanosomiasis,NA,eukaryote,Trypanosomatida,Trypanosomatidae,Trypanosoma,NA,NA,NA,NA,NA,"flies,triatome bugs"
 acute hepatopancreatic necrosis disease (2016-),hepatopancreatitis in prawns,Texas necrotizing hepatopancreatitis,bacteria,Vibrionales,Vibrionaceae,Vibrio,parahaemolyticus,NA,gram-negative,facultatively aerobic,NA,NA
-macrobrachium rosenbergii nodavirus (inf. with) (white tail disease) (2008-),white muscle disease,white tail disease,virus,NA,Sarthroviridae,Macronovirus,Macrobrachium satellite virus 1,MrNV,RNA,single-stranded,positive-sense,NA
+macrobrachium rosenbergii nodavirus (inf. with) (white tail disease) (2008-),white muscle disease,white tail disease,virus,NA,Sarthroviridae,Macronovirus,Macrobrachium satellite virus 1,MrNV,RNA,single-stranded,positive-sense,NA
 infectious myonecrosis virus (inf. with)(2008-),infectious myonecrosis virus,NA,virus,Ghabrivirales,Totiviridae,NA,Infectious myonecrosis virus,IMNV,RNA,NA,NA,NA
 swine vesicular disease (-2014),swine vesicular disease,NA,virus,Picornavirales,Picornaviridae,Enterovirus,Enterovirus B,EV-B,RNA,single-stranded,positive-sense,NA
 mycobacterium tuberculosis complex (inf. with)(2019-),mycobacterium tuberculosis,NA,bacteria,Mycobacteriales,Mycobacteriaceae,Mycobacterium,tuberculosis,NA,gram-resistant,aerobe,NA,NA
@@ -262,7 +262,7 @@ turkey rhinotracheitis (2006-),Avian metapneumovirus,NA,virus,Mononegavirales,Pn
 batrachochytrium salamandrivorans (inf. with)(2014-),batrachochytrium salamandrivorans,NA,eukaryote,Rhizophydiales,Batrachochytriaceae,Batrachochytrium,salamandrivorans,NA,fungus,NA,NA,NA
 yellow head virus genotype 1 (inf. with) (2019-),yellow head disease,NA,virus,Nidovirales,Roniviridae,Okavirus,Yellow head virus,YHV1,RNA,single-stranded,positive-sense,NA
 low pathogenicity avian influenza viruses transmissible to humans (inf. with) (2022-),low pathogenic avian influenza,NA,virus,Articulavirales,Influenza A virus,Alphainfluenzavirus,Influenza A virus,NA,RNA,single-stranded,negative-sense,NA
-"trypanosoma brucei, t. congolense, t. simiae and t. vivax (inf. with) (2022-)",trypanosomiasis ,NA,eukaryote,Trypanosomatida,Trypanosomatidae,Trypanosoma,brucei,NA,NA,NA,NA,NA
+"trypanosoma brucei, t. congolense, t. simiae and t. vivax (inf. with) (2022-)",trypanosomiasis,NA,eukaryote,Trypanosomatida,Trypanosomatidae,Trypanosoma,brucei,NA,NA,NA,NA,NA
 dermatophilosis (-2005),dermatophilosis,rain scald,bacteria,Micrococcales,Dermatophilaceae,Dermatophilus,congolensis,NA,gram-positive,facultative anaerobe,NA,NA
 bovine cysticercosis (-2014),bovine cysticercosis,tapeworm,eukaryote,Cyclophyllidea,Taeniidae,Taenia,saginata,NA,NA,NA,NA,NA
 horse mange (-2005),horse mange,NA,eukaryote,NA,NA,NA,NA,NA,NA,NA,NA,NA
