@@ -4,7 +4,6 @@ suppressPackageStartupMessages(
 )
 
 db_branch = "main"
-nproc = 10
 run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when developing. "always" in CI.
 
 wahisdb <- tar_plan(
@@ -64,7 +63,6 @@ wahisdb <- tar_plan(
                mutate(standardized_disease_name = tolower(standardized_disease_name))),
 
   # Taxon key for outbreak reports
-  # TODO six month reports
   # Manually curated by N. Layman
   tar_target(taxon_key_file, "keys/taxon_key.csv",
              format = "file",
@@ -76,7 +74,6 @@ wahisdb <- tar_plan(
                                                                                      disease_key, taxon_key)),
 
   # Standardize six_month tables
-  # TODO still needs standardized taxa
   tar_target(six_month_tables_standardized, standardize_six_month_tables(six_month_tables,
                                                                          disease_key, taxon_key)),
 
