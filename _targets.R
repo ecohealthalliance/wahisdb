@@ -11,7 +11,7 @@ wahisdb <- tar_plan(
   # Event Reports ---------------------------------------------------------
 
   # Currently this reads a static saved file from the WAHIS sharepoint
-  tar_target(outbreak_events_file, "wahis-extracts/infur_20230414.xlsx",
+  tar_target(outbreak_events_file, "wahis-extracts/infur_20240311.xlsx",
              format = "file",
              repository = "local"),
   tar_target(outbreak_events_extract, readxl::read_excel(outbreak_events_file, sheet = 2)),
@@ -24,7 +24,7 @@ wahisdb <- tar_plan(
   # Currently this reads a static saved file
   # https://wahis.woah.org/#/dashboards/country-or-disease-dashboard
   # Disease status by semester, country, disease, animal_category (wild/domestic)
-  tar_target(six_month_status_file, "wahis-extracts/4a115a74-6ad4-4031-94a4-2f48256f09d1.xlsx",
+  tar_target(six_month_status_file, "wahis-extracts/e9aec3a2-0481-4f46-a97c-9ab2f1c8cd1b.xlsx",
              format = "file",
              repository = "local"),
   tar_target(six_month_status_extract, readxl::read_excel(six_month_status_file, sheet = 1)),
@@ -32,7 +32,7 @@ wahisdb <- tar_plan(
   # Currently this reads a static saved file
   # from https://wahis.woah.org/#/dashboards/control-measure-dashboard
   # Disease controls applied by semester, country, disease, animal_category (wild/domestic), and species
-  tar_target(six_month_controls_file, "wahis-extracts/088b3012-d64a-45d8-8997-87f8d9123f4e.xlsx",
+  tar_target(six_month_controls_file, "wahis-extracts/e9cd71f0-1943-4bf4-b485-4c743a2ed3d6.xlsx",
              format = "file",
              repository = "local"),
   tar_target(six_month_controls_extract, readxl::read_excel(six_month_controls_file, sheet = 1)),
@@ -42,7 +42,7 @@ wahisdb <- tar_plan(
   # The quantitative data dashboard provides aggregated data from events reports and six monthly reports.
   # Its limitation is that it's broken down by semester and doesn't provide further outbreaks details such as geographical coordinates etc.
   # Case counts and other metrics by semester, country, disease, serotype, animal_category (wild/domestic), species, outbreak_id, administrative_division
-  tar_target(six_month_quantitative_file, "wahis-extracts/c940c93d-474e-4c94-b1de-82cb4f0522f0.xlsx",
+  tar_target(six_month_quantitative_file, "wahis-extracts/ac264b00-8a95-4241-9739-523be38abf4c.xlsx",
              format = "file",
              repository = "local"),
   tar_target(six_month_quantitative_extract, readxl::read_excel(six_month_quantitative_file, sheet = 1)),
