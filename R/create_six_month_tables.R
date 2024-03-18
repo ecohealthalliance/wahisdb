@@ -52,28 +52,28 @@ create_six_month_tables <- function(six_month_status_extract,
   six_month_tables$wahis_six_month_quantitative <- six_month_tables$wahis_six_month_quantitative |>
     mutate(
       six_month_quantitative_unique_id = paste(year, semester_code, country, disease, serotype_subtype_genotype, animal_category, species, outbreak_id, administrative_division, sep = "_"),
-      dplyr::across(
-        .cols = year:outbreak_id,
-        .fns = ~ifelse(.x == "-", NA_character_, .x)
-      ),
+      # dplyr::across(
+      #   .cols = year:outbreak_id,
+      #   .fns = ~ifelse(.x == "-", NA_character_, .x)
+      # ),
       dplyr::across(
         .cols = new_outbreaks:vaccinated,
         .fns = ~suppressWarnings(as.integer(.x))
-      ),
-      semester_code = ifelse(semester_code == "-", NA_character_, semester_code)
+      )#,
+      # semester_code = ifelse(semester_code == "-", NA_character_, semester_code)
     ) |>
     relocate(six_month_quantitative_unique_id, .before = everything()) |>
     dplyr::group_by(six_month_quantitative_unique_id) |>
     dplyr::summarise(
-      dplyr::across(
-        .cols = year:outbreak_id,
-        .fns = ~unique(.x)[1]
-      ),
+      # dplyr::across(
+      #   .cols = year:outbreak_id,
+      #   .fns = ~unique(.x)[1]
+      # ),
       dplyr::across(
         .cols = new_outbreaks:vaccinated,
         .fns = ~sum(.x, na.rm = TRUE)
-      ),
-      semester_code = unique(semester_code)[1]
+      )#,
+      # semester_code = unique(semester_code)[1]
     )
 
   assert_that(n_distinct(six_month_tables$wahis_six_month_quantitative$six_month_quantitative_unique_id) == nrow(six_month_tables$wahis_six_month_quantitative))
