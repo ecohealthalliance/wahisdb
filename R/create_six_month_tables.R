@@ -65,15 +65,15 @@ create_six_month_tables <- function(six_month_status_extract,
     relocate(six_month_quantitative_unique_id, .before = everything()) |>
     dplyr::group_by(six_month_quantitative_unique_id) |>
     dplyr::summarise(
-      # dplyr::across(
-      #   .cols = year:outbreak_id,
-      #   .fns = ~unique(.x)[1]
-      # ),
+      dplyr::across(
+        .cols = year:outbreak_id,
+        .fns = ~unique(.x)[1]
+      ),
       dplyr::across(
         .cols = new_outbreaks:vaccinated,
         .fns = ~sum(.x, na.rm = TRUE)
-      )#,
-      # semester_code = unique(semester_code)[1]
+      ),
+      semester_code = unique(semester_code)[1]
     )
 
   assert_that(n_distinct(six_month_tables$wahis_six_month_quantitative$six_month_quantitative_unique_id) == nrow(six_month_tables$wahis_six_month_quantitative))
