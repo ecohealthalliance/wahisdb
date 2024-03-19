@@ -47,6 +47,25 @@ wahisdb <- tar_plan(
              repository = "local"),
   tar_target(six_month_quantitative_extract, readxl::read_excel(six_month_quantitative_file, sheet = 1)),
 
+  # Data checks ----
+
+  ## Create current data fields reference csv file & save in checks directory ----
+  tar_target(
+    name = data_fields_reference_file,
+    command = create_data_fields_reference(
+      outbreak_events_extract, six_month_status_extract,
+      six_month_controls_extract, six_month_quantitative_extract
+    ),
+    format = "file",
+    repository = "local"
+  ),
+
+  ## Check datasets ----
+  tar_target(
+    name = wahis_datasets_check,
+    command = check_data_fields(data_fields_reference_file)
+  ),
+
   # Process
   tar_target(six_month_tables, create_six_month_tables(six_month_status_extract, six_month_controls_extract, six_month_quantitative_extract)),
 

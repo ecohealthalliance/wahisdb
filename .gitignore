@@ -5,4 +5,4 @@
 wahisdb/*
 .DS_Store
 proc.log
-wahis-extracts/**/*.xlsx
+#wahis-extracts/**/*.xlsx
