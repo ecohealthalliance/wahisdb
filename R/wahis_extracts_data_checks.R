@@ -1,9 +1,27 @@
 #'
 #' Get current fields names of various dataset inputs
 #'
+#' @param outbreak_events_extract Data.frame containing outbreak events from
+#'   WAHIS.
+#' @param six_month_status_extract Data.frame containing six month outbreak
+#'   status from WAHIS. Currently, this is downloaded from the WOAH dashboard.
+#' @param six_month_controls_extract Data.frame containing six month outbreak
+#'   control measures from WAHIS. Currently, this is downloaded from the WOAH
+#'   dashboard.
+#' @param six_month_quantitative_extract Data.frame containing six month
+#'   outbreak numbers/figures from WAHIS. Currently, this is downloaded from
+#'   the WOAH dashboard.
 #'
+#' @returns A file path to a created CSV file of field names found in each of
+#'   the input data.frames.
 #'
+#' @examples
+#' create_data_fields_reference(
+#'   outbreak_events_extract, six_month_status_extract,
+#'   six_month_controls_extract, six_month_quantitative_extract
+#' )
 #'
+#' @export
 #'
 create_data_fields_reference <- function(outbreak_events_extract,
                                          six_month_status_extract,
@@ -77,8 +95,6 @@ check_data_field <- function(current, previous) {
 }
 
 
-
-
 check_data_fields <- function(data_fields_reference_file) {
   ## Read current reference file ----
   current <- read.csv(data_fields_reference_file) |>
@@ -99,4 +115,43 @@ check_data_fields <- function(data_fields_reference_file) {
   )
 }
 
+#'
+#' Read and check provided/downloaded XLSX files from WAHIS
+#'
+#'
+read_wahis_dataset <- function(path_to_xlsx,
+                               sheet,
+                               df = c("events", "status",
+                                      "controls", "quantitative")) {
+  ## What dataset is this?
+  df <- match.arg(df)
 
+  df <- switch(
+    df,
+    events = "outbreak_events_extract",
+    status = "six_month_status_extract",
+    controls = "six_month_controls_extract",
+    quantitative = "six_month_quantitative_extract"
+  )
+
+  wahis_df <- readxl::read_excel(path = path_to_xlsx, sheet = sheet)
+
+  current <- data.frame(
+    table_name = df,
+    field_name = wahis_df |>
+      janitor::clean_names() |>
+      names()
+  )
+
+  previous <- list.files("checks", full.names = TRUE) |>
+    rev() |>
+    (\(x) x[2])() |>
+    read.csv() |>
+    dplyr::filter(table_name == df)
+
+  ## Check dataaset ----
+  try(check_data_field(current, previous))
+
+  ## Return WAHIS dataset ----
+  wahis_df
+}

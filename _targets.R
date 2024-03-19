@@ -14,7 +14,8 @@ wahisdb <- tar_plan(
   tar_target(outbreak_events_file, "wahis-extracts/infur_20240311.xlsx",
              format = "file",
              repository = "local"),
-  tar_target(outbreak_events_extract, readxl::read_excel(outbreak_events_file, sheet = 2)),
+  #tar_target(outbreak_events_extract, readxl::read_excel(outbreak_events_file, sheet = 2)),
+  tar_target(outbreak_events_extract, read_wahis_dataset(outbreak_events_file, sheet = 2, df = "events")),
 
   # Process into epi_event and outbreak table
   tar_target(outbreak_events_tables, create_outbreak_events_tables(outbreak_events_extract)),
@@ -27,7 +28,8 @@ wahisdb <- tar_plan(
   tar_target(six_month_status_file, "wahis-extracts/e9aec3a2-0481-4f46-a97c-9ab2f1c8cd1b.xlsx",
              format = "file",
              repository = "local"),
-  tar_target(six_month_status_extract, readxl::read_excel(six_month_status_file, sheet = 1)),
+  #tar_target(six_month_status_extract, readxl::read_excel(six_month_status_file, sheet = 1)),
+  tar_target(six_month_status_extract, read_wahis_dataset(six_month_status_file, sheet = 1, df = "status")),
 
   # Currently this reads a static saved file
   # from https://wahis.woah.org/#/dashboards/control-measure-dashboard
@@ -35,7 +37,8 @@ wahisdb <- tar_plan(
   tar_target(six_month_controls_file, "wahis-extracts/e9cd71f0-1943-4bf4-b485-4c743a2ed3d6.xlsx",
              format = "file",
              repository = "local"),
-  tar_target(six_month_controls_extract, readxl::read_excel(six_month_controls_file, sheet = 1)),
+  #tar_target(six_month_controls_extract, readxl::read_excel(six_month_controls_file, sheet = 1)),
+  tar_target(six_month_controls_extract, read_wahis_dataset(six_month_controls_file, sheet = 1, df = "controls")),
 
   # Currently this reads a static saved file
   # from https://wahis.woah.org/#/dashboards/qd-dashboard
@@ -45,7 +48,8 @@ wahisdb <- tar_plan(
   tar_target(six_month_quantitative_file, "wahis-extracts/ac264b00-8a95-4241-9739-523be38abf4c.xlsx",
              format = "file",
              repository = "local"),
-  tar_target(six_month_quantitative_extract, readxl::read_excel(six_month_quantitative_file, sheet = 1)),
+  #tar_target(six_month_quantitative_extract, readxl::read_excel(six_month_quantitative_file, sheet = 1)),
+  tar_target(six_month_quantitative_extract, read_wahis_dataset(six_month_quantitative_file, sheet = 1, df = "quantitative")),
 
   # Data checks ----
 
@@ -57,13 +61,15 @@ wahisdb <- tar_plan(
       six_month_controls_extract, six_month_quantitative_extract
     ),
     format = "file",
-    repository = "local"
+    repository = "local",
+    cue = tar_cue("always")
   ),
 
   ## Check datasets ----
   tar_target(
     name = wahis_datasets_check,
-    command = check_data_fields(data_fields_reference_file)
+    command = check_data_fields(data_fields_reference_file),
+    cue = tar_cue("always")
   ),
 
   # Process
