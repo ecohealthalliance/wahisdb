@@ -7,7 +7,7 @@
 #' @return
 #' @author Emma Mendelsohn
 #' @export
-create_outbreak_events_tables <- function(outbreak_events_extract){
+create_outbreak_events_tables <- function(outbreak_events_extract, ...){
 
   ### Initial clean
   outbreak_events_extract <- outbreak_events_extract  |>
@@ -81,7 +81,7 @@ create_outbreak_events_tables <- function(outbreak_events_extract){
       bind_rows(wahis_outbreaks_dups_fix)
   }
 
-  message(paste("identified", n_distinct(wahis_outbreaks_dups$report_outbreak_species_id_unique), "duplicate report_outbreak_species IDs in wahis outbreaks"))
+  message(paste("identified", n_distinct(wahis_outbreaks_dups$report_outbreak_species_id_unique), "duplicate report_outbreak_species IDs in wahis outbreaks. These are marked as duplicates in `report_outbreak_species_id_unique`"))
 
   return(list("wahis_epi_events" = wahis_epi_events, "wahis_outbreaks" = wahis_outbreaks))
 

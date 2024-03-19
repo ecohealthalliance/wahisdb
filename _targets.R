@@ -8,52 +8,47 @@ run_cue <- Sys.getenv("TARGETS_DATA_CUE", unset = "thorough") # "thorough" when 
 
 wahisdb <- tar_plan(
 
-  # Event Reports ---------------------------------------------------------
+  # Read in extracts ---------------------------------------------------------
 
-  # Currently this reads a static saved file from the WAHIS sharepoint
+  ## Events/outbreaks
+  ## Currently this reads a static saved file from the WAHIS sharepoint
   tar_target(outbreak_events_file, "wahis-extracts/infur_20240311.xlsx",
              format = "file",
              repository = "local"),
-  #tar_target(outbreak_events_extract, readxl::read_excel(outbreak_events_file, sheet = 2)),
-  tar_target(outbreak_events_extract, read_wahis_dataset(outbreak_events_file, sheet = 2, df = "events")),
+  tar_target(outbreak_events_extract, readxl::read_excel(outbreak_events_file, sheet = 2)),
 
-  # Process into epi_event and outbreak table
-  tar_target(outbreak_events_tables, create_outbreak_events_tables(outbreak_events_extract)),
-
-  # Six Month Reports ---------------------------------------------------------
-
-  # Currently this reads a static saved file
-  # https://wahis.woah.org/#/dashboards/country-or-disease-dashboard
-  # Disease status by semester, country, disease, animal_category (wild/domestic)
+  ## Six month disease status
+  ## Currently this reads a static saved file
+  ## https://wahis.woah.org/#/dashboards/country-or-disease-dashboard
+  ## Disease status by semester, country, disease, animal_category (wild/domestic)
   tar_target(six_month_status_file, "wahis-extracts/e9aec3a2-0481-4f46-a97c-9ab2f1c8cd1b.xlsx",
              format = "file",
              repository = "local"),
-  #tar_target(six_month_status_extract, readxl::read_excel(six_month_status_file, sheet = 1)),
-  tar_target(six_month_status_extract, read_wahis_dataset(six_month_status_file, sheet = 1, df = "status")),
+  tar_target(six_month_status_extract, readxl::read_excel(six_month_status_file, sheet = 1)),
 
-  # Currently this reads a static saved file
-  # from https://wahis.woah.org/#/dashboards/control-measure-dashboard
-  # Disease controls applied by semester, country, disease, animal_category (wild/domestic), and species
+  ## Six month bio controls
+  ## Currently this reads a static saved file
+  ## from https://wahis.woah.org/#/dashboards/control-measure-dashboard
+  ## Disease controls applied by semester, country, disease, animal_category (wild/domestic), and species
   tar_target(six_month_controls_file, "wahis-extracts/e9cd71f0-1943-4bf4-b485-4c743a2ed3d6.xlsx",
              format = "file",
              repository = "local"),
-  #tar_target(six_month_controls_extract, readxl::read_excel(six_month_controls_file, sheet = 1)),
-  tar_target(six_month_controls_extract, read_wahis_dataset(six_month_controls_file, sheet = 1, df = "controls")),
+  tar_target(six_month_controls_extract, readxl::read_excel(six_month_controls_file, sheet = 1)),
 
-  # Currently this reads a static saved file
-  # from https://wahis.woah.org/#/dashboards/qd-dashboard
-  # The quantitative data dashboard provides aggregated data from events reports and six monthly reports.
-  # Its limitation is that it's broken down by semester and doesn't provide further outbreaks details such as geographical coordinates etc.
-  # Case counts and other metrics by semester, country, disease, serotype, animal_category (wild/domestic), species, outbreak_id, administrative_division
+  ## Six month quantitative
+  ## Currently this reads a static saved file
+  ## from https://wahis.woah.org/#/dashboards/qd-dashboard
+  ## The quantitative data dashboard provides aggregated data from events reports and six monthly reports.
+  ## Its limitation is that it's broken down by semester and doesn't provide further outbreaks details such as geographical coordinates etc.
+  ## Case counts and other metrics by semester, country, disease, serotype, animal_category (wild/domestic), species, outbreak_id, event_id, administrative_division
   tar_target(six_month_quantitative_file, "wahis-extracts/ac264b00-8a95-4241-9739-523be38abf4c.xlsx",
              format = "file",
              repository = "local"),
-  #tar_target(six_month_quantitative_extract, readxl::read_excel(six_month_quantitative_file, sheet = 1)),
-  tar_target(six_month_quantitative_extract, read_wahis_dataset(six_month_quantitative_file, sheet = 1, df = "quantitative")),
+  tar_target(six_month_quantitative_extract, readxl::read_excel(six_month_quantitative_file, sheet = 1)),
 
-  # Data checks ----
+  # Field name checks ---------------------------------------------------------
 
-  ## Create current data fields reference csv file & save in checks directory ----
+  ## Create current data fields reference csv file & save in checks directory
   tar_target(
     name = data_fields_reference_file,
     command = create_data_fields_reference(
@@ -61,19 +56,21 @@ wahisdb <- tar_plan(
       six_month_controls_extract, six_month_quantitative_extract
     ),
     format = "file",
-    repository = "local",
-    cue = tar_cue("always")
+    repository = "local"
   ),
 
-  ## Check datasets ----
+  ## Check current data fields against previous version - throws error if any of the fields are not as expected
   tar_target(
     name = wahis_datasets_check,
-    command = check_data_fields(data_fields_reference_file),
-    cue = tar_cue("always")
+    command = check_data_fields(data_fields_reference_file)
   ),
 
-  # Process
-  tar_target(six_month_tables, create_six_month_tables(six_month_status_extract, six_month_controls_extract, six_month_quantitative_extract)),
+  # Process data ---------------------------------------------------------
+  ## Include wahis_datasets_check to enforce order (field name checks before processing)
+  tar_target(outbreak_events_tables, create_outbreak_events_tables(outbreak_events_extract, wahis_datasets_check)),
+
+  tar_target(six_month_tables, create_six_month_tables(six_month_status_extract, six_month_controls_extract, six_month_quantitative_extract, wahis_datasets_check)),
+
 
   # Standardization  ---------------------------------------------------------
 

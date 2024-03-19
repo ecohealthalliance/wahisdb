@@ -78,11 +78,24 @@ create_data_fields_reference <- function(outbreak_events_extract,
 #' @export
 #'
 check_data_field <- function(current, previous) {
-  if (!all(previous$field_name %in% current$field_name)) {
+
+  previous_not_current <- setdiff(previous$field_name, current$field_name)
+  current_not_previous <- setdiff(current$field_name, previous$field_name)
+
+  if (length(previous_not_current)) {
     stop(
-      paste0(
-        "Currently available *", unique(current$table_name),
-        "* dataset does not have all the expected field names. Please verify and adjust processing functions accordingly."
+      glue::glue(
+        "Currently available *{unique(current$table_name)}* is missing expected field names: {paste(previous_not_current, collapse = ', ')}.
+        Please verify and adjust processing functions accordingly."
+      )
+    )
+  }
+
+  if (length(current_not_previous)) {
+    warning(
+      glue::glue(
+        "Currently available *{unique(current$table_name)}* has new field: {paste(current_not_previous, collapse = ', ')}.
+        You may need to verify and adjust processing functions accordingly."
       )
     )
   } else {
