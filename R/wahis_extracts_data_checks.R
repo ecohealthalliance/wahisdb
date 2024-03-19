@@ -74,6 +74,7 @@ create_data_fields_reference <- function(outbreak_events_extract,
 #' @examples
 #' data_check_fields(data_fields_reference_file)
 #'
+#' @rdname check_data_field
 #' @export
 #'
 check_data_field <- function(current, previous) {
@@ -95,6 +96,10 @@ check_data_field <- function(current, previous) {
 }
 
 
+#'
+#' @rdname check_data_field
+#' @export
+#'
 check_data_fields <- function(data_fields_reference_file) {
   ## Read current reference file ----
   current <- read.csv(data_fields_reference_file) |>
@@ -117,6 +122,26 @@ check_data_fields <- function(data_fields_reference_file) {
 
 #'
 #' Read and check provided/downloaded XLSX files from WAHIS
+#'
+#' @param path_to_xlsx File path to XSLX file for the WAHIS dataset that is to
+#'   be read.
+#' @param sheet Sheet number or sheet name to read from the XLSX file in
+#'   `path_to_xlsx`.
+#' @param df Tag name for the WAHIS dataset to be read. This can be either
+#'   `events` for the outbreak events data, `status` for the outbreak
+#'   status data, `controls` for the outbreak control measures data, or
+#'   `quantitative` for the outbreak figures/numbers data.
+#'
+#' @returns A tibble of the specified dataset. A message or an error will also
+#'   be printed depending on whether the dataset has the expected field names
+#'   as previous datasets. If an error occurs, an error message will be printed
+#'   but the reading of the dataset will still be done and returned.
+#'
+#' @examples
+#' read_wahis_dataset(outbreak_events_file, sheet = 2, df = "events")
+#' read_wahis_dataset(six_month_status_file, sheet = 1, df = "status")
+#'
+#' @export
 #'
 #'
 read_wahis_dataset <- function(path_to_xlsx,
@@ -155,3 +180,4 @@ read_wahis_dataset <- function(path_to_xlsx,
   ## Return WAHIS dataset ----
   wahis_df
 }
+
