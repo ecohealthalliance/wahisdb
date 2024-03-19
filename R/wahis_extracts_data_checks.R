@@ -78,7 +78,7 @@ create_data_fields_reference <- function(outbreak_events_extract,
 #' @export
 #'
 check_data_field <- function(current, previous) {
-  if (!any(previous$field_name %in% current$field_name)) {
+  if (!all(previous$field_name %in% current$field_name)) {
     stop(
       paste0(
         "Currently available *", unique(current$table_name),
