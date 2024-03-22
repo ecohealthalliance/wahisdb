@@ -10,7 +10,7 @@ CC0-1.0](https://img.shields.io/badge/License%20(for%20data)-CC0_1.0-lightgrey.s
 
 This package accesses and formats veterinary disease data from [OIE
 WAHIS](https://wahis.woah.org/#/home). Data is currently static
-(outbreaks are from April 2023 and six month reports from August 2023).
+(outbreaks are from March 2024 and six month reports from March 2024).
 In the future, we expect the data to be updated weekly. Publicly
 available on DoltHub:
 <https://www.dolthub.com/repositories/ecohealthalliance/wahisdb>.
@@ -50,36 +50,61 @@ available on DoltHub:
 ``` mermaid
 graph LR
 subgraph Project Workflow
+  subgraph Graph
     direction LR
-    xbddb73c04cc744ca(["disease_key_file"]):::skipped --> x3fa380dc1bb2ee6e(["disease_key"]):::queued
-    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x57ec39d36d300eb7(["six_month_tables_standardized"]):::queued
-    x37b36237069aea80(["six_month_tables"]):::queued --> x57ec39d36d300eb7(["six_month_tables_standardized"]):::queued
-    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> x57ec39d36d300eb7(["six_month_tables_standardized"]):::queued
+    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x2ec4221b7bcbdcb8(["six_month_status_tables"]):::queued
+    xde280acaaefdc7be(["six_month_status_extract"]):::queued --> x2ec4221b7bcbdcb8(["six_month_status_tables"]):::queued
+    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> x2ec4221b7bcbdcb8(["six_month_status_tables"]):::queued
+    x1848e522ee9bffb8(["wahis_datasets_check"]):::queued --> x2ec4221b7bcbdcb8(["six_month_status_tables"]):::queued
+    x269ff476654f028b(["six_month_quantitative_tables"]):::queued --> xe7d612e4d284e13c(["six_month_quantitative_schema_raw"]):::queued
+    xbddb73c04cc744ca(["disease_key_file"]):::queued --> x3fa380dc1bb2ee6e(["disease_key"]):::queued
+    xed1d4a32cc4d66ec(["outbreak_events_extract"]):::queued --> x1848e522ee9bffb8(["wahis_datasets_check"]):::queued
+    x6740ee55561635cd(["six_month_controls_extract"]):::queued --> x1848e522ee9bffb8(["wahis_datasets_check"]):::queued
+    x52699edfaa6546df(["six_month_quantitative_extract"]):::queued --> x1848e522ee9bffb8(["wahis_datasets_check"]):::queued
+    xde280acaaefdc7be(["six_month_status_extract"]):::queued --> x1848e522ee9bffb8(["wahis_datasets_check"]):::queued
+    xb062d399d449ab75(["schema_extract_file"]):::queued --> xb8193a09354c7cc0(["schema_extract"]):::queued
+    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued
+    xed1d4a32cc4d66ec(["outbreak_events_extract"]):::queued --> x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued
+    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued
+    x1848e522ee9bffb8(["wahis_datasets_check"]):::queued --> x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued
+    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x7a177cf0179b73c5(["six_month_controls_tables"]):::queued
+    x6740ee55561635cd(["six_month_controls_extract"]):::queued --> x7a177cf0179b73c5(["six_month_controls_tables"]):::queued
+    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> x7a177cf0179b73c5(["six_month_controls_tables"]):::queued
+    x1848e522ee9bffb8(["wahis_datasets_check"]):::queued --> x7a177cf0179b73c5(["six_month_controls_tables"]):::queued
+    x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued --> x1bd336b143fd25fb(["wahis_tables_in_db_with_foreign_keys"]):::queued
+    xc235746cd78fdcc9(["six_month_quantitative_file"]):::queued --> x52699edfaa6546df(["six_month_quantitative_extract"]):::queued
+    x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued --> x57f68cc3145a1afd(["outbreak_events_schema_raw"]):::queued
+    x7a177cf0179b73c5(["six_month_controls_tables"]):::queued --> x813547c61470634b(["six_month_controls_table"]):::queued
+    x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued --> x21ec5b28b2f1c63b(["events_table"]):::queued
+    x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued --> x015b4623016ba28d(["outbreak_table"]):::queued
+    xb3e4b9db3d59cdbc(["taxon_key_file"]):::queued --> x8b6a5220bfbdabdf(["taxon_key"]):::queued
+    x2ec4221b7bcbdcb8(["six_month_status_tables"]):::queued --> x8501025bfee7514c(["six_month_status_schema_raw"]):::queued
+    x5cbe2bbd0725c754(["schema_fields"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
+    xe2a64b31ce9fa139(["schema_tables"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
+    xa4fa2a66c31d7b33(["six_month_status_file"]):::queued --> xde280acaaefdc7be(["six_month_status_extract"]):::queued
     x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
-    xdca9076b94036ae3(["outbreak_events_tables_standardized"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
     xb8193a09354c7cc0(["schema_extract"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
-    x57ec39d36d300eb7(["six_month_tables_standardized"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    x7a177cf0179b73c5(["six_month_controls_tables"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    x269ff476654f028b(["six_month_quantitative_tables"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    x2ec4221b7bcbdcb8(["six_month_status_tables"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
     x8b6a5220bfbdabdf(["taxon_key"]):::queued --> x5cbe2bbd0725c754(["schema_fields"]):::queued
+    xcc7bba8de0af4cfe(["outbreak_events_file"]):::queued --> xed1d4a32cc4d66ec(["outbreak_events_extract"]):::queued
     x3fa380dc1bb2ee6e(["disease_key"]):::queued --> xa7adee78ecc918bb(["keys_in_db"]):::queued
     x8b6a5220bfbdabdf(["taxon_key"]):::queued --> xa7adee78ecc918bb(["keys_in_db"]):::queued
-    xa4fa2a66c31d7b33(["six_month_status_file"]):::skipped --> xde280acaaefdc7be(["six_month_status_extract"]):::queued
-    x52f10102fdbda18d(["six_month_controls_file"]):::skipped --> x6740ee55561635cd(["six_month_controls_extract"]):::queued
-    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> xdca9076b94036ae3(["outbreak_events_tables_standardized"]):::queued
-    x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued --> xdca9076b94036ae3(["outbreak_events_tables_standardized"]):::queued
-    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> xdca9076b94036ae3(["outbreak_events_tables_standardized"]):::queued
-    xb062d399d449ab75(["schema_extract_file"]):::skipped --> xb8193a09354c7cc0(["schema_extract"]):::queued
-    x5cbe2bbd0725c754(["schema_fields"]):::queued --> x9c3cd21d02b17883(["schema_in_db"]):::queued
-    xe2a64b31ce9fa139(["schema_tables"]):::skipped --> x9c3cd21d02b17883(["schema_in_db"]):::queued
-    x37b36237069aea80(["six_month_tables"]):::queued --> x06f5315659bba48a(["six_month_tables_in_db"]):::queued
-    x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued --> xe395ec11fce57977(["outbreak_events_tables_in_db"]):::queued
-    xcc7bba8de0af4cfe(["outbreak_events_file"]):::skipped --> xed1d4a32cc4d66ec(["outbreak_events_extract"]):::queued
-    x6740ee55561635cd(["six_month_controls_extract"]):::queued --> x37b36237069aea80(["six_month_tables"]):::queued
-    x52699edfaa6546df(["six_month_quantitative_extract"]):::queued --> x37b36237069aea80(["six_month_tables"]):::queued
-    xde280acaaefdc7be(["six_month_status_extract"]):::queued --> x37b36237069aea80(["six_month_tables"]):::queued
-    xe395ec11fce57977(["outbreak_events_tables_in_db"]):::queued --> x706a5521f33a5641(["outbreak_events_tables_in_db_with_foreign_keys"]):::queued
-    xb3e4b9db3d59cdbc(["taxon_key_file"]):::skipped --> x8b6a5220bfbdabdf(["taxon_key"]):::queued
-    xc235746cd78fdcc9(["six_month_quantitative_file"]):::skipped --> x52699edfaa6546df(["six_month_quantitative_extract"]):::queued
-    xed1d4a32cc4d66ec(["outbreak_events_extract"]):::queued --> x32a3bb2ce92d02b0(["outbreak_events_tables"]):::queued
+    x269ff476654f028b(["six_month_quantitative_tables"]):::queued --> x84639048e37f2db2(["six_month_quantitative_table"]):::queued
+    x3fa380dc1bb2ee6e(["disease_key"]):::queued --> x269ff476654f028b(["six_month_quantitative_tables"]):::queued
+    x52699edfaa6546df(["six_month_quantitative_extract"]):::queued --> x269ff476654f028b(["six_month_quantitative_tables"]):::queued
+    x8b6a5220bfbdabdf(["taxon_key"]):::queued --> x269ff476654f028b(["six_month_quantitative_tables"]):::queued
+    x1848e522ee9bffb8(["wahis_datasets_check"]):::queued --> x269ff476654f028b(["six_month_quantitative_tables"]):::queued
+    x52f10102fdbda18d(["six_month_controls_file"]):::queued --> x6740ee55561635cd(["six_month_controls_extract"]):::queued
+    x2ec4221b7bcbdcb8(["six_month_status_tables"]):::queued --> x1a9b9b89ef925891(["six_month_status_table"]):::queued
+    x7a177cf0179b73c5(["six_month_controls_tables"]):::queued --> xe7456804671baf65(["six_month_controls_schema_raw"]):::queued
+    x21ec5b28b2f1c63b(["events_table"]):::queued --> x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued
+    x015b4623016ba28d(["outbreak_table"]):::queued --> x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued
+    x813547c61470634b(["six_month_controls_table"]):::queued --> x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued
+    x84639048e37f2db2(["six_month_quantitative_table"]):::queued --> x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued
+    x1a9b9b89ef925891(["six_month_status_table"]):::queued --> x251c9f94619dd3ca(["wahis_tables_in_db"]):::queued
   end
 linkStyle 0 stroke-width:0px;
 ```

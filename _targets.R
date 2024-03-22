@@ -48,34 +48,20 @@ wahisdb <- tar_plan(
 
   # Field name checks ---------------------------------------------------------
 
-  ## Create current data fields reference csv file & save in checks directory
-  tar_target(
-    name = data_fields_reference_file,
-    command = create_data_fields_reference(
-      outbreak_events_extract, six_month_status_extract,
-      six_month_controls_extract, six_month_quantitative_extract
-    ),
-    format = "file",
-    repository = "local"
-  ),
-
   ## Check current data fields against previous version - throws error if any of the fields are not as expected
   tar_target(
     name = wahis_datasets_check,
-    command = check_data_fields(data_fields_reference_file)
+    command = check_data_fields(
+      outbreak_events_extract,
+      six_month_status_extract,
+      six_month_controls_extract,
+      six_month_quantitative_extract,
+      db_branch = db_branch)
   ),
 
-  # Process data ---------------------------------------------------------
-  ## Include wahis_datasets_check to enforce order (field name checks before processing)
-  tar_target(outbreak_events_tables, create_outbreak_events_tables(outbreak_events_extract, wahis_datasets_check)),
+  # Read in manually-curated standardization files  ---------------------------------------------------------
 
-  tar_target(six_month_tables, create_six_month_tables(six_month_status_extract, six_month_controls_extract, six_month_quantitative_extract, wahis_datasets_check)),
-
-
-  # Standardization  ---------------------------------------------------------
-
-  # Disease key for outbreak and six month reports
-  # Manually curated by N. Layman
+  ## Disease key
   tar_target(disease_key_file, "keys/disease_key.csv",
              format = "file",
              repository = "local"),
@@ -84,27 +70,66 @@ wahisdb <- tar_plan(
                distinct() |>
                mutate(standardized_disease_name = tolower(standardized_disease_name))),
 
-  # Taxon key for outbreak reports
-  # Manually curated by N. Layman
+  ## Taxon key
   tar_target(taxon_key_file, "keys/taxon_key.csv",
              format = "file",
              repository = "local"),
   tar_target(taxon_key, readr::read_csv(taxon_key_file)),
 
-  # Standardize outbreak_events tables
-  tar_target(outbreak_events_tables_standardized, standardize_outbreak_events_tables(outbreak_events_tables,
-                                                                                     disease_key, taxon_key)),
 
-  # Standardize six_month tables
-  tar_target(six_month_tables_standardized, standardize_six_month_tables(six_month_tables,
-                                                                         disease_key, taxon_key)),
+  # Process data ---------------------------------------------------------
+  ## Include wahis_datasets_check to enforce order (field name checks before processing)
+
+  ## Process outbreak_events_extract into separate event and outbreak tables, standardize taxon and diseases
+  tar_target(outbreak_events_tables, create_outbreak_events_tables(outbreak_events_extract, disease_key, taxon_key,
+                                                                   wahis_datasets_check)),
+  tar_target(outbreak_table, outbreak_events_tables$outbreaks),
+  tar_target(events_table, outbreak_events_tables$events),
+  tar_target(outbreak_events_schema_raw, outbreak_events_tables$outbreak_events_schema_raw),
+
+  ## Process six_month_status_extract, standardize diseases
+  tar_target(six_month_status_tables, create_six_month_table(six_month_extract = six_month_status_extract,
+                                                             table_name = "six_month_status",
+                                                             unique_ids = c("year", "semester_code", "country", "disease", "animal_category"),
+                                                             disease_key,
+                                                             taxon_key,
+                                                             wahis_datasets_check)),
+  tar_target(six_month_status_table, six_month_status_tables$table),
+  tar_target(six_month_status_schema_raw, six_month_status_tables$schema_raw),
+
+  ## Process six_month_controls_extract, standardize diseases and taxon
+  tar_target(six_month_controls_tables, create_six_month_table(six_month_extract = six_month_controls_extract,
+                                                               table_name = "six_month_controls",
+                                                               unique_ids = c("year", "semester_code", "country", "disease", "animal_category", "species", "control_measure_code"),
+                                                               disease_key,
+                                                               taxon_key,
+                                                               wahis_datasets_check)),
+  tar_target(six_month_controls_table, six_month_controls_tables$table),
+  tar_target(six_month_controls_schema_raw, six_month_controls_tables$schema_raw),
+
+  ## Process six_month_quantitative_extract, standardize diseases and taxon
+  tar_target(six_month_quantitative_tables, create_six_month_table(six_month_extract = six_month_quantitative_extract,
+                                                                   table_name = "six_month_quantitative",
+                                                                   unique_ids = c("year", "semester_code", "country", "disease", "serotype_subtype_genotype", "animal_category", "species", "epi_event_id", "outbreak_id", "administrative_division"),
+                                                                   disease_key,
+                                                                   taxon_key,
+                                                                   wahis_datasets_check)),
+  tar_target(six_month_quantitative_table, six_month_quantitative_tables$table),
+  tar_target(six_month_quantitative_schema_raw, six_month_quantitative_tables$schema_raw),
+
 
   # Schema ---------------------------------------------------------
 
-  # Read wahis-generated schema (this can also come from the sharepoint pull)
+  ## Read wahis-generated schema (this can also come from the sharepoint pull)
   tar_target(schema_extract_file, "wahis-extracts/Field_description.xlsx", format = "file", repository = "local"), # this is extracted from the WAHIS sharepoint
   tar_target(schema_extract, readxl::read_excel(schema_extract_file)),
-  tar_target(schema_fields, process_schema(schema_extract, outbreak_events_tables_standardized, six_month_tables_standardized, disease_key, taxon_key)),
+  tar_target(schema_fields, process_schema(schema_extract,
+                                           outbreak_events_tables,
+                                           six_month_status_tables,
+                                           six_month_controls_tables,
+                                           six_month_quantitative_tables,
+                                           disease_key,
+                                           taxon_key)),
   tar_target(schema_tables, create_table_schema()),
 
 
@@ -116,17 +141,19 @@ wahisdb <- tar_plan(
                                                                "taxon_key" = "taxon"),
                                         db_branch = db_branch)),
 
-  tar_target(outbreak_events_tables_in_db, add_data_to_db(data = outbreak_events_tables_standardized,
+  tar_target(wahis_tables_in_db, add_data_to_db(data = list("wahis_epi_events" = events_table,
+                                                                      "wahis_outbreaks" = outbreak_table,
+                                                                      "wahis_six_month_status" = six_month_status_table,
+                                                                      "wahis_six_month_controls" = six_month_controls_table,
+                                                                      "wahis_six_month_quantitative" = six_month_quantitative_table),
                                                           primary_key_lookup = c("wahis_epi_events" = "epi_event_id_unique",
-                                                                                 "wahis_outbreaks" = "report_outbreak_species_id_unique"),
+                                                                                 "wahis_outbreaks" = "report_outbreak_species_id_unique",
+                                                                                 "wahis_six_month_status" = "six_month_status_unique_id",
+                                                                                 "wahis_six_month_controls" = "six_month_controls_unique_id",
+                                                                                 "wahis_six_month_quantitative" = "six_month_quantitative_unique_id"
+                                                          ),
                                                           db_branch = db_branch)),
 
-
-  tar_target(six_month_tables_in_db, add_data_to_db(data = six_month_tables_standardized,
-                                                    primary_key_lookup = c("wahis_six_month_status" = "six_month_status_unique_id",
-                                                                           "wahis_six_month_controls" = "six_month_controls_unique_id",
-                                                                           "wahis_six_month_quantitative" = "six_month_quantitative_unique_id"),
-                                                    db_branch = db_branch)),
 
   tar_target(schema_in_db, add_data_to_db(data = list("schema_tables" = schema_tables,
                                                       "schema_fields" = schema_fields),
@@ -135,12 +162,12 @@ wahisdb <- tar_plan(
                                           db_branch)),
 
   # Set foreign keys
-  tar_target(outbreak_events_tables_in_db_with_foreign_keys,
-             set_foreign_keys(outbreak_events_tables_in_db,
+  tar_target(wahis_tables_in_db_with_foreign_keys,
+             set_foreign_keys(wahis_tables_in_db,
                               db_branch = db_branch)),
 
   # README ---------------------------------------------------------
-  tar_render(readme, path = "README.Rmd")
+  # tar_render(readme, path = "README.Rmd", knit_root_dir = here::here())
 
 )
 

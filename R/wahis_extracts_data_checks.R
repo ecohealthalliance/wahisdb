@@ -77,15 +77,15 @@ create_data_fields_reference <- function(outbreak_events_extract,
 #' @rdname check_data_field
 #' @export
 #'
-check_data_field <- function(current, previous) {
+check_data_field <- function(current, previous, table_name) {
 
-  previous_not_current <- setdiff(previous$field_name, current$field_name)
-  current_not_previous <- setdiff(current$field_name, previous$field_name)
+  previous_not_current <- setdiff(previous, current)
+  current_not_previous <- setdiff(current, previous)
 
   if (length(previous_not_current)) {
     stop(
       glue::glue(
-        "Currently available *{unique(current$table_name)}* is missing expected field names: {paste(previous_not_current, collapse = ', ')}.
+        "Currently available *{unique(table_name)}* is missing expected field names: {paste(previous_not_current, collapse = ', ')}.
         Please verify and adjust processing functions accordingly."
       )
     )
@@ -94,14 +94,14 @@ check_data_field <- function(current, previous) {
   if (length(current_not_previous)) {
     warning(
       glue::glue(
-        "Currently available *{unique(current$table_name)}* has new field: {paste(current_not_previous, collapse = ', ')}.
+        "Currently available *{unique(table_name)}* has new field: {paste(current_not_previous, collapse = ', ')}.
         You may need to verify and adjust processing functions accordingly."
       )
     )
   } else {
     message(
       paste0(
-        "Currently available *", unique(current$table_name),
+        "Currently available *", unique(table_name),
         "* dataset has all the expected field names."
       )
     )
@@ -113,24 +113,43 @@ check_data_field <- function(current, previous) {
 #' @rdname check_data_field
 #' @export
 #'
-check_data_fields <- function(data_fields_reference_file) {
+check_data_fields <- function(outbreak_events_extract,
+                              six_month_status_extract,
+                              six_month_controls_extract,
+                              six_month_quantitative_extract,
+                              db_branch) {
+
+  dolt_checkout(db_branch)
+  conn <- dolt()
+
   ## Read current reference file ----
-  current <- read.csv(data_fields_reference_file) |>
-    split(f = ~table_name)
+  current <- purrr::map(list("wahis_epi_event_outbreaks" = outbreak_events_extract,
+                              "wahis_six_month_status" = six_month_status_extract,
+                              "wahis_six_month_controls" = six_month_controls_extract,
+                              "wahis_six_month_quantitative" = six_month_quantitative_extract),
+                        colnames)
+  current <- current[order(names(current))]
 
   ## Get previous file ----
-  previous <- list.files("checks", full.names = TRUE) |>
-    rev() |>
-    (\(x) x[2])() |>
-    read.csv() |>
-    split(f = ~table_name)
+  previous <- dbReadTable(conn, "schema_fields") |>
+    drop_na(field_raw) |>
+    mutate(table = ifelse(table %in% c("wahis_epi_events", "wahis_outbreaks"), "wahis_epi_event_outbreaks", table)) |>
+    distinct(table, field_raw) |>
+    split(f = ~table) |>
+    (\(x) map(x, ~.$field_raw))()
+  previous <- previous[order(names(previous))]
+
+  assertthat::assert_that(all(names(previous) == names(current)))
+  table_name <- names(previous)
 
   ## Compare fields ----
   Map(
     f = check_data_field,
     previous = previous,
-    current = current
+    current = current,
+    table_name = table_name
   )
+
 }
 
 #'

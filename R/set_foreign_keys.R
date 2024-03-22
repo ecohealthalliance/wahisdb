@@ -18,6 +18,12 @@ set_foreign_keys <- function(wahis_tables_in_db, db_branch) {
   assign_fk(conn, table = "wahis_outbreaks",  table_field = "epi_event_id_unique",
             foreign = "wahis_epi_events", foreign_field = "epi_event_id_unique")
 
+  # foreign keys
+  assign_fk(conn, table = "wahis_six_month_quantitative",  table_field = "epi_event_id",
+            foreign = "wahis_epi_events", foreign_field = "epi_event_id")
+
+
+
   data_in_db <- dolt_state(conn = conn)
   #dbDisconnect(conn)
   data_in_db
