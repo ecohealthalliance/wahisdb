@@ -12,7 +12,7 @@ wahisdb <- tar_plan(
 
   ## Events/outbreaks
   ## Currently this reads a static saved file from the WAHIS sharepoint
-  tar_target(outbreak_events_file, "wahis-extracts/infur_20240311.xlsx",
+  tar_target(outbreak_events_file, "wahis-extracts/infur_20240325.xlsx",
              format = "file",
              repository = "local"),
   tar_target(outbreak_events_extract, readxl::read_excel(outbreak_events_file, sheet = 2)),

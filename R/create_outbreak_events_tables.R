@@ -21,6 +21,13 @@ create_outbreak_events_tables <- function(outbreak_events_extract,
     mutate_if(is.character, tolower)  |>
     mutate_at(vars(contains("date")), lubridate::as_datetime)
 
+  # Check that reported end months are after start months
+  # If this fails, there is likely a data format issue. I have seen extracts where date columns have different formats
+  # see example infur_20240311, event_start_date is mm/dd/yyyy and event_closing_date is dd/mm/yyyy
+  # note that there can still be data cleaning issues where event_closing_date is a few days after event_start_date, hence doing this check by month
+  assertthat::assert_that(all(na.omit(lubridate::floor_date(outbreak_events_extract$event_start_date, unit = "month") <= lubridate::floor_date(outbreak_events_extract$event_closing_date, unit = "month"))),
+                          msg = "check date formats")
+
   # Match raw names to cleans names
   clean_names <- colnames(outbreak_events_extract)
   names(raw_names) <- clean_names
