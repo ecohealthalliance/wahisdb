@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![License (for code): MIT](https://img.shields.io/badge/License (for code)-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![License: CC0-1.0](https://img.shields.io/badge/License (for data)-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
-This package accesses and formats veterinary disease data from [OIE WAHIS](https://wahis.woah.org/#/home). Data is currently static (outbreaks are from April 2023 and six month reports from August 2023). In the future, we expect the data to be updated weekly. Publicly available on DoltHub: https://www.dolthub.com/repositories/ecohealthalliance/wahisdb.
+This package accesses and formats veterinary disease data from [OIE WAHIS](https://wahis.woah.org/#/home). Data is currently static (outbreaks are from March 2024 and six month reports from March 2024). In the future, we expect the data to be updated weekly. Publicly available on DoltHub: https://www.dolthub.com/repositories/ecohealthalliance/wahisdb.
 
 ## Database Tables
 - **wahis_epi_events** Summarizes high level event data, where each row is an independent event, as defined by the reporting country. `epi_event_id_unique` is the generated primary key. This table included hand-curated disease name standardization and taxonomy.
@@ -39,12 +39,12 @@ This package accesses and formats veterinary disease data from [OIE WAHIS](https
     `mermaid.js` syntax and should display as a graph on GitHub.It can also be viewed by        pasting the code into <https://mermaid.live>.)
 
 ```{r, echo=FALSE, message = FALSE, results='asis'}
-mer <- targets::tar_mermaid(targets_only = TRUE, outdated = FALSE, 
+mer <- targets::tar_mermaid(targets_only = TRUE, outdated = FALSE,
                             legend = FALSE, color = FALSE, 
                             exclude = c("readme", ends_with("_targets")))
 cat(
   "```mermaid",
-  mer[1], 
+  mer[1],
   #'Objects([""Objects""]) --- Functions>""Functions""]',
   'subgraph Project Workflow',
   mer[3:length(mer)],

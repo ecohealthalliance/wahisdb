@@ -189,7 +189,7 @@ old world screwworm (chrysomya bezziana),"primary screwworm, old world screwworm
 equine encephalomyelitis (eastern)(2006-),equine encephalitis,NA,virus,Martellivirales,Togaviridae,Alphavirus,NA,NA,RNA,single-stranded,positive-sense,NA
 red sea bream iridovirus (inf. with),red sea bream iridoviral disease rsivd,NA,virus,Pimascovirales,Iridoviridae,Iridovirus,Red sea bream iridovirus,RSIV,DNA,double-stranded,NA,NA
 mikrocytos mimicus n. sp. (inf. with),mikrocytos mimicus n. sp.,NA,eukaryote,Mikrocytida,Mikrocytidae,Mikrocytos,mimicus,NA,rhizaria,NA,NA,NA
-middle east respiratory syndrome coronavirus (inf. with) (2022-),middle east respiratory syndrome coronavirus,NA,virus,Nidovirales,Coronaviridae,Betacoronavirus,Middle East respiratory syndromeÐrelated coronavirus,MERS-CoV,RNA,single-stranded,positive-sense,positive-sense
+middle east respiratory syndrome coronavirus (inf. with) (2022-),middle east respiratory syndrome coronavirus,NA,virus,Nidovirales,Coronaviridae,Betacoronavirus,Middle East respiratory syndromeï¿½related coronavirus,MERS-CoV,RNA,single-stranded,positive-sense,positive-sense
 infectious haematopoietic necrosis virus (inf. with),infectious haematopoietic necrosis,NA,virus,Mononegavirales,Rhabdoviridae,Novirhabdovirus,Salmonid novirhabdovirus,IHNV,RNA,single-stranded,negative-sense,NA
 porcine epidemic diarrhoea virus (inf. with),porcine epidemic diarrhea,NA,virus,Coronaviridae,Alphacoronavirus,Pedacovirus,Porcine epidemic diarrhea virus,PEDV,RNA,single-stranded,NA,NA
 monkey pox,monkeypox,Mpox,virus,Chitovirales,Poxviridae,Orthopoxvirus,Monkeypox virus,MPV,DNA,double-stranded,NA,NA
@@ -287,7 +287,10 @@ piscirickettsiosis (piscirickettsia salmonis)(-2005),piscirickettsiosis,NA,bacte
 mikrocytos roughleyi (inf. with)(-2005),Bonamia ostreae,NA,eukaryote,Haplosporida,Haplosporidiidae,Bonamia,ostrea,NA,rhizaria,NA,NA,NA
 spherical baculovirosis (penaeus monodon-type baculovirus)(-2009),spherical baculovirosis,NA,virus,Lefavirales,Baculoviridae,nudivirus,P. monodon baculovirus,PmSNPV,DNA,double-stranded,NA,NA
 haplosporidium nelsoni (inf. with)(-2005),MSX,NA,eukaryote,Haplosporida,Haplosporiidae,Haplosporidium,nelsoni,NA,NA,NA,NA,NA
-horse pox (-2005),camelpox,NA,virus,Chitovirales,Poxviridae,Orthopoxvirus,HorsepoxÊvirus,HSPV,DNA,double-stranded,NA,NA
+horse pox (-2005),camelpox,NA,virus,Chitovirales,Poxviridae,Orthopoxvirus,Horsepoxï¿½virus,HSPV,DNA,double-stranded,NA,NA
 tilapia lake virus (inf. with) (2023-),tilapia lake disease,NA,virus,Articulavirales,Amnoonviridae,Tilapinevirus,Tilapia tilapinevirus,TiLV,RNA,single-stranded,negative-sense,NA
 tetrahedral baculovirosis (baculovirus penaei)(-2009),tetrahedral baculovirosis,NA,virus,Lefavirales,Baculoviridae,Nucleopolyherdovirus,Baculovirus penaei,NA,DNA,double-stranded,NA,NA
 tilapia lake virus (inf. with),tilapia lake disease,NA,virus,Articulavirales,Amnoonviridae,Tilapinevirus,Tilapia tilapinevirus,TiLV,RNA,single-stranded,negative-sense,NA
+leishmania spp. (inf. with) (leishmaniosis),leishmaniasis,Leishmaniasis,eukaryote,Trypanosomatida,Trypanosomatidae,Leishmania,NA,NA,excavate,NA,NA,sandflies
+theileria equi and babesia caballi (inf. with) (equine piroplasmosis),equine piroplasmosis,piroplasmosis,eukaryote,Piroplasmida,NA,NA,NA,NA,alveolate,NA,NA,NA
+"theileria annulata, theileria orientalis and theileria parva (inf. with)",piroplasmosis,NA,eukaryote,Piroplasmida,Theileriidae,Theileria,NA,NA,NA,NA,NA,NA
