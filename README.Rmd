@@ -19,14 +19,22 @@ knitr::opts_chunk$set(
 [![License (for code): MIT](https://img.shields.io/badge/License (for code)-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![License: CC0-1.0](https://img.shields.io/badge/License (for data)-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
-This package accesses and formats veterinary disease data from [OIE WAHIS](https://wahis.woah.org/#/home). Data is currently static (outbreaks are from March 2024 and six month reports from March 2024). In the future, we expect the data to be updated weekly. Publicly available on DoltHub: https://www.dolthub.com/repositories/ecohealthalliance/wahisdb.
+This package accesses and formats veterinary disease data from [WOAH WAHIS](https://wahis.woah.org/#/home). As of June 2024, WAHIS disease outbreak data is not available in a format conducive to automatic updates. EHA has an agreement with WOAH to access static data extracts, released via SharePoint, which we process here and upload to a public DoltHub (https://www.dolthub.com/repositories/ecohealthalliance/wahisdb).
+
+In the future, WOAH plans to release a public-facing application program interface (API), which will facilitate automatic data extraction.
+
+Data were last updated from static reports in March 2024. 
 
 ## Database Tables
 - **wahis_epi_events** Summarizes high level event data, where each row is an independent event, as defined by the reporting country. `epi_event_id_unique` is the generated primary key. This table included hand-curated disease name standardization and taxonomy.
 - **wahis_outbreaks** Detailed location and impact data for outbreak subevents (e.g., individual farms within a larger outbreak event). `report_outbreak_species_id_unique` is a generated unique primary key. This table can be joined with wahis_epi_events by `epi_event_id_unique`.
 - **wahis_six_month_status** Disease status by 6-month semester. `unique_id` is a generated unique primary key.
-- **wahis_six_month_controls*"** Control measures applied by disease and taxa by 6-month semester. `unique_id` is a generated unique primary key.
+- **wahis_six_month_controls** Control measures applied by disease and taxa by 6-month semester. `unique_id` is a generated unique primary key.
 - **wahis_six_month_quantitative** Aggregated impact data from outbreak events reports AND six monthly reports on 6-month basis. `six_month_quantitative_unique_id` is a generated unique primary key.
+- **disease_key** Lookup table for cleaning and standardizing disease names. Curated manually with cross reference to the Animal Disease Ontology (ANDO) (http://agroportal.lirmm.fr/ontologies/ANDO/?p=summary)
+- **taxon_key** Lookup table for cleaning and standardizing taxon names. Manually curated.
+- **schema_table** Description of each table within the database.
+- **schema_fields** Description of each field within the database.
 
 
 ## Repository Structure and Reproducibility
@@ -35,25 +43,6 @@ This package accesses and formats veterinary disease data from [OIE WAHIS](https
 -   `R/` contains functions used in this analysis. 
 -   This project uses the `targets` package to create its analysis pipeline.  The steps are
     defined in the `_targets.R` file and the workflow can be executed by running `targets::tar_make()`.
--   The schematic figure below summarizes the steps. (The figure is generated using
-    `mermaid.js` syntax and should display as a graph on GitHub.It can also be viewed by        pasting the code into <https://mermaid.live>.)
-
-```{r, echo=FALSE, message = FALSE, results='asis'}
-mer <- targets::tar_mermaid(targets_only = TRUE, outdated = FALSE,
-                            legend = FALSE, color = FALSE, 
-                            exclude = c("readme", ends_with("_targets")))
-cat(
-  "```mermaid",
-  mer[1],
-  #'Objects([""Objects""]) --- Functions>""Functions""]',
-  'subgraph Project Workflow',
-  mer[3:length(mer)],
-  'linkStyle 0 stroke-width:0px;',
-  "```",
-  sep = "\n"
-)
-```
-
 
 ## Dolt
 -   Install and configure the database software, dolt: https://www.dolthub.com/blog/2020-02-03-dolt-and-dolthub-getting-started/
