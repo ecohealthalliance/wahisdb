@@ -36,13 +36,16 @@ Data were last updated from static reports in March 2024.
 - **schema_table** Description of each table within the database.
 - **schema_fields** Description of each field within the database.
 
+## Targets
+
+This project uses the [{targets}](https://books.ropensci.org/targets/) package to create its analysis pipeline.  The steps are defined in the `_targets.R` file and the workflow can be executed by running `targets::tar_make()`.
 
 ## Repository Structure and Reproducibility
 
--   `wahisdb/` contains the dolt database. See instructions below. 
+-   `wahisdb/` contains the dolt database. See Dolt instructions below. 
 -   `R/` contains functions used in this analysis. 
--   This project uses the `targets` package to create its analysis pipeline.  The steps are
-    defined in the `_targets.R` file and the workflow can be executed by running `targets::tar_make()`.
+-   `wahis-extracts/` contains raw report extracts from WAHIS SharePoint releases. This folder contains archives of older versions. The most recent version is defined within the code pipeline in `_targets.R`.
+-  `keys/` contains manually-curated lookup tables for disease name and taxon cleaning.
 
 ## Dolt
 -   Install and configure the database software, dolt: https://www.dolthub.com/blog/2020-02-03-dolt-and-dolthub-getting-started/
